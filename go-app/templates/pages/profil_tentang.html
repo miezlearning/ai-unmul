@@ -1,0 +1,96 @@
+{{define "head"}}
+<style>
+    .text-gradient-brand {
+        background: linear-gradient(120deg, #8D021F 0%, #8D021F 45%, #009B4C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+</style>
+{{end}}
+
+{{define "content"}}
+<div class="pt-28 pb-20 sm:pt-36 sm:pb-28">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Breadcrumb -->
+        <div class="breadcrumbs text-sm mb-6 text-base-content/60">
+            <ul>
+                <li><a href="/">Beranda</a></li>
+                <li>Profil</li>
+                <li class="text-primary font-semibold">Tentang AI UNMUL</li>
+            </ul>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <span class="inline-block text-xs font-bold tracking-widest uppercase text-brand-red mb-2">PROFIL ORGANISASI</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Tentang <span class="text-gradient-brand">AI UNMUL</span>
+            </h1>
+            <p class="mt-4 text-base-content/70 max-w-2xl mx-auto">
+                Association of Informatics (AI) Universitas Mulawarman adalah himpunan mahasiswa program studi Informatika yang berdedikasi membangun iklim akademik, inovasi teknologi, dan solidaritas mahasiswa.
+            </p>
+        </div>
+
+        <!-- Visi & Misi -->
+        <div class="grid md:grid-cols-2 gap-6 my-10">
+            <div class="card bg-base-200 border border-base-300 p-8 rounded-2xl shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red font-bold">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h2 class="text-xl font-bold">Visi</h2>
+                </div>
+                <p class="text-base-content/80 leading-relaxed text-sm">
+                    Menjadikan AI UNMUL sebagai wadah pengembangan mahasiswa Informatika yang berkarakter, unggul dalam penguasaan sains dan teknologi, serta berdaya saing di tingkat nasional maupun internasional.
+                </p>
+            </div>
+
+            <div class="card bg-base-200 border border-base-300 p-8 rounded-2xl shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-green/10 text-brand-green font-bold">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h2 class="text-xl font-bold">Misi</h2>
+                </div>
+                <ul class="text-base-content/80 text-sm space-y-2 list-disc list-inside leading-relaxed">
+                    <li>Memfasilitasi peningkatan hard skill dan soft skill mahasiswa Informatika.</li>
+                    <li>Membangun iklim kolaborasi riset, kompetisi, dan proyek teknologi.</li>
+                    <li>Menjalin relasi strategis dengan civitas akademika, alumni, dan dunia industri.</li>
+                    <li>Menyuarakan aspirasi dan advokasi demi kesejahteraan mahasiswa.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Nilai Utama -->
+        <div class="border-t border-base-300 pt-10 mt-10">
+            <h2 class="text-2xl font-bold text-center mb-8">Nilai Dasar Kami</h2>
+            <div class="grid sm:grid-cols-3 gap-6 text-center">
+                <div class="p-6 rounded-2xl bg-base-100 border border-base-300">
+                    <div class="text-2xl text-brand-red mb-3"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3 class="font-bold mb-1">Inovatif</h3>
+                    <p class="text-xs text-base-content/70">Terus mencari solusi baru yang relevan dengan perkembangan zaman.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-base-100 border border-base-300">
+                    <div class="text-2xl text-brand-green mb-3"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="font-bold mb-1">Kolaboratif</h3>
+                    <p class="text-xs text-base-content/70">Bersinergi, saling mendukung, dan bertumbuh bersama seluruh elemen.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-base-100 border border-base-300">
+                    <div class="text-2xl text-brand-yellow mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="font-bold mb-1">Integritas</h3>
+                    <p class="text-xs text-base-content/70">Menjunjung tinggi kejujuran, tanggung jawab, dan etika profesional.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back CTA -->
+        <div class="text-center mt-14">
+            <a href="/" class="btn btn-outline rounded-full px-6">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+</div>
+{{end}}
+

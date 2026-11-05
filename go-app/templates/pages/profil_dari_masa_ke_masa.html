@@ -1,0 +1,92 @@
+{{define "head"}}
+<style>
+    .text-gradient-brand {
+        background: linear-gradient(120deg, #8D021F 0%, #8D021F 45%, #009B4C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+</style>
+{{end}}
+
+{{define "content"}}
+<div class="pt-28 pb-20 sm:pt-36 sm:pb-28">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Breadcrumb -->
+        <div class="breadcrumbs text-sm mb-6 text-base-content/60">
+            <ul>
+                <li><a href="/">Beranda</a></li>
+                <li>Profil</li>
+                <li class="text-primary font-semibold">Dari Masa ke Masa</li>
+            </ul>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-14">
+            <span class="inline-block text-xs font-bold tracking-widest uppercase text-brand-red mb-2">SEJARAH & REKAM JEJAK</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Dari Masa ke <span class="text-gradient-brand">Masa</span>
+            </h1>
+            <p class="mt-4 text-base-content/70 max-w-2xl mx-auto">
+                Perjalanan panjang perjalanan AI UNMUL sejak berdiri pada tahun 2009 hingga kini menjadi himpunan mahasiswa yang terus berinovasi dan berkontribusi.
+            </p>
+        </div>
+
+        <!-- Timeline -->
+        <div class="space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-0.5 before:bg-base-300 before:-translate-x-1/2">
+            <!-- Timeline Item 1 -->
+            <div class="relative flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/2 md:text-right pr-0 md:pr-8">
+                    <span class="badge badge-primary font-bold">2009</span>
+                    <h3 class="text-lg font-bold mt-2">Awal Mula Pendirian</h3>
+                    <p class="text-sm text-base-content/70 mt-1">
+                        AI didirikan sebagai wadah persatuan mahasiswa program studi Teknik Informatika / Ilmu Komputer Universitas Mulawarman untuk saling mendukung dan berkolaborasi.
+                    </p>
+                </div>
+                <div class="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full bg-primary text-primary-content flex items-center justify-center text-xs font-bold shadow-md">
+                    <i class="fa-solid fa-flag"></i>
+                </div>
+                <div class="md:w-1/2 pl-12 md:pl-8"></div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="relative flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/2 pr-0 md:pr-8"></div>
+                <div class="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full bg-accent text-accent-content flex items-center justify-center text-xs font-bold shadow-md">
+                    <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <div class="md:w-1/2 pl-12 md:pl-8">
+                    <span class="badge badge-accent font-bold">2015 - 2020</span>
+                    <h3 class="text-lg font-bold mt-2">Ekspansi Prestasi & Jejaring</h3>
+                    <p class="text-sm text-base-content/70 mt-1">
+                        Memulai keikutsertaan aktif di kompetisi IT nasional (Gemastik, Hackathon) serta mempererat kolaborasi bersama komunitas teknologi Kalimantan Timur.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="relative flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/2 md:text-right pr-0 md:pr-8">
+                    <span class="badge badge-secondary font-bold">Sekarang</span>
+                    <h3 class="text-lg font-bold mt-2">Era Transformasi Digital</h3>
+                    <p class="text-sm text-base-content/70 mt-1">
+                        AI UNMUL terus berevolusi menghadirkan program-program mutakhir seputar AI, Web, Cloud, dan Data Science dengan pendekatan modern dan inklusif.
+                    </p>
+                </div>
+                <div class="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full bg-secondary text-secondary-content flex items-center justify-center text-xs font-bold shadow-md">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div class="md:w-1/2 pl-12 md:pl-8"></div>
+            </div>
+        </div>
+
+        <!-- Back CTA -->
+        <div class="text-center mt-16">
+            <a href="/" class="btn btn-outline rounded-full px-6">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+</div>
+{{end}}
+

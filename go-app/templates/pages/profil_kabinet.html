@@ -1,0 +1,83 @@
+{{define "head"}}
+<style>
+    .text-gradient-brand {
+        background: linear-gradient(120deg, #8D021F 0%, #8D021F 45%, #009B4C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+</style>
+{{end}}
+
+{{define "content"}}
+<div class="pt-28 pb-20 sm:pt-36 sm:pb-28">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <!-- Breadcrumb -->
+        <div class="breadcrumbs text-sm mb-6 text-base-content/60">
+            <ul>
+                <li><a href="/">Beranda</a></li>
+                <li>Profil</li>
+                <li class="text-primary font-semibold">Struktur Kabinet</li>
+            </ul>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <span class="inline-block text-xs font-bold tracking-widest uppercase text-brand-red mb-2">KEPENGURUSAN</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Kabinet <span class="text-gradient-brand">AI UNMUL</span>
+            </h1>
+            <p class="mt-4 text-base-content/70 max-w-2xl mx-auto">
+                Susunan pengurus dan badan pelaksana harian yang mengemban amanah menjalankan roda organisasi demi kemajuan Informatika Universitas Mulawarman.
+            </p>
+        </div>
+
+        <!-- Struktur Pimpinan -->
+        <div class="max-w-xl mx-auto mb-14 text-center">
+            <div class="p-6 rounded-2xl bg-base-200 border border-base-300 shadow-sm">
+                <div class="h-20 w-20 mx-auto rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-3xl mb-4">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <h3 class="text-xl font-bold">Badan Pengurus Harian (BPH)</h3>
+                <p class="text-sm text-base-content/70 mt-1">Ketua Umum, Wakil Ketua, Sekretaris Umum, & Bendahara Umum</p>
+            </div>
+        </div>
+
+        <!-- Divisi-divisi -->
+        <h2 class="text-2xl font-bold text-center mb-8">Bidang & Divisi Kerja</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
+                <div class="text-2xl text-brand-red mb-3"><i class="fa-solid fa-laptop-code"></i></div>
+                <h3 class="font-bold mb-1">Riset & Teknologi</h3>
+                <p class="text-xs text-base-content/70">Fokus pada eksplorasi teknologi, coding workshop, dan pembinaan tim lomba software/data.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
+                <div class="text-2xl text-brand-green mb-3"><i class="fa-solid fa-user-graduate"></i></div>
+                <h3 class="font-bold mb-1">Kaderisasi (PSDM)</h3>
+                <p class="text-xs text-base-content/70">Pengembangan kapasitas, kepemimpinan, dan regenerasi anggota AI UNMUL.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
+                <div class="text-2xl text-brand-yellow mb-3"><i class="fa-solid fa-bullhorn"></i></div>
+                <h3 class="font-bold mb-1">Media & Informasi</h3>
+                <p class="text-xs text-base-content/70">Pengelolaan media sosial, desain grafis, publikasi konten, dan dokumentasi event.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
+                <div class="text-2xl text-brand-red mb-3"><i class="fa-solid fa-scale-balanced"></i></div>
+                <h3 class="font-bold mb-1">Advokasi Mahasiswa</h3>
+                <p class="text-xs text-base-content/70">Penyaluran aspirasi mahasiswa dan pendampingan isu-isu kemahasiswaan di prodi.</p>
+            </div>
+        </div>
+
+        <!-- Back CTA -->
+        <div class="text-center mt-14">
+            <a href="/" class="btn btn-outline rounded-full px-6">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+</div>
+{{end}}
+

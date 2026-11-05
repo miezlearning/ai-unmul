@@ -8,12 +8,19 @@
 
 @theme {
     --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    /* Brand colors as Tailwind utilities so opacity modifiers (bg-primary/10, text-accent, ...)
+       are generated. Mirrors the DaisyUI theme below. */
+    --color-brand-red: #8D021F;
+    --color-brand-yellow: #FDD100;
+    --color-brand-green: #009B4C;
 }
 
 /* Apply the chosen font globally. Tailwind's base layer ensures this overrides defaults. */
 @layer base {
   html {
     font-family: var(--font-sans);
+    scroll-behavior: smooth;
   }
 }
 
@@ -45,6 +52,41 @@
   --color-warning-content: oklch(98% 0.026 102.212);
   --color-error: red;
   --color-error-content: oklch(97% 0.014 343.198);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "ai_unmul_dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: #0a0a0c;
+  --color-base-200: #121216;
+  --color-base-300: #1c1c22;
+  --color-base-content: #f4f4f5;
+  --color-primary: #8D021F;
+  --color-primary-content: #ffffff;
+  --color-secondary: #FDD100;
+  --color-secondary-content: #0a0a0c;
+  --color-accent: #009B4C;
+  --color-accent-content: #ffffff;
+  --color-neutral: #18181b;
+  --color-neutral-content: #fafafa;
+  --color-info: oklch(62% 0.214 259.815);
+  --color-info-content: oklch(97% 0.014 254.604);
+  --color-success: oklch(72% 0.219 149.579);
+  --color-success-content: oklch(98% 0.018 155.826);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(98% 0.026 102.212);
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
   --radius-selector: 0.25rem;
   --radius-field: 0.5rem;
   --radius-box: 0.5rem;

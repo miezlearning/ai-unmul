@@ -1,19 +1,538 @@
 @extends('guest.layouts.main')
 
 @section('document.head')
+<style>
+    /* ===== Scroll reveal ===== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* ===== Labeled Kinetic Highlight (Exact Character Length) ===== */
+    .kinetic-highlight {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        padding: 0.12rem 0.45rem;
+        margin: -0.12rem -0.45rem;
+        vertical-align: baseline;
+        width: fit-content;
+        max-width: 100%;
+        white-space: nowrap;
+    }
+    .kinetic-text-target {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        will-change: opacity;
+        text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+    }
+    .kinetic-block-curtain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        pointer-events: none;
+        transform: scaleX(0);
+        transform-origin: left center;
+        will-change: transform;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .kinetic-text-target { opacity: 1 !important; }
+        .kinetic-block-curtain { display: none !important; }
+    }
+
+    /* ===== Hero decorative glows ===== */
+    .hero-glow {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(72px);
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ===== Subtle Film Grain / Noise Overlay ===== */
+    .hero-noise {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* ===== Slow float for hero badge / logo ===== */
+    @keyframes floaty {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* ===== Bounce-down scroll cue ===== */
+    @keyframes bounce-down {
+        0%, 100% { transform: translateY(0); opacity: 0.6; }
+        50% { transform: translateY(8px); opacity: 1; }
+    }
+    .animate-bounce-down { animation: bounce-down 1.8s ease-in-out infinite; }
+
+    /* ===== Gradient text ===== */
+    .text-gradient-brand {
+        background: linear-gradient(120deg, #8D021F 0%, #8D021F 45%, #009B4C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* ===== Tilt card hover ===== */
+    .lift {
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.35s ease;
+    }
+    .lift:hover {
+        transform: translateY(-6px);
+    }
+
+    /* ===== Feature icon chip glow on hover ===== */
+    .icon-chip {
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .group:hover .icon-chip {
+        transform: scale(1.08) rotate(-4deg);
+    }
+</style>
 @endsection
 
 @section('document.body')
-<div class="hero bg-base-200 py-20 text-center pt-24">
-    <div class="container mx-auto px-4">
-        <h1 class="text-5xl font-bold mb-6">Prototype AI UNMUL</h1>
-        <div class="flex justify-center mb-6">
-            <img src="{{ asset('images/logo/LogoAI (3).png') }}" alt="Logo AI" class="max-w-xs">
-        </div>
-        <p class="text-xl mb-8">Kasih Bagoyang Test</p>
-        <a href="#" class="btn btn-neutral btn-lg">Welcome to Prototype</a>
+
+{{-- ===================== HERO ===================== --}}
+<section id="heroSection" class="relative overflow-hidden bg-base-200 pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
+    {{-- Hero Blurred Backdrop (Jacket PDH) with Blur, Noise & Vignette --}}
+    <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+        <img id="heroBackdropImg"
+             src="{{ asset('images/hero/hero-jacket.jpg') }}"
+             alt="AI UNMUL Member Jacket"
+             aria-hidden="true"
+             class="w-full h-full object-cover object-center scale-105 filter blur-[2px] sm:blur-[2.5px] opacity-80 dark:opacity-75 will-change-transform transform-gpu">
+        
+        {{-- Subtle noise film grain overlay --}}
+        <div class="hero-noise absolute inset-0 opacity-30 mix-blend-overlay"></div>
+
+        {{-- Smooth vignette overlay: subtle at center so jacket is clearly visible, soft fade at edges --}}
+        <div class="absolute inset-0 bg-gradient-to-b from-base-200/40 via-base-200/10 to-base-200"></div>
     </div>
-</div>
+
+    {{-- decorative glows in brand colors --}}
+    <div class="hero-glow hero-glow-1 bg-primary" style="width:26rem;height:26rem;top:-6rem;left:-6rem;"></div>
+    <div class="hero-glow hero-glow-2 bg-accent" style="width:22rem;height:22rem;bottom:-6rem;right:-4rem;opacity:0.28;"></div>
+    <div class="hero-glow hero-glow-3 bg-secondary" style="width:18rem;height:18rem;top:30%;right:18%;opacity:0.25;"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div id="heroContentWrap" class="max-w-4xl mx-auto text-center">
+
+            {{-- logo --}}
+            <div id="heroLogoWrap" class="flex justify-center mb-3 sm:mb-4 will-change-transform">
+                <div class="animate-floaty">
+                    <img src="{{ asset('images/logo/LogoAI (3).png') }}" alt="Logo AI UNMUL"
+                         class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-md">
+                </div>
+            </div>
+
+            {{-- Kinetic Typography Headline: Balanced 2-line layout without vertical ballooning --}}
+            <h1 id="heroTitle" class="flex flex-col items-center select-none text-center gap-1 sm:gap-2">
+                {{-- Line 1: Association of Informatics (fitted to exact character length) --}}
+                <span class="kinetic-highlight relative inline-block rounded-md align-baseline">
+                    <span class="kinetic-block-curtain bg-primary rounded-md" aria-hidden="true"></span>
+                    <span class="kinetic-text-target text-base-content font-bold tracking-tight text-lg sm:text-2xl md:text-3xl lg:text-4xl">
+                        Association of Informatics
+                    </span>
+                </span>
+
+                {{-- Line 2: Universitas Mulawarman (fitted to exact character length, inverted accent fill) --}}
+                <span class="kinetic-highlight relative inline-block rounded-lg align-baseline">
+                    <span class="kinetic-block-curtain bg-accent rounded-lg" aria-hidden="true"></span>
+                    <span class="kinetic-text-target text-primary font-black tracking-tight text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
+                        Universitas Mulawarman
+                    </span>
+                </span>
+            </h1>
+
+            {{-- subheadline --}}
+            <p id="heroSubtitle" class="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-base-content/70 max-w-xl mx-auto leading-relaxed will-change-transform">
+                Wadah berkumpul, bertumbuh, dan berkarya mahasiswa Informatika, membangun
+                kompetensi, kolaborasi, dan kontribusi nyata bagi kampus dan masyarakat.
+            </p>
+
+            {{-- CTAs --}}
+            <div id="heroCta" class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 will-change-transform">
+                <a href="{{ route('guest.profil.tentang.index') }}"
+                   class="btn btn-primary rounded-full px-6 py-2 shadow-md shadow-brand-red/25 hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm font-semibold">
+                    Ayo cari tau tentang AI!
+                </a>
+                <a href="#program"
+                   class="btn btn-outline rounded-full px-6 py-2 hover:-translate-y-0.5 transition-all text-sm font-medium">
+                    Lihat program kerja
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {{-- scroll cue --}}
+    <a id="heroScrollCue" href="#stats" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 text-base-content/40 hover:text-base-content transition-colors" aria-label="Scroll ke bawah">
+        <i class="fa-solid fa-chevron-down text-base animate-bounce-down"></i>
+    </a>
+</section>
+
+
+{{-- ===================== STATS STRIP ===================== --}}
+<section id="stats" class="border-y border-base-300 bg-base-100">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @php
+                $stats = [
+                    ['icon' => 'fa-users', 'value' => '300+', 'label' => 'Anggota Aktif'],
+                    ['icon' => 'fa-layer-group', 'value' => '8', 'label' => 'Divisi / Bidang'],
+                    ['icon' => 'fa-calendar-check', 'value' => '20+', 'label' => 'Event / Tahun'],
+                    ['icon' => 'fa-graduation-cap', 'value' => '2009', 'label' => 'Berdiri Sejak'],
+                ];
+            @endphp
+            @foreach ($stats as $index => $stat)
+                <div class="reveal reveal-delay-{{ $index + 1 }} flex flex-col items-center text-center">
+                    <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red text-lg">
+                        <i class="fa-solid {{ $stat['icon'] }}"></i>
+                    </div>
+                    <div class="text-3xl sm:text-4xl font-extrabold tracking-tight">{{ $stat['value'] }}</div>
+                    <div class="text-sm text-base-content/60 mt-1">{{ $stat['label'] }}</div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+{{-- ===================== WHY / FEATURES ===================== --}}
+<section id="mengapa" class="py-20 sm:py-28">
+    <div class="container mx-auto px-4">
+        <div class="reveal max-w-2xl mx-auto text-center mb-14">
+            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-red">Mengapa AI UNMUL</span>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Lebih dari sekadar organisasi</h2>
+            <p class="mt-4 text-base-content/60">
+                Kami menghadirkan ruang untuk berkembang secara akademik, profesional, dan sosial.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @php
+                $features = [
+                    ['icon' => 'fa-code', 'chipBg' => 'bg-brand-red/10', 'chipText' => 'text-brand-red',
+                     'title' => 'Pengembangan Kompetensi',
+                     'desc'  => 'Belajar bersama lewat workshop, sharing session, dan proyek kolaboratif di bidang teknologi.'],
+                    ['icon' => 'fa-handshake-angle', 'chipBg' => 'bg-brand-green/10', 'chipText' => 'text-brand-green',
+                     'title' => 'Kolaborasi & Jejaring',
+                     'desc'  => 'Terhubung dengan sesama mahasiswa, alumni, serta industri untuk memperluas peluangmu.'],
+                    ['icon' => 'fa-trophy', 'chipBg' => 'bg-brand-yellow/30', 'chipText' => 'text-brand-yellow',
+                     'title' => 'Prestasi & Kompetisi',
+                     'desc'  => 'Wadah pembinaan tim untuk berlomba di berbagai kompetisi tingkat nasional.'],
+                    ['icon' => 'fa-people-group', 'chipBg' => 'bg-brand-red/10', 'chipText' => 'text-brand-red',
+                     'title' => 'Kekeluargaan',
+                     'desc'  => 'Suasana kekeluargaan yang erat — tempat bertumbuh bersama tanpa merasa sendiri.'],
+                    ['icon' => 'fa-bullhorn', 'chipBg' => 'bg-brand-green/10', 'chipText' => 'text-brand-green',
+                     'title' => 'Advokasi Mahasiswa',
+                     'desc'  => 'Menyalurkan aspirasi dan kepentingan mahasiswa Informatika ke pihak kampus.'],
+                    ['icon' => 'fa-seedling', 'chipBg' => 'bg-brand-yellow/30', 'chipText' => 'text-brand-yellow',
+                     'title' => 'Kepemimpinan',
+                     'desc'  => 'Asah kemampuan memimpin, mengorganisir, dan bertanggung jawab melalui kabinet kerja.'],
+                ];
+            @endphp
+            @foreach ($features as $f)
+                <div class="reveal group lift rounded-2xl border border-base-300 bg-base-100 p-6 hover:border-brand-red/40 hover:shadow-xl hover:shadow-brand-red/5">
+                    <div class="icon-chip inline-flex h-12 w-12 items-center justify-center rounded-xl {{ $f['chipBg'] }} {{ $f['chipText'] }} text-lg mb-4">
+                        <i class="fa-solid {{ $f['icon'] }}"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold">{{ $f['title'] }}</h3>
+                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">{{ $f['desc'] }}</p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+{{-- ===================== PROGRAM / WHAT WE DO ===================== --}}
+<section id="program" class="py-20 sm:py-28 bg-base-200 relative overflow-hidden">
+    <div class="hero-glow bg-primary" style="width:20rem;height:20rem;top:-4rem;right:-4rem;opacity:0.18;"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="reveal max-w-2xl mx-auto text-center mb-14">
+            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-green">Program Kerja</span>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Apa yang kami lakukan</h2>
+            <p class="mt-4 text-base-content/60">Ragam kegiatan rutin yang membawa manfaat untuk anggota dan civitas.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            @php
+                $programs = [
+                    ['icon' => 'fa-microphone-lines', 'title' => 'Tech Talk', 'desc' => 'Diskusi & seminar seputar teknologi terkini bersama praktisi.'],
+                    ['icon' => 'fa-chalkboard-user', 'title' => 'Kelas & Workshop', 'desc' => 'Pendalaman materi & skill praktis untuk mahasiswa Informatika.'],
+                    ['icon' => 'fa-flag', 'title' => 'Kompetisi', 'desc' => 'Pembinaan tim untuk lomba programming dan bidang terkait.'],
+                    ['icon' => 'fa-hand-holding-heart', 'title' => 'Pengabdian', 'desc' => 'Berbagi ilmu dan kontribusi nyata kepada masyarakat.'],
+                ];
+            @endphp
+            @foreach ($programs as $i => $p)
+                <div class="reveal reveal-delay-{{ $i + 1 }} lift rounded-2xl bg-base-100 border border-base-300 p-6 hover:shadow-xl hover:shadow-base-300/40">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-base-200 text-brand-red text-lg">
+                            <i class="fa-solid {{ $p['icon'] }}"></i>
+                        </div>
+                        <span class="text-3xl font-extrabold text-base-300">0{{ $i + 1 }}</span>
+                    </div>
+                    <h3 class="font-semibold">{{ $p['title'] }}</h3>
+                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">{{ $p['desc'] }}</p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+{{-- ===================== JOIN CTA ===================== --}}
+<section class="py-20 sm:py-24">
+    <div class="container mx-auto px-4">
+        <div class="reveal relative overflow-hidden rounded-3xl bg-neutral text-neutral-content px-6 py-16 sm:px-16 text-center shadow-2xl">
+            {{-- subtle brand accents --}}
+            <div class="hero-glow bg-primary" style="width:18rem;height:18rem;top:-5rem;left:-3rem;opacity:0.5;"></div>
+            <div class="hero-glow bg-accent" style="width:16rem;height:16rem;bottom:-5rem;right:-3rem;opacity:0.35;"></div>
+
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-secondary-content text-2xl mb-6">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Gabung & Tumbuh Bersama Kami</h2>
+                <p class="mt-4 text-neutral-content/70">
+                    Jadilah bagian dari AI UNMUL — belajar, berkreasi, dan berkontribusi bersama keluarga besar Informatika UNMUL.
+                </p>
+                <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+                    <a href="https://www.instagram.com/ai.unmul/" target="_blank" rel="noopener noreferrer"
+                       class="btn btn-secondary btn-lg rounded-full gap-2 hover:-translate-y-0.5 transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                        Ikuti Instagram
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VazMHQcLI8YhavJcMh34" target="_blank" rel="noopener noreferrer"
+                       class="btn btn-outline btn-lg rounded-full text-neutral-content border-neutral-content/30 hover:bg-neutral-content hover:text-neutral gap-2 hover:-translate-y-0.5 transition-all">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        Channel WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{-- ===================== KINETIC VALORANT REVEAL & PARALLAX SCRIPT ===================== --}}
+<script>
+    (function () {
+        // Register GSAP plugins safely
+        if (window.gsap) {
+            if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+            if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
+        }
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // ========================================================
+        // 1. SCROLL-TO-SHOW LOGIC FOR ALL CONTENT SECTIONS
+        // (Ensures elements already near/in view appear immediately)
+        // ========================================================
+        function checkScrollReveals() {
+            var reveals = document.querySelectorAll('.reveal');
+            if (!reveals.length) return;
+            var triggerBottom = window.innerHeight * 0.92;
+            reveals.forEach(function (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top <= triggerBottom) {
+                    el.classList.add('is-visible');
+                }
+            });
+        }
+
+        // Run immediately on load so near-fold content (like #stats) is never blank!
+        checkScrollReveals();
+        window.addEventListener('scroll', checkScrollReveals, { passive: true });
+        window.addEventListener('resize', checkScrollReveals, { passive: true });
+
+        // ========================================================
+        // 2. KINETIC BLOCK WIPE REVEAL (LABELED TEXT TARGETS ONLY)
+        // (Fits exact character length of designated elements)
+        // ========================================================
+        if (window.gsap && !prefersReducedMotion) {
+            const highlights = document.querySelectorAll('.kinetic-highlight');
+            const logo = document.getElementById('heroLogoWrap');
+            const subtitle = document.getElementById('heroSubtitle');
+            const ctas = document.getElementById('heroCta');
+            const scrollCue = document.getElementById('heroScrollCue');
+            const heroSection = document.getElementById('heroSection');
+
+            // Setup logo, subtitle, ctas
+            if (logo) gsap.set(logo, { scale: 0.9, opacity: 0, y: -18 });
+            if (subtitle) gsap.set(subtitle, { opacity: 0, y: 16 });
+            if (ctas) gsap.set(ctas, { opacity: 0, y: 16 });
+            if (scrollCue) gsap.set(scrollCue, { opacity: 0 });
+
+            // Initial state: hide designated text, curtain scaleX 0 from left
+            highlights.forEach(function (w) {
+                const curtain = w.querySelector('.kinetic-block-curtain');
+                const text = w.querySelector('.kinetic-text-target');
+
+                if (text) gsap.set(text, { opacity: 0 });
+                if (curtain) gsap.set(curtain, { scaleX: 0, transformOrigin: "left center" });
+            });
+
+            // Master Entrance Timeline
+            const masterTl = gsap.timeline();
+
+            // Step 1: Logo enters softly
+            if (logo) {
+                masterTl.to(logo, {
+                    scale: 1,
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.65,
+                    ease: "back.out(1.4)",
+                    onComplete: function () {
+                        gsap.set(logo, { clearProps: "transform,opacity" });
+                    }
+                }, 0.05);
+            }
+
+            // Step 2: Block wipe on both lines, fitting each exact character length
+            highlights.forEach(function (w, idx) {
+                const curtain = w.querySelector('.kinetic-block-curtain');
+                const text = w.querySelector('.kinetic-text-target');
+                if (!curtain || !text) return;
+
+                const startAt = 0.22 + (idx * 0.22);
+                const expandDur = 0.42;
+                const shrinkDur = 0.42;
+
+                // Curtain sweeps across strictly matching the character length
+                masterTl.to(curtain, {
+                    scaleX: 1,
+                    duration: expandDur,
+                    ease: "power3.inOut"
+                }, startAt);
+
+                // Reveal solid text under the curtain at full coverage, flip origin to right
+                masterTl.add(function () {
+                    gsap.set(text, { opacity: 1 });
+                    gsap.set(curtain, { transformOrigin: "right center" });
+                }, startAt + expandDur);
+
+                // Curtain sweeps off to the right, leaving the solid text standing crisp
+                masterTl.to(curtain, {
+                    scaleX: 0,
+                    duration: shrinkDur,
+                    ease: "power3.out"
+                }, startAt + expandDur);
+            });
+
+            // Step 3: Subtitle & CTAs fade in smoothly
+            masterTl.to([subtitle, ctas], {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                stagger: 0.1,
+                ease: "power2.out"
+            }, 0.95);
+
+            if (scrollCue) {
+                masterTl.to(scrollCue, {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                }, 1.15);
+            }
+
+            // ========================================================
+            // 3. PARALLAX (Logo remains 100% visible and floating)
+            // ========================================================
+            if (window.ScrollTrigger && heroSection) {
+                const parallaxTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: heroSection,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 0.5,
+                        invalidateOnRefresh: true,
+                    }
+                });
+
+                parallaxTl
+                    .to(".hero-glow-1", { yPercent: 30, ease: "none" }, 0)
+                    .to(".hero-glow-2", { yPercent: 45, ease: "none" }, 0)
+                    .to(".hero-glow-3", { yPercent: 20, ease: "none" }, 0)
+                    .to("#heroBackdropImg", { yPercent: 12, ease: "none" }, 0)
+                    .to("#heroScrollCue", { opacity: 0, y: 15, ease: "none" }, 0);
+            }
+        }
+
+        // ========================================================
+        // 4. SMOOTH SCROLL WHEN JUMPING BETWEEN SECTIONS
+        // ========================================================
+        document.addEventListener('click', function (e) {
+            const anchor = e.target.closest('a[href*="#"]');
+            if (!anchor) return;
+
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#' || href === '#!') return;
+
+            try {
+                const url = new URL(anchor.href, window.location.href);
+                if (url.pathname === window.location.pathname && url.hash && url.hash.length > 1) {
+                    const targetEl = document.querySelector(url.hash);
+                    if (targetEl) {
+                        e.preventDefault();
+
+                        // Compensate for floating navbar height (~76px)
+                        const navOffset = 76;
+
+                        if (window.gsap && window.ScrollToPlugin) {
+                            gsap.to(window, {
+                                duration: 0.95,
+                                scrollTo: {
+                                    y: targetEl,
+                                    offsetY: navOffset,
+                                    autoKill: true
+                                },
+                                ease: "power3.inOut"
+                            });
+                        } else {
+                            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                            window.scrollTo({
+                                top: targetPos,
+                                behavior: 'smooth'
+                            });
+                        }
+
+                        if (history.pushState) {
+                            history.pushState(null, '', url.hash);
+                        }
+                    }
+                }
+            } catch (err) {
+                // Ignore any invalid URL parse
+            }
+        });
+    })();
+</script>
 @endsection
-
-

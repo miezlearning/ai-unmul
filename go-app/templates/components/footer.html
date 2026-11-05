@@ -1,0 +1,40 @@
+{{define "footer"}}
+<footer class="bg-base-200 border-t border-base-300 py-10 mt-auto text-base-content/80">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <img src="/static/images/logo/LogoAI (3).png" alt="Logo AI" class="h-10 w-10 object-contain">
+                <div>
+                    <div class="font-bold text-base text-base-content">AI UNMUL</div>
+                    <div class="text-xs text-base-content/60">Association of Informatics, Universitas Mulawarman</div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <a href="/" class="hover:text-primary transition-colors">Beranda</a>
+                <a href="/profil/tentang" class="hover:text-primary transition-colors">Tentang Kami</a>
+                <a href="/profil/kabinet" class="hover:text-primary transition-colors">Kabinet</a>
+                <a href="/profil/dari-masa-ke-masa" class="hover:text-primary transition-colors">Dari Masa ke Masa</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://whatsapp.com/channel/0029VazMHQcLI8YhavJcMh34" target="_blank" rel="noopener noreferrer" class="btn btn-circle btn-sm btn-ghost" aria-label="WhatsApp">
+                    <img src="/static/images/socmed/wa.svg" alt="WhatsApp" class="h-4 w-4" />
+                </a>
+                <a href="https://www.instagram.com/ai.unmul/" target="_blank" rel="noopener noreferrer" class="btn btn-circle btn-sm btn-ghost" aria-label="Instagram">
+                    <img src="/static/images/socmed/ig.svg" alt="Instagram" class="h-4 w-4" />
+                </a>
+                <a href="https://tiktok.com/@ai.unmul" target="_blank" rel="noopener noreferrer" class="btn btn-circle btn-sm btn-ghost" aria-label="TikTok">
+                    <img src="/static/images/socmed/tiktok.svg" alt="TikTok" class="h-4 w-4" />
+                </a>
+            </div>
+        </div>
+
+        <div class="border-t border-base-300/60 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-base-content/50 gap-2">
+            <p>&copy; {{ .Year }} AI UNMUL. All rights reserved.</p>
+            <p>Made with high-performance Go</p>
+        </div>
+    </div>
+</footer>
+{{end}}
+
