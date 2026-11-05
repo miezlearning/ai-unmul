@@ -19,42 +19,8 @@
     .reveal-delay-3 { transition-delay: 0.24s; }
     .reveal-delay-4 { transition-delay: 0.32s; }
 
-    /* ===== Labeled Kinetic Highlight (Exact Character Length) ===== */
-    .kinetic-highlight {
-        position: relative;
-        display: inline-block;
-        overflow: hidden;
-        padding: 0.12rem 0.45rem;
-        margin: -0.12rem -0.45rem;
-        vertical-align: baseline;
-        width: fit-content;
-        max-width: 100%;
-        white-space: nowrap;
-    }
-    .kinetic-text-target {
-        display: inline-block;
-        position: relative;
-        z-index: 1;
-        will-change: opacity;
-        text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
-    }
-    .kinetic-block-curtain {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 10;
-        pointer-events: none;
-        transform: scaleX(0);
-        transform-origin: left center;
-        will-change: transform;
-    }
-
     @media (prefers-reduced-motion: reduce) {
         .reveal { opacity: 1; transform: none; transition: none; }
-        .kinetic-text-target { opacity: 1 !important; }
-        .kinetic-block-curtain { display: none !important; }
     }
 
     /* ===== Hero decorative glows ===== */
@@ -112,12 +78,16 @@
         transform: scale(1.08) rotate(-4deg);
     }
 
-    /* ===== Labeled Kinetic Block Wipe Reveal ===== */
+    /* ===== Labeled Kinetic Block Wipe & Slide Stroke Reveal ===== */
     .kinetic-wrap {
         position: relative;
         display: inline-block;
         vertical-align: baseline;
         overflow: hidden;
+        max-width: 100%;
+    }
+    .kinetic-wrap.block {
+        display: block;
     }
     .kinetic-text {
         display: inline-block;
@@ -126,13 +96,27 @@
         opacity: 0;
         will-change: opacity;
     }
+    .kinetic-wrap.block .kinetic-text {
+        display: block;
+    }
     .kinetic-curtain {
         position: absolute;
         inset: 0;
         z-index: 2;
-        transform: translateX(-102%);
+        display: none;
         pointer-events: none;
         will-change: transform;
+    }
+    .kinetic-curtain::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 3.5px;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.85), 0 0 4px currentColor;
+        border-radius: 1px;
     }
     @media (prefers-reduced-motion: reduce) {
         .kinetic-curtain { display: none !important; }
@@ -163,7 +147,7 @@
     
     {{-- Topographic Contour Lines (Lando Norris Signature Graphic) --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 opacity-30 dark:opacity-20">
-        <svg class="w-full h-full text-base-content" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <svg id="heroContourSvg" class="w-full h-full text-base-content will-change-transform" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
             <path d="M-100,180 C300,80 500,420 900,220 C1300,20 1500,320 1700,180" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.35"/>
             <path d="M-100,300 C250,160 600,580 1000,380 C1400,180 1600,480 1700,320" stroke="currentColor" stroke-width="2" opacity="0.5"/>
             <path d="M-100,440 C200,280 700,720 1100,520 C1500,320 1700,620 1700,460" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
@@ -185,56 +169,81 @@
             {{-- ================= LEFT COLUMN: CLEAN EDITORIAL TYPOGRAPHY ================= --}}
             <div id="heroLeftContent" class="lg:col-span-7 flex flex-col items-start text-left z-10">
 
-                {{-- Clean Monumental Headline with Labeled Kinetic Block Wipe --}}
+                {{-- Clean Monumental Headline with Labeled Kinetic Block Wipe & Slide Stroke --}}
                 <h1 id="heroTitle" class="select-none text-left tracking-tight w-full">
                     <span class="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-base-content leading-tight">
-                        Association of
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-base-content/85 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">Association of</span>
+                        </span>
                     </span>
                     <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none my-2">
                         <span class="kinetic-wrap">
-                            <span class="kinetic-curtain bg-primary rounded-sm"></span>
+                            <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
                             <span class="kinetic-text text-primary uppercase">Informatics</span>
                         </span>
                     </span>
                     <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-snug">
                         <span class="kinetic-wrap">
-                            <span class="kinetic-curtain bg-accent rounded-sm"></span>
+                            <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
                             <span class="kinetic-text text-accent">Universitas Mulawarman</span>
                         </span>
                     </span>
                 </h1>
 
                 {{-- Subheadline (Genuine, human, anti-slop) --}}
-                <p id="heroSubtitle" class="mt-5 sm:mt-6 text-base sm:text-lg text-base-content/80 max-w-xl leading-relaxed">
-                    Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.
+                <p id="heroSubtitle" class="mt-5 sm:mt-6 text-base sm:text-lg text-base-content/80 max-w-xl leading-relaxed flex flex-col items-start gap-1">
+                    <span class="kinetic-wrap">
+                        <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                        <span class="kinetic-text">Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika</span>
+                    </span>
+                    <span class="kinetic-wrap">
+                        <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
+                        <span class="kinetic-text">Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.</span>
+                    </span>
                 </p>
 
                 {{-- Clean CTAs --}}
                 <div id="heroCta" class="mt-7 sm:mt-8 flex flex-wrap items-center gap-4">
                     <a href="{{ route('guest.profil.tentang.index') }}"
                        class="btn btn-primary rounded-full px-7 py-3 text-sm font-semibold shadow-md shadow-brand-red/20 hover:shadow-lg hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
-                        <span>Tentang AI UNMUL</span>
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">Tentang AI UNMUL</span>
+                        </span>
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </a>
                     <a href="#program"
                        class="btn btn-outline rounded-full px-7 py-3 text-sm font-medium hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
-                        <span>Program Kerja</span>
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">Program Kerja</span>
+                        </span>
                         <i class="fa-solid fa-arrow-down text-xs"></i>
                     </a>
                 </div>
 
                 {{-- Honest Metadata Strip (No fake pills or HUD slop) --}}
-                <div class="mt-8 sm:mt-10 pt-6 border-t border-base-300/80 w-full flex flex-wrap items-center gap-6 sm:gap-8 text-xs text-base-content/65">
+                <div id="heroMetaStrip" class="mt-8 sm:mt-10 pt-6 border-t border-base-300/80 w-full flex flex-wrap items-center gap-6 sm:gap-8 text-xs text-base-content/65">
                     <div>
-                        <span class="font-bold text-sm text-base-content">300+</span> Anggota Aktif
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                            <span class="kinetic-text"><span class="font-bold text-sm text-base-content">300+</span> Anggota Aktif</span>
+                        </span>
                     </div>
                     <div class="w-1 h-1 rounded-full bg-base-content/30 hidden sm:block"></div>
                     <div>
-                        <span class="font-bold text-sm text-base-content">8</span> Divisi &amp; Biro
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
+                            <span class="kinetic-text"><span class="font-bold text-sm text-base-content">8</span> Divisi &amp; Biro</span>
+                        </span>
                     </div>
                     <div class="w-1 h-1 rounded-full bg-base-content/30 hidden sm:block"></div>
                     <div>
-                        Fakultas Teknik • Berdiri Sejak 2009
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">Fakultas Teknik • Berdiri Sejak 2009</span>
+                        </span>
                     </div>
                 </div>
 
@@ -307,17 +316,22 @@
                         <div class="absolute inset-0 z-30 pointer-events-none rounded-[2rem] border border-white/20 shadow-inner"></div>
 
                     </div>
-
-                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 
-    {{-- Scroll cue --}}
-    <a id="heroScrollCue" href="#stats" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 text-base-content/40 hover:text-base-content transition-colors" aria-label="Scroll ke bawah">
-        <i class="fa-solid fa-chevron-down text-base animate-bounce-down"></i>
+    {{-- Subtle Bottom Feathering / Gradient Blend into Next Section --}}
+    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-base-100 pointer-events-none z-10"></div>
+
+    {{-- Scroll cue with tactile bounce --}}
+    <a id="heroScrollCue" href="#stats" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 text-base-content/40 hover:text-primary transition-all duration-300 flex flex-col items-center gap-1 group" aria-label="Scroll ke bawah">
+        <span class="kinetic-wrap">
+            <span class="kinetic-curtain bg-base-content/70 dark:bg-white text-white rounded-sm"></span>
+            <span class="kinetic-text text-[9px] tracking-widest uppercase font-semibold text-base-content/40 group-hover:text-primary transition-colors">Scroll</span>
+        </span>
+        <i class="fa-solid fa-chevron-down text-xs animate-bounce-down"></i>
     </a>
 </section>
 
@@ -339,8 +353,18 @@
                     <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red text-lg">
                         <i class="fa-solid {{ $stat['icon'] }}"></i>
                     </div>
-                    <div class="text-3xl sm:text-4xl font-extrabold tracking-tight">{{ $stat['value'] }}</div>
-                    <div class="text-sm text-base-content/60 mt-1">{{ $stat['label'] }}</div>
+                    <div class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain {{ $index % 2 === 0 ? 'bg-primary text-primary' : 'bg-accent text-accent' }} rounded-sm"></span>
+                            <span class="kinetic-text">{{ $stat['value'] }}</span>
+                        </span>
+                    </div>
+                    <div class="text-sm text-base-content/60 mt-1">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-base-content/85 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">{{ $stat['label'] }}</span>
+                        </span>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -352,10 +376,23 @@
 <section id="mengapa" class="py-20 sm:py-28">
     <div class="container mx-auto px-4">
         <div class="reveal max-w-2xl mx-auto text-center mb-14">
-            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-red">Mengapa AI UNMUL</span>
-            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Lebih dari sekadar organisasi</h2>
+            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-red">
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                    <span class="kinetic-text">Mengapa AI UNMUL</span>
+                </span>
+            </span>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-base-content/85 dark:bg-white text-white rounded-sm"></span>
+                    <span class="kinetic-text">Lebih dari sekadar organisasi</span>
+                </span>
+            </h2>
             <p class="mt-4 text-base-content/60">
-                Kami menghadirkan ruang untuk berkembang secara akademik, profesional, dan sosial.
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
+                    <span class="kinetic-text">Kami menghadirkan ruang untuk berkembang secara akademik, profesional, dan sosial.</span>
+                </span>
             </p>
         </div>
 
@@ -387,8 +424,18 @@
                     <div class="icon-chip inline-flex h-12 w-12 items-center justify-center rounded-xl {{ $f['chipBg'] }} {{ $f['chipText'] }} text-lg mb-4">
                         <i class="fa-solid {{ $f['icon'] }}"></i>
                     </div>
-                    <h3 class="text-lg font-semibold">{{ $f['title'] }}</h3>
-                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">{{ $f['desc'] }}</p>
+                    <h3 class="text-lg font-semibold">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                            <span class="kinetic-text">{{ $f['title'] }}</span>
+                        </span>
+                    </h3>
+                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">
+                        <span class="kinetic-wrap block">
+                            <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">{{ $f['desc'] }}</span>
+                        </span>
+                    </p>
                 </div>
             @endforeach
         </div>
@@ -401,9 +448,24 @@
     <div class="hero-glow bg-primary" style="width:20rem;height:20rem;top:-4rem;right:-4rem;opacity:0.18;"></div>
     <div class="container mx-auto px-4 relative z-10">
         <div class="reveal max-w-2xl mx-auto text-center mb-14">
-            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-green">Program Kerja</span>
-            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Apa yang kami lakukan</h2>
-            <p class="mt-4 text-base-content/60">Ragam kegiatan rutin yang membawa manfaat untuk anggota dan civitas.</p>
+            <span class="inline-block text-sm font-semibold tracking-wide uppercase text-brand-green">
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
+                    <span class="kinetic-text">Program Kerja</span>
+                </span>
+            </span>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-base-content/85 dark:bg-white text-white rounded-sm"></span>
+                    <span class="kinetic-text">Apa yang kami lakukan</span>
+                </span>
+            </h2>
+            <p class="mt-4 text-base-content/60">
+                <span class="kinetic-wrap">
+                    <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                    <span class="kinetic-text">Ragam kegiatan rutin yang membawa manfaat untuk anggota dan civitas.</span>
+                </span>
+            </p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -421,10 +483,25 @@
                         <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-base-200 text-brand-red text-lg">
                             <i class="fa-solid {{ $p['icon'] }}"></i>
                         </div>
-                        <span class="text-3xl font-extrabold text-base-300">0{{ $i + 1 }}</span>
+                        <span class="text-3xl font-extrabold text-base-300">
+                            <span class="kinetic-wrap">
+                                <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                                <span class="kinetic-text">0{{ $i + 1 }}</span>
+                            </span>
+                        </span>
                     </div>
-                    <h3 class="font-semibold">{{ $p['title'] }}</h3>
-                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">{{ $p['desc'] }}</p>
+                    <h3 class="font-semibold">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
+                            <span class="kinetic-text">{{ $p['title'] }}</span>
+                        </span>
+                    </h3>
+                    <p class="mt-2 text-sm text-base-content/60 leading-relaxed">
+                        <span class="kinetic-wrap block">
+                            <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">{{ $p['desc'] }}</span>
+                        </span>
+                    </p>
                 </div>
             @endforeach
         </div>
@@ -465,67 +542,111 @@
         window.addEventListener('resize', checkScrollReveals, { passive: true });
 
         // ========================================================
-        // 2. KINETIC BLOCK WIPE REVEAL (LABELED TEXT TARGETS)
-        // (Smooth hardware-accelerated translateX: -102% -> 0 -> 102%)
+        // 2. KINETIC SLIDE STROKE & BLOCK REVEAL (ALL TEXTS EXCEPT NAVBAR)
+        // (Curtain with leading 3.5px glowing stroke sweeps across: -102% -> 0 -> 102%)
         // ========================================================
         if (window.gsap && !prefersReducedMotion) {
-            const wraps = document.querySelectorAll('.kinetic-wrap');
-            
-            wraps.forEach(wrap => {
-                const curtain = wrap.querySelector('.kinetic-curtain');
-                const text = wrap.querySelector('.kinetic-text');
-                if (text) text.style.opacity = '0';
-                if (curtain) gsap.set(curtain, { xPercent: -102 });
-            });
+            // Function to animate a group of kinetic wraps sequentially
+            function animateKineticBatch(wraps, baseDelay = 0, stagger = 0.08) {
+                if (!wraps || !wraps.length) return;
+                const tl = gsap.timeline({ delay: baseDelay });
+                wraps.forEach((wrap, idx) => {
+                    const curtain = wrap.querySelector('.kinetic-curtain');
+                    const text = wrap.querySelector('.kinetic-text');
+                    if (!curtain || !text) return;
 
-            const kineticTl = gsap.timeline({ delay: 0.1 });
+                    const startAt = idx * stagger;
+                    const dur = 0.38;
 
-            wraps.forEach((wrap, idx) => {
-                const curtain = wrap.querySelector('.kinetic-curtain');
-                const text = wrap.querySelector('.kinetic-text');
-                if (!curtain || !text) return;
+                    tl.fromTo(curtain,
+                        { xPercent: -102, display: 'block' },
+                        { xPercent: 0, duration: dur, ease: "power2.inOut" },
+                        startAt
+                    )
+                    .call(() => { text.style.opacity = '1'; }, null, startAt + dur)
+                    .to(curtain, {
+                        xPercent: 102,
+                        duration: dur,
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            curtain.style.display = 'none';
+                            text.style.opacity = '1';
+                        }
+                    }, startAt + dur);
+                });
 
-                const startAt = 0.1 + (idx * 0.28);
-                const dur = 0.38;
+                // Per-batch safety timer: ensures this batch finishes gracefully even if window unfocused
+                const batchTotal = (baseDelay + (wraps.length * stagger) + 0.9) * 1000;
+                setTimeout(() => {
+                    wraps.forEach(w => {
+                        const c = w.querySelector('.kinetic-curtain');
+                        const t = w.querySelector('.kinetic-text');
+                        if (c) c.style.display = 'none';
+                        if (t) t.style.opacity = '1';
+                    });
+                }, batchTotal);
+            }
 
-                // 1. Curtain sweeps across from left to cover text
-                kineticTl.fromTo(curtain,
-                    { xPercent: -102 },
-                    { xPercent: 0, duration: dur, ease: "power2.inOut" },
-                    startAt
-                )
-                // 2. Reveal solid text at full coverage
-                .call(() => {
-                    text.style.opacity = '1';
-                }, null, startAt + dur)
-                // 3. Curtain sweeps away to the right, leaving solid text
-                .to(curtain, {
-                    xPercent: 102,
-                    duration: dur,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        curtain.style.display = 'none';
-                    }
-                }, startAt + dur);
-            });
+            // A. Initial Hero Section Kinetic Entrance
+            const heroWraps = Array.from(document.querySelectorAll('#heroLeftContent .kinetic-wrap, #heroScrollCue .kinetic-wrap'));
+            if (heroWraps.length) {
+                heroWraps.forEach(w => {
+                    const t = w.querySelector('.kinetic-text');
+                    if (t) t.style.opacity = '0';
+                });
+                animateKineticBatch(heroWraps, 0.08, 0.08);
+            }
 
             // Entrance for Right Centerpiece
             const rightVisual = document.getElementById('heroRightVisual');
             if (rightVisual) {
-                kineticTl.from(rightVisual, {
+                gsap.from(rightVisual, {
                     scale: 0.94,
                     opacity: 0.7,
                     duration: 0.7,
+                    delay: 0.25,
                     ease: "power3.out"
-                }, 0.25);
+                });
             }
 
-            // Failsafe: Ensure text is 100% visible after 1.8 seconds under any circumstance
-            setTimeout(() => {
-                document.querySelectorAll('.kinetic-curtain').forEach(c => c.style.display = 'none');
-                document.querySelectorAll('.kinetic-text').forEach(t => t.style.opacity = '1');
-            }, 1800);
+            // B. Scroll-Triggered Kinetic Text for All Other Sections (#stats, #mengapa, #program, etc.)
+            // Strictly exclude #mainNavbar or any nav elements
+            const nonHeroSections = document.querySelectorAll('section:not(#heroSection)');
+            
+            // Initial state: hide text for all non-hero sections
+            nonHeroSections.forEach(sec => {
+                const wraps = sec.querySelectorAll('.kinetic-wrap');
+                wraps.forEach(w => {
+                    const t = w.querySelector('.kinetic-text');
+                    if (t) t.style.opacity = '0';
+                });
+            });
+
+            if ('IntersectionObserver' in window) {
+                const sectionObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const wraps = Array.from(entry.target.querySelectorAll('.kinetic-wrap'));
+                            if (wraps && wraps.length) {
+                                animateKineticBatch(wraps, 0.04, 0.06);
+                            }
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+                nonHeroSections.forEach(sec => {
+                    sectionObserver.observe(sec);
+                });
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                nonHeroSections.forEach(sec => {
+                    const wraps = Array.from(sec.querySelectorAll('.kinetic-wrap'));
+                    animateKineticBatch(wraps, 0.08, 0.06);
+                });
+            }
         } else {
+            // Reduced motion or no GSAP
             document.querySelectorAll('.kinetic-curtain').forEach(c => c.style.display = 'none');
             document.querySelectorAll('.kinetic-text').forEach(t => t.style.opacity = '1');
         }
@@ -577,7 +698,7 @@
                 if (shouldExpand) {
                     blobs.forEach((blob) => {
                         gsap.to(blob, {
-                            attr: { r: 520 },
+                            attr: { r: 540 },
                             duration: 0.65,
                             ease: "power3.out",
                             overwrite: "auto"
@@ -739,6 +860,89 @@
                 isHoldingClick = false;
                 setTimeout(onPointerLeave, 1200);
             }, { passive: true });
+        }
+
+        // ========================================================
+        // 3B. HERO PARALLAX TRANSITION (CINEMATIC SCROLL-DOWN DEPTH)
+        // Staggered scroll velocities between typography, liquid centerpiece,
+        // ambient glows, and topographic contours into the next section.
+        // ========================================================
+        if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
+            const isDesktop = window.innerWidth >= 1024;
+            
+            const heroParallaxTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#heroSection',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.8, // Smooth physical lag (buttery interpolation)
+                    invalidateOnRefresh: true
+                }
+            });
+
+            // 1. Left Editorial Typography drifts upward & dims into the distance
+            heroParallaxTl.to('#heroLeftContent', {
+                y: isDesktop ? -90 : -45,
+                opacity: 0.15,
+                ease: 'power1.in'
+            }, 0);
+
+            // 2. Right Liquid Glass Centerpiece descends with subtle scale & 3D perspective
+            heroParallaxTl.to('#heroRightVisual', {
+                y: isDesktop ? 120 : 55,
+                scale: 0.94,
+                opacity: 0.82,
+                ease: 'power1.out'
+            }, 0);
+
+            // 3. Topographic Contours background drifts with ambient depth
+            const contour = document.getElementById('heroContourSvg');
+            if (contour) {
+                heroParallaxTl.to(contour, {
+                    y: isDesktop ? 160 : 70,
+                    scale: 1.08,
+                    opacity: 0.05,
+                    ease: 'none'
+                }, 0);
+            }
+
+            // 4. Ambient Aura Glows drift organically
+            heroParallaxTl.to('.hero-glow-1', {
+                y: 140,
+                x: -30,
+                opacity: 0.04,
+                ease: 'none'
+            }, 0);
+            heroParallaxTl.to('.hero-glow-2', {
+                y: 90,
+                x: 30,
+                opacity: 0.04,
+                ease: 'none'
+            }, 0);
+
+            // 5. Scroll cue vanishes swiftly on initial scroll down
+            heroParallaxTl.to('#heroScrollCue', {
+                y: 24,
+                opacity: 0,
+                duration: 0.25,
+                ease: 'power2.out'
+            }, 0);
+
+            // 6. Seamless layered entrance for #stats as hero scrolls away
+            gsap.fromTo('#stats', 
+                { y: 35, opacity: 0.85 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#stats',
+                        start: 'top bottom',
+                        end: 'top 75%',
+                        scrub: 0.8
+                    }
+                }
+            );
         }
 
         // ========================================================
