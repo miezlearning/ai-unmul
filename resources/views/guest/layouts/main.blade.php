@@ -13,19 +13,19 @@
   <script>
     (function() {
       const urlTheme = new URLSearchParams(window.location.search).get('theme');
+      let isDark = false;
       if (urlTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'ai_unmul_dark');
-        return;
+        isDark = true;
       } else if (urlTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'ai_unmul');
-        return;
-      }
-      const saved = localStorage.getItem('ai_theme');
-      if (saved === 'ai_unmul_dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'ai_unmul_dark');
+        isDark = false;
       } else {
-        document.documentElement.setAttribute('data-theme', 'ai_unmul');
+        const saved = localStorage.getItem('ai_theme');
+        if (saved === 'ai_unmul_dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          isDark = true;
+        }
       }
+      document.documentElement.setAttribute('data-theme', isDark ? 'ai_unmul_dark' : 'ai_unmul');
+      document.documentElement.classList.toggle('dark', isDark);
     })();
   </script>
 
@@ -44,6 +44,63 @@
   <script src="{{ asset('js/gsap.min.js') }}"></script>
   <script src="{{ asset('js/ScrollTrigger.min.js') }}"></script>
   <script src="{{ asset('js/ScrollToPlugin.min.js') }}"></script>
+
+  <style>
+    /* ========================================================
+       MODERN ULTRA-SLEEK CUSTOM SCROLLBAR
+       ======================================================== */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(100, 116, 139, 0.7);
+    }
+    ::-webkit-scrollbar-thumb:active {
+      background-color: #8D021F !important;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb,
+    .dark::-webkit-scrollbar-thumb,
+    [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb,
+    .dark ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.22);
+    }
+    [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb:hover,
+    .dark::-webkit-scrollbar-thumb:hover,
+    [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb:hover,
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 255, 255, 0.48);
+    }
+    [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb:active,
+    .dark::-webkit-scrollbar-thumb:active,
+    [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb:active,
+    .dark ::-webkit-scrollbar-thumb:active {
+      background-color: #8D021F !important;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(100, 116, 139, 0.4) transparent;
+    }
+    html[data-theme="ai_unmul_dark"],
+    html.dark {
+      scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+    }
+  </style>
 
   @yield('document.head')
 </head>
@@ -82,12 +139,14 @@
       const current = document.documentElement.getAttribute('data-theme') || 'ai_unmul';
       const isDark = current === 'ai_unmul_dark';
       const nextTheme = isDark ? 'ai_unmul' : 'ai_unmul_dark';
+      const nextIsDark = !isDark;
       const curtain = document.getElementById('themeCurtain');
 
       if (!curtain || !window.gsap) {
         document.documentElement.setAttribute('data-theme', nextTheme);
+        document.documentElement.classList.toggle('dark', nextIsDark);
         localStorage.setItem('ai_theme', nextTheme);
-        updateThemeIcons(!isDark);
+        updateThemeIcons(nextIsDark);
         return;
       }
 
@@ -114,6 +173,7 @@
         )
         .add(() => {
           document.documentElement.setAttribute('data-theme', 'ai_unmul_dark');
+          document.documentElement.classList.add('dark');
           localStorage.setItem('ai_theme', 'ai_unmul_dark');
           updateThemeIcons(true);
         })
@@ -143,6 +203,7 @@
         )
         .add(() => {
           document.documentElement.setAttribute('data-theme', 'ai_unmul');
+          document.documentElement.classList.remove('dark');
           localStorage.setItem('ai_theme', 'ai_unmul');
           updateThemeIcons(false);
         })

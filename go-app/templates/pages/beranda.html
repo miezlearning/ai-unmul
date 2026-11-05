@@ -277,26 +277,6 @@
                                         <circle class="liquid-blob blob-4" cx="250" cy="312.5" r="0" />
                                     </g>
                                 </mask>
-
-                                <!-- Tech Matrix Dot Pattern -->
-                                <pattern id="revealTechGrid" width="24" height="24" patternUnits="userSpaceOnUse">
-                                    <circle cx="2" cy="2" r="1" fill="#009B4C" opacity="0.35" />
-                                    <circle cx="14" cy="14" r="1" fill="#FDD100" opacity="0.3" />
-                                </pattern>
-
-                                <!-- Radial Glow Gradient behind Logo -->
-                                <radialGradient id="revealLogoAura" cx="50%" cy="42%" r="48%">
-                                    <stop offset="0%" stop-color="#8D021F" stop-opacity="0.85" />
-                                    <stop offset="40%" stop-color="#009B4C" stop-opacity="0.4" />
-                                    <stop offset="70%" stop-color="#FDD100" stop-opacity="0.18" />
-                                    <stop offset="100%" stop-color="#090a0f" stop-opacity="0" />
-                                </radialGradient>
-
-                                <!-- Official Emblem Drop Shadow -->
-                                <filter id="revealLogoGlow" x="-30%" y="-30%" width="160%" height="160%">
-                                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#8D021F" flood-opacity="0.75" />
-                                    <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#009B4C" flood-opacity="0.4" />
-                                </filter>
                             </defs>
 
                             <!-- LAYER 1: Base Image (AI UNMUL Member Jacket Portrait) -->
@@ -305,43 +285,12 @@
                                    width="500" height="625" 
                                    preserveAspectRatio="xMidYMid slice" />
 
-                            <!-- LAYER 2: Top Reveal Layer (OFFICIAL AI UNMUL LOGO & CORE EMBLEM) -->
+                            <!-- LAYER 2: Top Reveal Layer (INFORMATIKA UNIVERSITAS MULAWARMAN MECHA BANNER) -->
                             <g mask="url(#liquidCursorMask)">
-                                <!-- Deep Tech Backdrop -->
-                                <rect width="500" height="625" fill="#090a0f" />
-                                <rect width="500" height="625" fill="url(#revealTechGrid)" opacity="0.65" />
-
-                                <!-- Multi-color Ambient Core Glow -->
-                                <circle cx="250" cy="255" r="165" fill="url(#revealLogoAura)" />
-
-                                <!-- Concentric Precision Telemetry Rings -->
-                                <circle cx="250" cy="255" r="115" stroke="#8D021F" stroke-width="2" stroke-dasharray="8 6" opacity="0.8" />
-                                <circle cx="250" cy="255" r="145" stroke="#009B4C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6" />
-                                <circle cx="250" cy="255" r="175" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
-
-                                <!-- Left High-Tech Circuit Traces -->
-                                <path d="M 35 120 L 135 120 L 175 180 L 175 255" stroke="#009B4C" stroke-width="2.5" stroke-dasharray="6 4" />
-                                <circle cx="35" cy="120" r="4.5" fill="#009B4C" />
-                                <path d="M 25 380 L 125 380 L 175 330 L 175 255" stroke="#009B4C" stroke-width="2" />
-                                <circle cx="25" cy="380" r="4" fill="#009B4C" />
-
-                                <!-- Right High-Tech Circuit Traces -->
-                                <path d="M 465 130 L 365 130 L 325 190 L 325 255" stroke="#FDD100" stroke-width="2.5" stroke-dasharray="6 4" />
-                                <circle cx="465" cy="130" r="4.5" fill="#FDD100" />
-                                <path d="M 475 370 L 375 370 L 325 320 L 325 255" stroke="#FDD100" stroke-width="2" />
-                                <circle cx="475" cy="370" r="4" fill="#FDD100" />
-
-                                <!-- Official AI UNMUL Logo Emblem -->
-                                <image id="revealLogoImg" 
-                                       href="/static/images/logo/LogoAI (3).png" 
-                                       x="130" y="135" width="240" height="240" 
-                                       preserveAspectRatio="xMidYMid meet" 
-                                       filter="url(#revealLogoGlow)" />
-
-                                <!-- Authentic Institutional Typography -->
-                                <text x="250" y="420" text-anchor="middle" fill="#FDD100" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="3.5">HIMPUNAN MAHASISWA INFORMATIKA</text>
-                                <text x="250" y="454" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="900" letter-spacing="1.2">UNIVERSITAS MULAWARMAN</text>
-                                <text x="250" y="482" text-anchor="middle" fill="#009B4C" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="4">ASSOCIATION OF INFORMATICS</text>
+                                <image id="revealBannerImg" 
+                                       href="/static/images/hero/hero-banner.jpg" 
+                                       width="500" height="625" 
+                                       preserveAspectRatio="xMidYMid slice" />
                             </g>
                         </svg>
 
@@ -527,40 +476,6 @@
                 </div>
                 <h3 class="font-semibold">Pengabdian</h3>
                 <p class="mt-2 text-sm text-base-content/60 leading-relaxed">Berbagi ilmu dan kontribusi nyata kepada masyarakat.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ===================== JOIN CTA ===================== -->
-<section class="py-20 sm:py-24">
-    <div class="container mx-auto px-4">
-        <div class="reveal relative overflow-hidden rounded-3xl bg-neutral text-neutral-content px-6 py-16 sm:px-16 text-center shadow-2xl">
-            <!-- subtle brand accents -->
-            <div class="hero-glow bg-primary" style="width:18rem;height:18rem;top:-5rem;left:-3rem;opacity:0.5;"></div>
-            <div class="hero-glow bg-accent" style="width:16rem;height:16rem;bottom:-5rem;right:-3rem;opacity:0.35;"></div>
-
-            <div class="relative z-10 max-w-2xl mx-auto">
-                <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-secondary-content text-2xl mb-6">
-                    <i class="fa-solid fa-rocket"></i>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Gabung &amp; Tumbuh Bersama Kami</h2>
-                <p class="mt-4 text-neutral-content/70">
-                    Jadilah bagian dari AI UNMUL &mdash; belajar, berkreasi, dan berkontribusi bersama keluarga besar Informatika UNMUL.
-                </p>
-                <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-                    <a href="https://www.instagram.com/ai.unmul/" target="_blank" rel="noopener noreferrer"
-                       class="btn btn-secondary btn-lg rounded-full gap-2 hover:-translate-y-0.5 transition-all">
-                        <i class="fa-brands fa-instagram"></i>
-                        Ikuti Instagram
-                    </a>
-                    <a href="https://whatsapp.com/channel/0029VazMHQcLI8YhavJcMh34" target="_blank" rel="noopener noreferrer"
-                       class="btn btn-outline btn-lg rounded-full text-neutral-content border-neutral-content/30 hover:bg-neutral-content hover:text-neutral gap-2 hover:-translate-y-0.5 transition-all">
-                        <i class="fa-brands fa-whatsapp"></i>
-                        Channel WhatsApp
-                    </a>
-                </div>
             </div>
         </div>
     </div>

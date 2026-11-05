@@ -21,6 +21,56 @@
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 116, 139, 0.4) transparent;
+  }
+
+  html[data-theme="ai_unmul_dark"],
+  html.dark {
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 116, 139, 0.4);
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 116, 139, 0.7);
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #8D021F !important;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb,
+  .dark::-webkit-scrollbar-thumb,
+  [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb,
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.22);
+  }
+  [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb:hover,
+  .dark::-webkit-scrollbar-thumb:hover,
+  [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb:hover,
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.48);
+  }
+  [data-theme="ai_unmul_dark"]::-webkit-scrollbar-thumb:active,
+  .dark::-webkit-scrollbar-thumb:active,
+  [data-theme="ai_unmul_dark"] ::-webkit-scrollbar-thumb:active,
+  .dark ::-webkit-scrollbar-thumb:active {
+    background-color: #8D021F !important;
   }
 }
 
