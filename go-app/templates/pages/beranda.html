@@ -109,83 +109,261 @@
     .group:hover .icon-chip {
         transform: scale(1.08) rotate(-4deg);
     }
+
+    /* ===== Labeled Kinetic Block Wipe Reveal ===== */
+    .kinetic-wrap {
+        position: relative;
+        display: inline-block;
+        vertical-align: baseline;
+        overflow: hidden;
+    }
+    .kinetic-text {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        opacity: 0;
+        will-change: opacity;
+    }
+    .kinetic-curtain {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        transform: translateX(-102%);
+        pointer-events: none;
+        will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .kinetic-curtain { display: none !important; }
+        .kinetic-text { opacity: 1 !important; }
+    }
+
+    /* ===== Liquid Glass Portal & 3D Perspective ===== */
+    .liquid-portal-perspective {
+        perspective: 1200px;
+        transform-style: preserve-3d;
+    }
+    #liquidCard {
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        will-change: transform;
+    }
+    #liquidSheen {
+        pointer-events: none;
+        will-change: opacity, background;
+    }
 </style>
 {{end}}
 
 {{define "content"}}
-<!-- ===================== HERO ===================== -->
-<section id="heroSection" class="relative overflow-hidden bg-base-200 pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
-    <!-- Hero Blurred Backdrop (Jacket PDH) with Blur, Noise & Vignette -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-        <img id="heroBackdropImg"
-             src="/static/images/hero/hero-jacket.jpg"
-             alt="AI UNMUL Member Jacket"
-             aria-hidden="true"
-             class="w-full h-full object-cover object-center scale-105 filter blur-[2px] sm:blur-[2.5px] opacity-80 dark:opacity-75 will-change-transform transform-gpu">
-        
-        <!-- Subtle noise film grain overlay -->
-        <div class="hero-noise absolute inset-0 opacity-30 mix-blend-overlay"></div>
-
-        <!-- Smooth vignette overlay: subtle at center so jacket is clearly visible, soft fade at edges -->
-        <div class="absolute inset-0 bg-gradient-to-b from-base-200/40 via-base-200/10 to-base-200"></div>
+<!-- ===================== HERO (LANDO NORRIS SIGNATURE THEME) ===================== -->
+<section id="heroSection" class="relative overflow-hidden bg-base-100 pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24 min-h-[90vh] flex items-center">
+    
+    <!-- Topographic Contour Lines (Lando Norris Signature Graphic) -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 opacity-30 dark:opacity-20">
+        <svg class="w-full h-full text-base-content" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <path d="M-100,180 C300,80 500,420 900,220 C1300,20 1500,320 1700,180" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.35"/>
+            <path d="M-100,300 C250,160 600,580 1000,380 C1400,180 1600,480 1700,320" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+            <path d="M-100,440 C200,280 700,720 1100,520 C1500,320 1700,620 1700,460" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M-100,570 C150,400 800,880 1200,680 C1600,480 1800,780 1700,630" stroke="currentColor" stroke-width="2" opacity="0.45"/>
+            <path d="M-100,690 C300,580 900,1020 1300,820 C1700,620 1900,920 1700,770" stroke="currentColor" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.3"/>
+            <!-- Topographic Organic Loops -->
+            <path d="M 320 450 C 420 380, 580 400, 650 480 C 720 560, 680 680, 580 720 C 480 750, 360 680, 330 600 Z" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+            <path d="M 880 150 C 980 90, 1120 120, 1200 210 C 1280 300, 1220 420, 1120 450 C 1020 480, 900 380, 860 280 Z" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+        </svg>
     </div>
 
-    <!-- decorative glows in brand colors -->
-    <div class="hero-glow hero-glow-1 bg-primary" style="width:26rem;height:26rem;top:-6rem;left:-6rem;"></div>
-    <div class="hero-glow hero-glow-2 bg-accent" style="width:22rem;height:22rem;bottom:-6rem;right:-4rem;opacity:0.28;"></div>
-    <div class="hero-glow hero-glow-3 bg-secondary" style="width:18rem;height:18rem;top:30%;right:18%;opacity:0.25;"></div>
+    <!-- Ambient glow accents (Restrained, brand colors only) -->
+    <div class="hero-glow hero-glow-1 bg-primary" style="width:28rem;height:28rem;top:-8rem;left:-8rem;opacity:0.2;"></div>
+    <div class="hero-glow hero-glow-2 bg-accent" style="width:22rem;height:22rem;bottom:-6rem;right:8%;opacity:0.18;"></div>
 
-    <div class="container mx-auto px-4 relative z-10">
-        <div id="heroContentWrap" class="max-w-4xl mx-auto text-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
-            <!-- logo -->
-            <div id="heroLogoWrap" class="flex justify-center mb-3 sm:mb-4 will-change-transform">
-                <div class="animate-floaty">
-                    <img src="/static/images/logo/LogoAI (3).png" alt="Logo AI UNMUL"
-                         class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-md">
+            <!-- ================= LEFT COLUMN: CLEAN EDITORIAL TYPOGRAPHY ================= -->
+            <div id="heroLeftContent" class="lg:col-span-7 flex flex-col items-start text-left z-10">
+
+                <!-- Clean Monumental Headline with Labeled Kinetic Block Wipe -->
+                <h1 id="heroTitle" class="select-none text-left tracking-tight w-full">
+                    <span class="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-base-content leading-tight">
+                        Association of
+                    </span>
+                    <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none my-2">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-primary rounded-sm"></span>
+                            <span class="kinetic-text text-primary uppercase">Informatics</span>
+                        </span>
+                    </span>
+                    <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-snug">
+                        <span class="kinetic-wrap">
+                            <span class="kinetic-curtain bg-accent rounded-sm"></span>
+                            <span class="kinetic-text text-accent">Universitas Mulawarman</span>
+                        </span>
+                    </span>
+                </h1>
+
+                <!-- Subheadline (Genuine, human, anti-slop) -->
+                <p id="heroSubtitle" class="mt-5 sm:mt-6 text-base sm:text-lg text-base-content/80 max-w-xl leading-relaxed">
+                    Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.
+                </p>
+
+                <!-- Clean CTAs -->
+                <div id="heroCta" class="mt-7 sm:mt-8 flex flex-wrap items-center gap-4">
+                    <a href="/profil/tentang"
+                       class="btn btn-primary rounded-full px-7 py-3 text-sm font-semibold shadow-md shadow-brand-red/20 hover:shadow-lg hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
+                        <span>Tentang AI UNMUL</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#program"
+                       class="btn btn-outline rounded-full px-7 py-3 text-sm font-medium hover:-translate-y-0.5 transition-all inline-flex items-center gap-2">
+                        <span>Program Kerja</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Honest Metadata Strip (No fake pills or HUD slop) -->
+                <div class="mt-8 sm:mt-10 pt-6 border-t border-base-300/80 w-full flex flex-wrap items-center gap-6 sm:gap-8 text-xs text-base-content/65">
+                    <div>
+                        <span class="font-bold text-sm text-base-content">300+</span> Anggota Aktif
+                    </div>
+                    <div class="w-1 h-1 rounded-full bg-base-content/30 hidden sm:block"></div>
+                    <div>
+                        <span class="font-bold text-sm text-base-content">8</span> Divisi &amp; Biro
+                    </div>
+                    <div class="w-1 h-1 rounded-full bg-base-content/30 hidden sm:block"></div>
+                    <div>
+                        Fakultas Teknik • Berdiri Sejak 2009
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= RIGHT COLUMN: EXPANSIVE LIQUID GLASS CENTERPIECE ================= -->
+            <div id="heroRightVisual" class="lg:col-span-5 flex justify-center lg:justify-end z-10">
+                <div id="liquidPortalContainer" 
+                     class="liquid-portal-perspective relative w-full max-w-[420px] sm:max-w-[460px] aspect-[4/5] rounded-[2rem] select-none group cursor-pointer">
+                    
+                    <!-- Ambient color aura -->
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-primary/30 via-accent/20 to-secondary/20 rounded-[2.5rem] blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-700 pointer-events-none -z-10"></div>
+
+                    <!-- 3D Tilting Card Container -->
+                    <div id="liquidCard" 
+                         class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border border-base-300 dark:border-white/10 bg-base-200 transform-gpu transition-all duration-300">
+                        
+                        <!-- Interactive Liquid Cursor Mask Reveal SVG -->
+                        <svg id="liquidMaskSvg" viewBox="0 0 500 625" class="w-full h-full object-cover block select-none pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- Gooey / Metaball Filter (Alpha Threshold Blending) -->
+                                <filter id="gooeyMetaballs" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
+                                    <feColorMatrix in="blur" mode="matrix" 
+                                                   values="1 0 0 0 0  
+                                                           0 1 0 0 0  
+                                                           0 0 1 0 0  
+                                                           0 0 0 28 -12" result="goo" />
+                                    <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                                </filter>
+
+                                <!-- Liquid Cursor Mask -->
+                                <mask id="liquidCursorMask">
+                                    <!-- Base: Black hides entire top layer -->
+                                    <rect width="100%" height="100%" fill="black" />
+                                    
+                                    <!-- Trailing metaball group: White reveals top layer -->
+                                    <g id="maskBlobGroup" filter="url(#gooeyMetaballs)" fill="white">
+                                        <circle class="liquid-blob blob-0" cx="250" cy="312.5" r="0" />
+                                        <circle class="liquid-blob blob-1" cx="250" cy="312.5" r="0" />
+                                        <circle class="liquid-blob blob-2" cx="250" cy="312.5" r="0" />
+                                        <circle class="liquid-blob blob-3" cx="250" cy="312.5" r="0" />
+                                        <circle class="liquid-blob blob-4" cx="250" cy="312.5" r="0" />
+                                    </g>
+                                </mask>
+
+                                <!-- Tech Matrix Dot Pattern -->
+                                <pattern id="revealTechGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+                                    <circle cx="2" cy="2" r="1" fill="#009B4C" opacity="0.35" />
+                                    <circle cx="14" cy="14" r="1" fill="#FDD100" opacity="0.3" />
+                                </pattern>
+
+                                <!-- Radial Glow Gradient behind Logo -->
+                                <radialGradient id="revealLogoAura" cx="50%" cy="42%" r="48%">
+                                    <stop offset="0%" stop-color="#8D021F" stop-opacity="0.85" />
+                                    <stop offset="40%" stop-color="#009B4C" stop-opacity="0.4" />
+                                    <stop offset="70%" stop-color="#FDD100" stop-opacity="0.18" />
+                                    <stop offset="100%" stop-color="#090a0f" stop-opacity="0" />
+                                </radialGradient>
+
+                                <!-- Official Emblem Drop Shadow -->
+                                <filter id="revealLogoGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#8D021F" flood-opacity="0.75" />
+                                    <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#009B4C" flood-opacity="0.4" />
+                                </filter>
+                            </defs>
+
+                            <!-- LAYER 1: Base Image (AI UNMUL Member Jacket Portrait) -->
+                            <image id="baseImage" 
+                                   href="/static/images/hero/hero-jacket.jpg" 
+                                   width="500" height="625" 
+                                   preserveAspectRatio="xMidYMid slice" />
+
+                            <!-- LAYER 2: Top Reveal Layer (OFFICIAL AI UNMUL LOGO & CORE EMBLEM) -->
+                            <g mask="url(#liquidCursorMask)">
+                                <!-- Deep Tech Backdrop -->
+                                <rect width="500" height="625" fill="#090a0f" />
+                                <rect width="500" height="625" fill="url(#revealTechGrid)" opacity="0.65" />
+
+                                <!-- Multi-color Ambient Core Glow -->
+                                <circle cx="250" cy="255" r="165" fill="url(#revealLogoAura)" />
+
+                                <!-- Concentric Precision Telemetry Rings -->
+                                <circle cx="250" cy="255" r="115" stroke="#8D021F" stroke-width="2" stroke-dasharray="8 6" opacity="0.8" />
+                                <circle cx="250" cy="255" r="145" stroke="#009B4C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6" />
+                                <circle cx="250" cy="255" r="175" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
+
+                                <!-- Left High-Tech Circuit Traces -->
+                                <path d="M 35 120 L 135 120 L 175 180 L 175 255" stroke="#009B4C" stroke-width="2.5" stroke-dasharray="6 4" />
+                                <circle cx="35" cy="120" r="4.5" fill="#009B4C" />
+                                <path d="M 25 380 L 125 380 L 175 330 L 175 255" stroke="#009B4C" stroke-width="2" />
+                                <circle cx="25" cy="380" r="4" fill="#009B4C" />
+
+                                <!-- Right High-Tech Circuit Traces -->
+                                <path d="M 465 130 L 365 130 L 325 190 L 325 255" stroke="#FDD100" stroke-width="2.5" stroke-dasharray="6 4" />
+                                <circle cx="465" cy="130" r="4.5" fill="#FDD100" />
+                                <path d="M 475 370 L 375 370 L 325 320 L 325 255" stroke="#FDD100" stroke-width="2" />
+                                <circle cx="475" cy="370" r="4" fill="#FDD100" />
+
+                                <!-- Official AI UNMUL Logo Emblem -->
+                                <image id="revealLogoImg" 
+                                       href="/static/images/logo/LogoAI (3).png" 
+                                       x="130" y="135" width="240" height="240" 
+                                       preserveAspectRatio="xMidYMid meet" 
+                                       filter="url(#revealLogoGlow)" />
+
+                                <!-- Authentic Institutional Typography -->
+                                <text x="250" y="420" text-anchor="middle" fill="#FDD100" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="3.5">HIMPUNAN MAHASISWA INFORMATIKA</text>
+                                <text x="250" y="454" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="900" letter-spacing="1.2">UNIVERSITAS MULAWARMAN</text>
+                                <text x="250" y="482" text-anchor="middle" fill="#009B4C" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="4">ASSOCIATION OF INFORMATICS</text>
+                            </g>
+                        </svg>
+
+                        <!-- Specular Light Sheen (Reacts to cursor coordinates) -->
+                        <div id="liquidSheen" 
+                             class="absolute inset-0 z-30 pointer-events-none opacity-0 transition-opacity duration-300 mix-blend-overlay"
+                             style="background: radial-gradient(circle 280px at 50% 50%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.12) 40%, transparent 70%);">
+                        </div>
+
+                        <!-- Inner Bevel Glass Highlight -->
+                        <div class="absolute inset-0 z-30 pointer-events-none rounded-[2rem] border border-white/20 shadow-inner"></div>
+
+                    </div>
+
+                    </div>
                 </div>
             </div>
 
-            <!-- Kinetic Typography Headline: Balanced 2-line layout without vertical ballooning -->
-            <h1 id="heroTitle" class="flex flex-col items-center select-none text-center gap-1 sm:gap-2">
-                <!-- Line 1: Association of Informatics (fitted to exact character length) -->
-                <span class="kinetic-highlight relative inline-block rounded-md align-baseline">
-                    <span class="kinetic-block-curtain bg-primary rounded-md" aria-hidden="true"></span>
-                    <span class="kinetic-text-target text-base-content font-bold tracking-tight text-lg sm:text-2xl md:text-3xl lg:text-4xl">
-                        Association of Informatics
-                    </span>
-                </span>
-
-                <!-- Line 2: Universitas Mulawarman (fitted to exact character length, inverted accent fill) -->
-                <span class="kinetic-highlight relative inline-block rounded-lg align-baseline">
-                    <span class="kinetic-block-curtain bg-accent rounded-lg" aria-hidden="true"></span>
-                    <span class="kinetic-text-target text-primary font-black tracking-tight text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
-                        Universitas Mulawarman
-                    </span>
-                </span>
-            </h1>
-
-            <!-- subheadline -->
-            <p id="heroSubtitle" class="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-base-content/70 max-w-xl mx-auto leading-relaxed will-change-transform">
-                Wadah berkumpul, bertumbuh, dan berkarya mahasiswa Informatika, membangun
-                kompetensi, kolaborasi, dan kontribusi nyata bagi kampus dan masyarakat.
-            </p>
-
-            <!-- CTAs -->
-            <div id="heroCta" class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 will-change-transform">
-                <a href="/profil/tentang"
-                   class="btn btn-primary rounded-full px-6 py-2 shadow-md shadow-brand-red/25 hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm font-semibold">
-                    Ayo cari tau tentang AI!
-                </a>
-                <a href="#program"
-                   class="btn btn-outline rounded-full px-6 py-2 hover:-translate-y-0.5 transition-all text-sm font-medium">
-                    Lihat program kerja
-                </a>
-            </div>
         </div>
     </div>
 
-    <!-- scroll cue -->
+    <!-- Scroll cue -->
     <a id="heroScrollCue" href="#stats" class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 text-base-content/40 hover:text-base-content transition-colors" aria-label="Scroll ke bawah">
         <i class="fa-solid fa-chevron-down text-base animate-bounce-down"></i>
     </a>
@@ -422,118 +600,280 @@
         window.addEventListener('resize', checkScrollReveals, { passive: true });
 
         // ========================================================
-        // 2. KINETIC BLOCK WIPE REVEAL (LABELED TEXT TARGETS ONLY)
-        // (Fits exact character length of designated elements)
+        // 2. KINETIC BLOCK WIPE REVEAL (LABELED TEXT TARGETS)
+        // (Smooth hardware-accelerated translateX: -102% -> 0 -> 102%)
         // ========================================================
         if (window.gsap && !prefersReducedMotion) {
-            const highlights = document.querySelectorAll('.kinetic-highlight');
-            const logo = document.getElementById('heroLogoWrap');
-            const subtitle = document.getElementById('heroSubtitle');
-            const ctas = document.getElementById('heroCta');
-            const scrollCue = document.getElementById('heroScrollCue');
-            const heroSection = document.getElementById('heroSection');
-
-            // Setup logo, subtitle, ctas
-            if (logo) gsap.set(logo, { scale: 0.9, opacity: 0, y: -18 });
-            if (subtitle) gsap.set(subtitle, { opacity: 0, y: 16 });
-            if (ctas) gsap.set(ctas, { opacity: 0, y: 16 });
-            if (scrollCue) gsap.set(scrollCue, { opacity: 0 });
-
-            // Initial state: hide designated text, curtain scaleX 0 from left
-            highlights.forEach(function (w) {
-                const curtain = w.querySelector('.kinetic-block-curtain');
-                const text = w.querySelector('.kinetic-text-target');
-
-                if (text) gsap.set(text, { opacity: 0 });
-                if (curtain) gsap.set(curtain, { scaleX: 0, transformOrigin: "left center" });
+            const wraps = document.querySelectorAll('.kinetic-wrap');
+            
+            wraps.forEach(wrap => {
+                const curtain = wrap.querySelector('.kinetic-curtain');
+                const text = wrap.querySelector('.kinetic-text');
+                if (text) text.style.opacity = '0';
+                if (curtain) gsap.set(curtain, { xPercent: -102 });
             });
 
-            // Master Entrance Timeline
-            const masterTl = gsap.timeline();
+            const kineticTl = gsap.timeline({ delay: 0.1 });
 
-            // Step 1: Logo enters softly
-            if (logo) {
-                masterTl.to(logo, {
-                    scale: 1,
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.65,
-                    ease: "back.out(1.4)",
-                    onComplete: function () {
-                        gsap.set(logo, { clearProps: "transform,opacity" });
-                    }
-                }, 0.05);
-            }
-
-            // Step 2: Block wipe on both lines, fitting each exact character length
-            highlights.forEach(function (w, idx) {
-                const curtain = w.querySelector('.kinetic-block-curtain');
-                const text = w.querySelector('.kinetic-text-target');
+            wraps.forEach((wrap, idx) => {
+                const curtain = wrap.querySelector('.kinetic-curtain');
+                const text = wrap.querySelector('.kinetic-text');
                 if (!curtain || !text) return;
 
-                const startAt = 0.22 + (idx * 0.22);
-                const expandDur = 0.42;
-                const shrinkDur = 0.42;
+                const startAt = 0.1 + (idx * 0.28);
+                const dur = 0.38;
 
-                // Curtain sweeps across strictly matching the character length
-                masterTl.to(curtain, {
-                    scaleX: 1,
-                    duration: expandDur,
-                    ease: "power3.inOut"
-                }, startAt);
-
-                // Reveal solid text under the curtain at full coverage, flip origin to right
-                masterTl.add(function () {
-                    gsap.set(text, { opacity: 1 });
-                    gsap.set(curtain, { transformOrigin: "right center" });
-                }, startAt + expandDur);
-
-                // Curtain sweeps off to the right, leaving the solid text standing crisp
-                masterTl.to(curtain, {
-                    scaleX: 0,
-                    duration: shrinkDur,
-                    ease: "power3.out"
-                }, startAt + expandDur);
+                // 1. Curtain sweeps across from left to cover text
+                kineticTl.fromTo(curtain,
+                    { xPercent: -102 },
+                    { xPercent: 0, duration: dur, ease: "power2.inOut" },
+                    startAt
+                )
+                // 2. Reveal solid text at full coverage
+                .call(() => {
+                    text.style.opacity = '1';
+                }, null, startAt + dur)
+                // 3. Curtain sweeps away to the right, leaving solid text
+                .to(curtain, {
+                    xPercent: 102,
+                    duration: dur,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        curtain.style.display = 'none';
+                    }
+                }, startAt + dur);
             });
 
-            // Step 3: Subtitle & CTAs fade in smoothly
-            masterTl.to([subtitle, ctas], {
-                opacity: 1,
-                y: 0,
-                duration: 0.7,
-                stagger: 0.1,
-                ease: "power2.out"
-            }, 0.95);
-
-            if (scrollCue) {
-                masterTl.to(scrollCue, {
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power2.out"
-                }, 1.15);
+            // Entrance for Right Centerpiece
+            const rightVisual = document.getElementById('heroRightVisual');
+            if (rightVisual) {
+                kineticTl.from(rightVisual, {
+                    scale: 0.94,
+                    opacity: 0.7,
+                    duration: 0.7,
+                    ease: "power3.out"
+                }, 0.25);
             }
 
-            // ========================================================
-            // 3. PARALLAX (Logo remains 100% visible and floating)
-            // ========================================================
-            if (window.ScrollTrigger && heroSection) {
-                const parallaxTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: heroSection,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: 0.5,
-                        invalidateOnRefresh: true,
-                    }
+            // Failsafe: Ensure text is 100% visible after 1.8 seconds under any circumstance
+            setTimeout(() => {
+                document.querySelectorAll('.kinetic-curtain').forEach(c => c.style.display = 'none');
+                document.querySelectorAll('.kinetic-text').forEach(t => t.style.opacity = '1');
+            }, 1800);
+        } else {
+            document.querySelectorAll('.kinetic-curtain').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.kinetic-text').forEach(t => t.style.opacity = '1');
+        }
+
+        // ========================================================
+        // 3. INTERACTIVE LIQUID CURSOR MASK REVEAL (LANDO NORRIS SIGNATURE)
+        // SVG Gooey Metaballs Trailing Cursor with Staggered GSAP quickTo Lag
+        // Center Proximity & Click-Hold Expansion
+        // ========================================================
+        const portal = document.getElementById('liquidPortalContainer');
+        const card = document.getElementById('liquidCard');
+        const sheen = document.getElementById('liquidSheen');
+        const blobs = document.querySelectorAll('.liquid-blob');
+
+        if (portal && card && blobs.length && window.gsap) {
+            const baseRadii = [82, 74, 66, 58, 48];
+            const durations = [0.12, 0.19, 0.26, 0.34, 0.42];
+
+            // State holding current (x, y) coordinates for each blob
+            const blobState = [];
+            const xSetters = [];
+            const ySetters = [];
+
+            blobs.forEach((blob, i) => {
+                const state = { x: 250, y: 312.5 };
+                blobState.push(state);
+
+                // GSAP quickTo setters for fluid trailing with staggered delay
+                xSetters.push(gsap.quickTo(state, "x", { duration: durations[i], ease: "power2.out" }));
+                ySetters.push(gsap.quickTo(state, "y", { duration: durations[i], ease: "power2.out" }));
+            });
+
+            // GSAP Ticker: synchronizes SVG circle positions at screen refresh rate (60/120fps)
+            gsap.ticker.add(() => {
+                for (let i = 0; i < blobs.length; i++) {
+                    blobs[i].setAttribute('cx', blobState[i].x.toFixed(2));
+                    blobs[i].setAttribute('cy', blobState[i].y.toFixed(2));
+                }
+            });
+
+            let isInside = false;
+            let isHoldingClick = false;
+            let isExpanded = false;
+
+            function updateExpansion(shouldExpand) {
+                if (isExpanded === shouldExpand) return;
+                isExpanded = shouldExpand;
+
+                if (shouldExpand) {
+                    blobs.forEach((blob) => {
+                        gsap.to(blob, {
+                            attr: { r: 520 },
+                            duration: 0.65,
+                            ease: "power3.out",
+                            overwrite: "auto"
+                        });
+                    });
+                } else {
+                    blobs.forEach((blob, i) => {
+                        gsap.to(blob, {
+                            attr: { r: isInside ? baseRadii[i] : 0 },
+                            duration: 0.5,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    });
+                }
+            }
+
+            function onPointerEnter(e) {
+                isInside = true;
+                if (sheen) gsap.to(sheen, { opacity: 0.85, duration: 0.3 });
+
+                const rect = portal.getBoundingClientRect();
+                const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : rect.left + rect.width / 2);
+                const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : rect.top + rect.height / 2);
+                const startX = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)) * 500;
+                const startY = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height)) * 625;
+
+                // Position all blobs directly at the cursor when entering freshly
+                blobState.forEach((state) => {
+                    state.x = startX;
+                    state.y = startY;
+                });
+                blobs.forEach((blob) => {
+                    blob.setAttribute('cx', startX.toFixed(2));
+                    blob.setAttribute('cy', startY.toFixed(2));
                 });
 
-                parallaxTl
-                    .to(".hero-glow-1", { yPercent: 30, ease: "none" }, 0)
-                    .to(".hero-glow-2", { yPercent: 45, ease: "none" }, 0)
-                    .to(".hero-glow-3", { yPercent: 20, ease: "none" }, 0)
-                    .to("#heroBackdropImg", { yPercent: 12, ease: "none" }, 0)
-                    .to("#heroScrollCue", { opacity: 0, y: 15, ease: "none" }, 0);
+                // Smoothly swell blobs into view
+                if (!isExpanded) {
+                    blobs.forEach((blob, i) => {
+                        gsap.to(blob, {
+                            attr: { r: baseRadii[i] },
+                            duration: 0.35 + i * 0.05,
+                            ease: "back.out(1.5)",
+                            overwrite: "auto"
+                        });
+                    });
+                }
             }
+
+            function onPointerLeave() {
+                isInside = false;
+                isHoldingClick = false;
+                updateExpansion(false);
+
+                // Smoothly collapse blob radii back to 0
+                blobs.forEach((blob) => {
+                    gsap.to(blob, {
+                        attr: { r: 0 },
+                        duration: 0.45,
+                        ease: "power2.in",
+                        overwrite: "auto"
+                    });
+                });
+
+                // Reset 3D tilt
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "elastic.out(1, 0.45)"
+                });
+
+                if (sheen) gsap.to(sheen, { opacity: 0, duration: 0.4 });
+            }
+
+            function onPointerMove(e) {
+                if (!isInside) onPointerEnter(e);
+
+                const rect = portal.getBoundingClientRect();
+                const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : rect.left + rect.width / 2);
+                const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : rect.top + rect.height / 2);
+
+                const normX = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+                const normY = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+
+                // Map to SVG viewBox (500 x 625)
+                const targetX = normX * 500;
+                const targetY = normY * 625;
+
+                // Feed coordinates to GSAP quickTo setters for staggered fluid trailing
+                xSetters.forEach(setX => setX(targetX));
+                ySetters.forEach(setY => setY(targetY));
+
+                // Center proximity check: subject center is at (0.5, 0.5)
+                const distFromCenter = Math.hypot(normX - 0.5, normY - 0.5);
+                const isOverCenter = distFromCenter < 0.16;
+
+                // Hold-to-expand or center hover reveal
+                if (isHoldingClick || isOverCenter) {
+                    updateExpansion(true);
+                } else {
+                    updateExpansion(false);
+                }
+
+                // Smooth 3D card tilt
+                const rotateX = (normY - 0.5) * -14;
+                const rotateY = (normX - 0.5) * 14;
+
+                gsap.to(card, {
+                    rotateX: rotateX,
+                    rotateY: rotateY,
+                    scale: 1.02,
+                    duration: 0.22,
+                    ease: "power2.out",
+                    transformPerspective: 900
+                });
+
+                // Update specular sheen position
+                if (sheen) {
+                    sheen.style.background = `radial-gradient(circle 280px at ${(clientX - rect.left)}px ${(clientY - rect.top)}px, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.12) 40%, transparent 70%)`;
+                }
+            }
+
+            portal.addEventListener('mouseenter', onPointerEnter);
+            portal.addEventListener('mouseleave', onPointerLeave);
+            portal.addEventListener('mousemove', onPointerMove);
+
+            // Hold-click to expand
+            portal.addEventListener('mousedown', function (e) {
+                if (e.button === 0) {
+                    isHoldingClick = true;
+                    updateExpansion(true);
+                }
+            });
+
+            window.addEventListener('mouseup', function () {
+                if (isHoldingClick) {
+                    isHoldingClick = false;
+                    if (!isInside) {
+                        updateExpansion(false);
+                    }
+                }
+            });
+
+            // Touch device support (mobile / tablet)
+            portal.addEventListener('touchstart', function (e) {
+                onPointerEnter(e);
+                isHoldingClick = true;
+                onPointerMove(e);
+            }, { passive: true });
+
+            portal.addEventListener('touchmove', function (e) {
+                onPointerMove(e);
+            }, { passive: true });
+
+            portal.addEventListener('touchend', function () {
+                isHoldingClick = false;
+                setTimeout(onPointerLeave, 1200);
+            }, { passive: true });
         }
 
         // ========================================================

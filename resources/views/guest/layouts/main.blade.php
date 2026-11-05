@@ -12,6 +12,14 @@
 
   <script>
     (function() {
+      const urlTheme = new URLSearchParams(window.location.search).get('theme');
+      if (urlTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'ai_unmul_dark');
+        return;
+      } else if (urlTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'ai_unmul');
+        return;
+      }
       const saved = localStorage.getItem('ai_theme');
       if (saved === 'ai_unmul_dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.setAttribute('data-theme', 'ai_unmul_dark');
