@@ -682,9 +682,6 @@
         </div>
     </div>
 </section>
-        </div>
-    </div>
-</section>
 {{end}}
 
 {{define "scripts"}}
@@ -699,134 +696,162 @@
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // ========================================================
-        // 1. SCROLL-TO-SHOW LOGIC FOR ALL CONTENT SECTIONS
-        // (Ensures elements already near/in view appear immediately)
+        // 1 & 2. REPEATABLE SCROLL REVEAL & KINETIC SLIDE STROKE (AOS REPEAT / ONCE: FALSE)
+        // Animations trigger repeatedly every time elements enter the viewport.
+        // Off-screen elements reset smoothly so re-entering triggers them again.
         // ========================================================
-        function checkScrollReveals() {
-            var reveals = document.querySelectorAll('.reveal');
-            if (!reveals.length) return;
-            var triggerBottom = window.innerHeight * 0.92;
-            reveals.forEach(function (el) {
-                var rect = el.getBoundingClientRect();
-                if (rect.top <= triggerBottom) {
-                    el.classList.add('is-visible');
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+            document.querySelectorAll('.kinetic-curtain').forEach(function (c) { c.style.display = 'none'; });
+            document.querySelectorAll('.kinetic-text').forEach(function (t) { t.style.opacity = '1'; });
+        } else {
+            // Function to animate kinetic text inside any container/card
+            function animateKineticContainer(container, baseDelay, stagger) {
+                if (typeof baseDelay === 'undefined') baseDelay = 0;
+                if (typeof stagger === 'undefined') stagger = 0.06;
+                if (!window.gsap) return;
+
+                var wraps = Array.from(container.querySelectorAll('.kinetic-wrap'));
+                if (!wraps.length) return;
+
+                if (container._kineticTl) {
+                    container._kineticTl.kill();
                 }
-            });
-        }
 
-        // Run immediately on load so near-fold content (like #stats) is never blank!
-        checkScrollReveals();
-        window.addEventListener('scroll', checkScrollReveals, { passive: true });
-        window.addEventListener('resize', checkScrollReveals, { passive: true });
+                var tl = gsap.timeline({ delay: baseDelay });
+                container._kineticTl = tl;
 
-        // ========================================================
-        // 2. KINETIC SLIDE STROKE & BLOCK REVEAL (ALL TEXTS EXCEPT NAVBAR)
-        // (Curtain with leading 3.5px glowing stroke sweeps across: -102% -> 0 -> 102%)
-        // ========================================================
-        if (window.gsap && !prefersReducedMotion) {
-            // Function to animate a group of kinetic wraps sequentially
-            function animateKineticBatch(wraps, baseDelay = 0, stagger = 0.08) {
-                if (!wraps || !wraps.length) return;
-                const tl = gsap.timeline({ delay: baseDelay });
-                wraps.forEach((wrap, idx) => {
-                    const curtain = wrap.querySelector('.kinetic-curtain');
-                    const text = wrap.querySelector('.kinetic-text');
+                wraps.forEach(function (wrap, idx) {
+                    var curtain = wrap.querySelector('.kinetic-curtain');
+                    var text = wrap.querySelector('.kinetic-text');
                     if (!curtain || !text) return;
 
-                    const startAt = idx * stagger;
-                    const dur = 0.38;
+                    var startAt = idx * stagger;
+                    var dur = 0.36;
 
                     tl.fromTo(curtain,
                         { xPercent: -102, display: 'block' },
                         { xPercent: 0, duration: dur, ease: "power2.inOut" },
                         startAt
                     )
-                    .call(() => { text.style.opacity = '1'; }, null, startAt + dur)
+                    .call(function () { text.style.opacity = '1'; }, null, startAt + dur)
                     .to(curtain, {
                         xPercent: 102,
                         duration: dur,
                         ease: "power2.inOut",
-                        onComplete: () => {
+                        onComplete: function () {
                             curtain.style.display = 'none';
                             text.style.opacity = '1';
                         }
                     }, startAt + dur);
                 });
 
-                // Per-batch safety timer: ensures this batch finishes gracefully even if window unfocused
-                const batchTotal = (baseDelay + (wraps.length * stagger) + 0.9) * 1000;
-                setTimeout(() => {
-                    wraps.forEach(w => {
-                        const c = w.querySelector('.kinetic-curtain');
-                        const t = w.querySelector('.kinetic-text');
+                // Safety timer scoped to this container
+                var totalMs = (baseDelay + (wraps.length * stagger) + 0.8) * 1000;
+                clearTimeout(container._safetyTimer);
+                container._safetyTimer = setTimeout(function () {
+                    wraps.forEach(function (w) {
+                        var c = w.querySelector('.kinetic-curtain');
+                        var t = w.querySelector('.kinetic-text');
                         if (c) c.style.display = 'none';
                         if (t) t.style.opacity = '1';
                     });
-                }, batchTotal);
+                }, totalMs);
             }
 
-            // A. Initial Hero Section Kinetic Entrance
-            const heroWraps = Array.from(document.querySelectorAll('#heroLeftContent .kinetic-wrap, #heroScrollCue .kinetic-wrap'));
-            if (heroWraps.length) {
-                heroWraps.forEach(w => {
-                    const t = w.querySelector('.kinetic-text');
-                    if (t) t.style.opacity = '0';
+            // Function to reset kinetic wraps and reveal state when off-screen
+            function resetKineticContainer(container) {
+                if (container._kineticTl) {
+                    container._kineticTl.kill();
+                    container._kineticTl = null;
+                }
+                clearTimeout(container._safetyTimer);
+                var wraps = container.querySelectorAll('.kinetic-wrap');
+                wraps.forEach(function (wrap) {
+                    var curtain = wrap.querySelector('.kinetic-curtain');
+                    var text = wrap.querySelector('.kinetic-text');
+                    if (curtain) {
+                        curtain.style.display = 'none';
+                        if (window.gsap) gsap.set(curtain, { xPercent: -102 });
+                    }
+                    if (text) {
+                        text.style.opacity = '0';
+                    }
                 });
-                animateKineticBatch(heroWraps, 0.08, 0.08);
+                container._kineticPlayed = false;
             }
 
-            // Entrance for Right Centerpiece
-            const rightVisual = document.getElementById('heroRightVisual');
-            if (rightVisual) {
-                gsap.from(rightVisual, {
-                    scale: 0.94,
-                    opacity: 0.7,
-                    duration: 0.7,
-                    delay: 0.25,
-                    ease: "power3.out"
-                });
-            }
-
-            // B. Scroll-Triggered Kinetic Text for All Other Sections (#stats, #mengapa, #program, etc.)
-            // Strictly exclude #mainNavbar or any nav elements
-            const nonHeroSections = document.querySelectorAll('section:not(#heroSection)');
-            
-            // Initial state: hide text for all non-hero sections
-            nonHeroSections.forEach(sec => {
-                const wraps = sec.querySelectorAll('.kinetic-wrap');
-                wraps.forEach(w => {
-                    const t = w.querySelector('.kinetic-text');
-                    if (t) t.style.opacity = '0';
-                });
+            // Initial hide of kinetic text
+            document.querySelectorAll('.kinetic-text').forEach(function (t) { t.style.opacity = '0'; });
+            document.querySelectorAll('.kinetic-curtain').forEach(function (c) {
+                c.style.display = 'none';
+                if (window.gsap) gsap.set(c, { xPercent: -102 });
             });
 
+            // A. Observe all .reveal elements (Cards, Headers, Stat items) for repeated AOS
+            var revealElements = document.querySelectorAll('.reveal');
+
             if ('IntersectionObserver' in window) {
-                const sectionObserver = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
+                var aosObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        var el = entry.target;
                         if (entry.isIntersecting) {
-                            const wraps = Array.from(entry.target.querySelectorAll('.kinetic-wrap'));
-                            if (wraps && wraps.length) {
-                                animateKineticBatch(wraps, 0.04, 0.06);
+                            // Element enters viewport: trigger lift & fade in
+                            el.classList.add('is-visible');
+
+                            // Trigger kinetic slide stroke if not already active in this view
+                            if (!el._kineticPlayed) {
+                                el._kineticPlayed = true;
+                                animateKineticContainer(el, 0.04, 0.06);
                             }
-                            obs.unobserve(entry.target);
+                        } else {
+                            // Element left viewport: reset offscreen so it triggers again on re-entry!
+                            el.classList.remove('is-visible');
+                            resetKineticContainer(el);
                         }
                     });
-                }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: "0px 0px -25px 0px"
+                });
 
-                nonHeroSections.forEach(sec => {
-                    sectionObserver.observe(sec);
-                });
+                revealElements.forEach(function (el) { aosObserver.observe(el); });
+
+                // B. Observe Hero Section for repeatable entrance on scroll-back-to-top
+                var heroSec = document.getElementById('heroSection');
+                if (heroSec) {
+                    var heroObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                if (!heroSec._kineticPlayed) {
+                                    heroSec._kineticPlayed = true;
+                                    animateKineticContainer(heroSec, 0.08, 0.08);
+
+                                    var rightVisual = document.getElementById('heroRightVisual');
+                                    if (rightVisual && window.gsap) {
+                                        gsap.fromTo(rightVisual,
+                                            { scale: 0.94, opacity: 0.7 },
+                                            { scale: 1, opacity: 1, duration: 0.7, delay: 0.2, ease: "power3.out" }
+                                        );
+                                    }
+                                }
+                            } else {
+                                // Hero scrolled offscreen above: reset offscreen
+                                resetKineticContainer(heroSec);
+                            }
+                        });
+                    }, {
+                        threshold: 0.12,
+                        rootMargin: "0px 0px -30px 0px"
+                    });
+
+                    heroObserver.observe(heroSec);
+                }
             } else {
-                // Fallback for browsers without IntersectionObserver
-                nonHeroSections.forEach(sec => {
-                    const wraps = Array.from(sec.querySelectorAll('.kinetic-wrap'));
-                    animateKineticBatch(wraps, 0.08, 0.06);
-                });
+                // Fallback for environments without IntersectionObserver
+                revealElements.forEach(function (el) { el.classList.add('is-visible'); });
+                document.querySelectorAll('.kinetic-text').forEach(function (t) { t.style.opacity = '1'; });
             }
-        } else {
-            // Reduced motion or no GSAP
-            document.querySelectorAll('.kinetic-curtain').forEach(c => c.style.display = 'none');
-            document.querySelectorAll('.kinetic-text').forEach(t => t.style.opacity = '1');
         }
 
         // ========================================================
