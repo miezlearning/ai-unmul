@@ -119,6 +119,129 @@
     @media (prefers-reduced-motion: reduce) {
         .kinetic-curtain { display: none !important; }
         .kinetic-text { opacity: 1 !important; }
+        #heroBars { transform: none !important; opacity: 1 !important; }
+        .animata-sub-unit {
+            filter: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+        }
+    }
+
+    /* ===== Animata Shimmer Sweep on Subheadline (animata.design) ===== */
+    .animata-sub-stage {
+        display: grid;
+        grid-template-areas: 'subtext';
+        align-items: start;
+        justify-items: start;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        min-height: 4.8rem;
+    }
+    .animata-sub-unit {
+        grid-area: subtext;
+        display: block;
+        will-change: transform, opacity, filter;
+        backface-visibility: hidden;
+    }
+
+    /* ===== Official Embroidered Brandmark Styling (media_1793905396090) ===== */
+    .hero-lockup {
+        display: inline-flex;
+        align-items: stretch;
+        gap: 0.65rem;
+    }
+    @media (min-width: 640px) {
+        .hero-lockup { gap: 0.85rem; }
+    }
+    @media (min-width: 1024px) {
+        .hero-lockup { gap: 1rem; }
+    }
+
+    /* Single Solid Grand Initial 'I' Bar (Exact 1 solid bar as in real embroidery) */
+    .hero-i-bar {
+        display: block;
+        width: 11px;
+        min-width: 11px;
+        margin-top: 2px;
+        height: calc(100% - 2px);
+        background: #8D021F;
+        border-radius: 2px;
+        box-shadow: 0 0 12px rgba(141, 2, 31, 0.4);
+        flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+        .hero-i-bar {
+            width: 15px;
+            min-width: 15px;
+            border-radius: 2.5px;
+        }
+    }
+    @media (min-width: 768px) {
+        .hero-i-bar {
+            width: 19px;
+            min-width: 19px;
+            border-radius: 3px;
+        }
+    }
+    @media (min-width: 1024px) {
+        .hero-i-bar {
+            width: 22px;
+            min-width: 22px;
+        }
+    }
+    .dark .hero-i-bar,
+    [data-theme="ai_unmul_dark"] .hero-i-bar {
+        background: #e11d48;
+        box-shadow: 0 0 16px rgba(225, 29, 72, 0.5);
+    }
+
+    .hero-text-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.25rem;
+        min-width: 0;
+    }
+    @media (min-width: 640px) {
+        .hero-text-col { gap: 0.35rem; }
+    }
+
+    .hero-line-green {
+        color: #009b4c;
+        line-height: 0.8 !important;
+        letter-spacing: -0.02em;
+    }
+    .dark .hero-line-green,
+    [data-theme="ai_unmul_dark"] .hero-line-green {
+        color: #10b981;
+        text-shadow: 0 0 24px rgba(16, 185, 129, 0.28);
+    }
+
+    .hero-line-red {
+        color: #8D021F;
+        line-height: 0.8 !important;
+        letter-spacing: -0.02em;
+    }
+    .dark .hero-line-red,
+    [data-theme="ai_unmul_dark"] .hero-line-red {
+        color: #e11d48;
+        text-shadow: 0 0 28px rgba(225, 29, 72, 0.35);
+    }
+
+    .hero-curtain-green {
+        background: #009b4c;
+    }
+    .dark .hero-curtain-green,
+    [data-theme="ai_unmul_dark"] .hero-curtain-green {
+        background: #10b981;
+    }
+    .hero-curtain-red {
+        background: #8D021F;
+    }
+    .dark .hero-curtain-red,
+    [data-theme="ai_unmul_dark"] .hero-curtain-red {
+        background: #e11d48;
     }
 
     /* ===== Liquid Glass Portal & 3D Perspective ===== */
@@ -166,39 +289,54 @@
             <!-- ================= LEFT COLUMN: CLEAN EDITORIAL TYPOGRAPHY ================= -->
             <div id="heroLeftContent" class="lg:col-span-7 flex flex-col items-start text-left z-10">
 
-                <!-- Clean Monumental Headline with Labeled Kinetic Block Wipe & Slide Stroke -->
-                <h1 id="heroTitle" class="select-none text-left tracking-tight w-full">
-                    <span class="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-base-content leading-tight">
+                <!-- Clean Monumental Headline with Labeled Kinetic Block Wipe & Slide Stroke (Official Embroidered Brandmark Style) -->
+                <h1 id="heroTitle" class="select-none text-left tracking-tight w-full" aria-label="Association of Informatics Universitas Mulawarman">
+                    <!-- Brandmark Lockup: Left Single Solid 'I' Pillar + Flush Stacked Text (ASSOCIATION OF & NFORMATICS) -->
+                    <div class="hero-lockup">
+                        <!-- Single Solid Red Grand Initial 'I' Pillar (Exactly 1 solid bar matching the letter I) -->
+                        <div id="heroBars" class="self-stretch flex-shrink-0" aria-hidden="true">
+                            <span class="hero-i-bar h-full"></span>
+                        </div>
+
+                        <div class="hero-text-col">
+                            <!-- Line 1: ASSOCIATION OF (Vibrant Emerald Green, All-Caps Athletic Collegiate Embroidery) -->
+                            <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black hero-line-green uppercase">
+                                <span class="kinetic-wrap">
+                                    <span class="kinetic-curtain hero-curtain-green text-white rounded-sm"></span>
+                                    <span class="kinetic-text">ASSOCIATION OF</span>
+                                </span>
+                            </span>
+
+                            <!-- Line 2: NFORMATICS (Preceded by the solid 'I' pillar to spell INFORMATICS) -->
+                            <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black hero-line-red uppercase" aria-label="INFORMATICS">
+                                <span class="kinetic-wrap">
+                                    <span class="kinetic-curtain hero-curtain-red text-white rounded-sm"></span>
+                                    <span class="kinetic-text">NFORMATICS</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Line 3: UNIVERSITAS MULAWARMAN -->
+                    <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-base-content/85 dark:text-base-content/90 tracking-wide mt-4 sm:mt-5">
                         <span class="kinetic-wrap">
-                            <span class="kinetic-curtain bg-base-content/85 dark:bg-white text-white rounded-sm"></span>
-                            <span class="kinetic-text">Association of</span>
-                        </span>
-                    </span>
-                    <span class="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none my-2">
-                        <span class="kinetic-wrap">
-                            <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
-                            <span class="kinetic-text text-primary uppercase">Informatics</span>
-                        </span>
-                    </span>
-                    <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-snug">
-                        <span class="kinetic-wrap">
-                            <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
-                            <span class="kinetic-text text-accent">Universitas Mulawarman</span>
+                            <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
+                            <span class="kinetic-text">UNIVERSITAS MULAWARMAN</span>
                         </span>
                     </span>
                 </h1>
 
-                <!-- Subheadline (Genuine, human, anti-slop) -->
-                <p id="heroSubtitle" class="mt-5 sm:mt-6 text-base sm:text-lg text-base-content/80 max-w-xl leading-relaxed flex flex-col items-start gap-1">
-                    <span class="kinetic-wrap">
-                        <span class="kinetic-curtain bg-primary text-primary rounded-sm"></span>
-                        <span class="kinetic-text">Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika</span>
-                    </span>
-                    <span class="kinetic-wrap">
-                        <span class="kinetic-curtain bg-accent text-accent rounded-sm"></span>
-                        <span class="kinetic-text">Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.</span>
-                    </span>
-                </p>
+                <!-- Subheadline with Animata Shimmer Sweep (animata.design) -->
+                <div id="heroSubtitleStage" class="animata-sub-stage mt-5 sm:mt-6 max-w-xl"
+                     data-phrases='[
+                        "Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.",
+                        "Mendorong inovasi teknologi, riset kecerdasan buatan, dan kreativitas digital tanpa batas.",
+                        "Menumbuhkan generasi technopreneur dan talenta unggul yang adaptif serta berintegritas."
+                     ]'>
+                    <p class="animata-sub-unit text-base sm:text-lg text-base-content/80 leading-relaxed m-0">
+                        Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.
+                    </p>
+                </div>
 
                 <!-- Clean CTAs -->
                 <div id="heroCta" class="mt-7 sm:mt-8 flex flex-wrap items-center gap-4">
@@ -781,12 +919,16 @@
                 container._kineticPlayed = false;
             }
 
-            // Initial hide of kinetic text
+            // Initial hide of kinetic text and brandmark bars
             document.querySelectorAll('.kinetic-text').forEach(function (t) { t.style.opacity = '0'; });
             document.querySelectorAll('.kinetic-curtain').forEach(function (c) {
                 c.style.display = 'none';
                 if (window.gsap) gsap.set(c, { xPercent: -102 });
             });
+            var heroBarsEl = document.getElementById('heroBars');
+            if (heroBarsEl && window.gsap) {
+                gsap.set(heroBarsEl, { scaleY: 0, opacity: 0, transformOrigin: 'top center' });
+            }
 
             // A. Observe all .reveal elements (Cards, Headers, Stat items) for repeated AOS
             var revealElements = document.querySelectorAll('.reveal');
@@ -827,6 +969,14 @@
                                     heroSec._kineticPlayed = true;
                                     animateKineticContainer(heroSec, 0.08, 0.08);
 
+                                    var heroBars = document.getElementById('heroBars');
+                                    if (heroBars && window.gsap) {
+                                        gsap.fromTo(heroBars,
+                                            { scaleY: 0, opacity: 0, transformOrigin: 'top center' },
+                                            { scaleY: 1, opacity: 1, duration: 0.45, ease: "power2.out", delay: 0.04 }
+                                        );
+                                    }
+
                                     var rightVisual = document.getElementById('heroRightVisual');
                                     if (rightVisual && window.gsap) {
                                         gsap.fromTo(rightVisual,
@@ -834,10 +984,18 @@
                                             { scale: 1, opacity: 1, duration: 0.7, delay: 0.2, ease: "power3.out" }
                                         );
                                     }
+
+                                    // Trigger Animata Shimmer Sweep on subheadline
+                                    triggerSubShimmerSweep(true);
                                 }
                             } else {
                                 // Hero scrolled offscreen above: reset offscreen
                                 resetKineticContainer(heroSec);
+                                var heroBars = document.getElementById('heroBars');
+                                if (heroBars && window.gsap) {
+                                    gsap.set(heroBars, { scaleY: 0, opacity: 0 });
+                                }
+                                if (subTimeout) clearTimeout(subTimeout);
                             }
                         });
                     }, {
@@ -847,6 +1005,125 @@
 
                     heroObserver.observe(heroSec);
                 }
+
+                // ========================================================
+                // 2B. ANIMATA SHIMMER SWEEP ON HERO SUBHEADLINE (animata.design)
+                // A subtle sweep across a clean headline, blending in while gliding from left to center.
+                // - Enter: duration 850ms, ease cubic-bezier(0.22, 1, 0.36, 1), from: { opacity: 0, x: -22, blur: 8px }
+                // - Hold: 3200ms (comfortable reading time for narrative statement)
+                // - Exit: duration 650ms, ease cubic-bezier(0.7, 0, 0.84, 0), to: { opacity: 0, x: 22, blur: 8px }
+                // ========================================================
+                var subStage = document.getElementById('heroSubtitleStage');
+                var subPhrases = [
+                    "Wadah berproses, berkolaborasi, dan berkarya mahasiswa Informatika Universitas Mulawarman untuk mengembangkan keilmuan dan kontribusi nyata.",
+                    "Mendorong inovasi teknologi, riset kecerdasan buatan, dan kreativitas digital tanpa batas.",
+                    "Menumbuhkan generasi technopreneur dan talenta unggul yang adaptif serta berintegritas."
+                ];
+                var subCurrentIdx = 0;
+                var subTimeout = null;
+                var subActiveUnit = null;
+
+                if (subStage) {
+                    subActiveUnit = subStage.querySelector('.animata-sub-unit');
+                    var customSubPhrases = subStage.getAttribute('data-phrases');
+                    try {
+                        if (customSubPhrases) subPhrases = JSON.parse(customSubPhrases);
+                    } catch(e) {}
+                }
+
+                function triggerSubShimmerSweep(isInitial) {
+                    if (!subStage || !window.gsap || prefersReducedMotion) return;
+
+                    var heroSec = document.getElementById('heroSection');
+                    if (heroSec) {
+                        var rect = heroSec.getBoundingClientRect();
+                        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+                    }
+
+                    if (isInitial) {
+                        if (!subActiveUnit) {
+                            subActiveUnit = document.createElement('p');
+                            subActiveUnit.className = 'animata-sub-unit text-base sm:text-lg text-base-content/80 leading-relaxed m-0';
+                            subActiveUnit.textContent = subPhrases[0];
+                            subStage.appendChild(subActiveUnit);
+                        }
+                        gsap.fromTo(subActiveUnit,
+                            { opacity: 0, x: -22, filter: 'blur(8px)' },
+                            { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.85, ease: 'power3.out', delay: 0.35 }
+                        );
+                        if (subPhrases.length > 1) {
+                            clearTimeout(subTimeout);
+                            subTimeout = setTimeout(subCycleNext, 3800);
+                        }
+                        return;
+                    }
+
+                    subCycleNext();
+                }
+
+                function subCycleNext() {
+                    if (!subStage || !window.gsap || prefersReducedMotion) return;
+
+                    var heroSec = document.getElementById('heroSection');
+                    if (heroSec) {
+                        var rect = heroSec.getBoundingClientRect();
+                        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                            subTimeout = setTimeout(subCycleNext, 1500);
+                            return;
+                        }
+                    }
+
+                    var nextIdx = (subCurrentIdx + 1) % subPhrases.length;
+                    var nextText = subPhrases[nextIdx];
+
+                    // Create new entering subtitle unit
+                    var newUnit = document.createElement('p');
+                    newUnit.className = 'animata-sub-unit text-base sm:text-lg text-base-content/80 leading-relaxed m-0';
+                    newUnit.textContent = nextText;
+                    subStage.appendChild(newUnit);
+
+                    // Exit current unit: drifts out to the right with soft blur
+                    if (subActiveUnit) {
+                        var oldUnit = subActiveUnit;
+                        gsap.fromTo(oldUnit,
+                            { opacity: 1, x: 0, filter: 'blur(0px)' },
+                            {
+                                opacity: 0,
+                                x: 22,
+                                filter: 'blur(8px)',
+                                duration: 0.65,
+                                ease: 'power2.in',
+                                onComplete: function () {
+                                    if (oldUnit && oldUnit.parentNode === subStage) {
+                                        subStage.removeChild(oldUnit);
+                                    }
+                                }
+                            }
+                        );
+                    }
+
+                    // Enter new unit: drifts in from the left with soft blur gliding to center
+                    gsap.fromTo(newUnit,
+                        { opacity: 0, x: -22, filter: 'blur(8px)' },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            filter: 'blur(0px)',
+                            duration: 0.85,
+                            ease: 'power3.out',
+                            delay: 0.04
+                        }
+                    );
+
+                    subActiveUnit = newUnit;
+                    subCurrentIdx = nextIdx;
+
+                    clearTimeout(subTimeout);
+                    subTimeout = setTimeout(subCycleNext, 4200);
+                }
+
+                // Initial sweep trigger
+                triggerSubShimmerSweep(true);
             } else {
                 // Fallback for environments without IntersectionObserver
                 revealElements.forEach(function (el) { el.classList.add('is-visible'); });
