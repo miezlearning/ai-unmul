@@ -6,78 +6,486 @@
         background-clip: text;
         color: transparent;
     }
+    .dark .text-gradient-brand,
+    [data-theme="ai_unmul_dark"] .text-gradient-brand {
+        background: linear-gradient(120deg, #e11d48 0%, #e11d48 50%, #10b981 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .dev-window {
+        border-radius: 1.25rem;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+    }
+    .dark .dev-window,
+    [data-theme="ai_unmul_dark"] .dev-window {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(18, 20, 24, 0.85);
+    }
+
+    .dev-window-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        background: rgba(0, 0, 0, 0.02);
+    }
+    .dark .dev-window-header,
+    [data-theme="ai_unmul_dark"] .dev-window-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tree-connector {
+        position: relative;
+    }
+    .tree-connector::before {
+        content: '';
+        position: absolute;
+        top: -24px;
+        left: 50%;
+        width: 2px;
+        height: 24px;
+        background: rgba(0, 0, 0, 0.1);
+        transform: translateX(-50%);
+    }
+    .dark .tree-connector::before {
+        background: rgba(255, 255, 255, 0.12);
+    }
 </style>
 {{end}}
 
 {{define "content"}}
-<div class="pt-28 pb-20 sm:pt-36 sm:pb-28">
+<div class="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-base-100">
     <div class="container mx-auto px-4 max-w-5xl">
-        <!-- Breadcrumb -->
-        <div class="breadcrumbs text-sm mb-6 text-base-content/60">
-            <ul>
-                <li><a href="/">Beranda</a></li>
-                <li>Profil</li>
-                <li class="text-primary font-semibold">Struktur Kabinet</li>
-            </ul>
+        
+        <!-- Breadcrumb & Architecture Badge -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <nav class="breadcrumbs text-xs text-base-content/60" aria-label="Breadcrumb">
+                <ul>
+                    <li><a href="/" class="hover:text-primary transition-colors">home</a></li>
+                    <li class="text-base-content/40">profil</li>
+                    <li class="text-primary font-mono font-semibold">governance.topology.ts</li>
+                </ul>
+            </nav>
+
+            <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1 rounded-full bg-base-200 border border-base-300 dark:border-white/10 text-[11px] font-mono text-base-content/70">
+                <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+                <span>CLUSTER: ACTIVE_CABINET_RUNTIME</span>
+            </div>
         </div>
 
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <span class="inline-block text-xs font-bold tracking-widest uppercase text-brand-red mb-2">KEPENGURUSAN</span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
-                Kabinet <span class="text-gradient-brand">AI UNMUL</span>
+        <!-- Monumental Tech Header -->
+        <header class="text-center mb-12 sm:mb-16">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/25 text-xs font-mono text-accent uppercase tracking-wider mb-4">
+                <i class="fa-solid fa-sitemap text-[10px]"></i>
+                <span>GOVERNANCE TOPOLOGY // AD BAB VII &amp; ART BAB V-VI</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                Struktur Kepengurusan <span class="text-gradient-brand">AI UNMUL</span>
             </h1>
-            <p class="mt-4 text-base-content/70 max-w-2xl mx-auto">
-                Susunan pengurus dan badan pelaksana harian yang mengemban amanah menjalankan roda organisasi demi kemajuan Informatika Universitas Mulawarman.
+            <p class="mt-4 text-base sm:text-lg text-base-content/75 max-w-2xl mx-auto leading-relaxed">
+                Peta arsitektur tata kelola organisasi: dari kedaulatan konsensus mahasiswa, dewan pengawas legislatif, hingga runtime eksekutif dan departemen teknis pelaksana.
             </p>
-        </div>
+        </header>
 
-        <!-- Struktur Pimpinan -->
-        <div class="max-w-xl mx-auto mb-14 text-center">
-            <div class="p-6 rounded-2xl bg-base-200 border border-base-300 shadow-sm">
-                <div class="h-20 w-20 mx-auto rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-3xl mb-4">
-                    <i class="fa-solid fa-crown"></i>
+        <!-- ================= NODE 01: ROOT AUTHORITY (MUBES AI) ================= -->
+        <section class="mb-10 sm:mb-12" aria-label="Musyawarah Besar">
+            <div class="dev-window shadow-lg border-t-4 border-t-primary">
+                <!-- Window Header -->
+                <div class="dev-window-header">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-2 font-mono text-xs font-bold text-base-content/70">
+                            node:root_authority // MUBES_AI
+                        </span>
+                    </div>
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">
+                        SUPREME_AUTHORITY
+                    </span>
                 </div>
-                <h3 class="text-xl font-bold">Badan Pengurus Harian (BPH)</h3>
-                <p class="text-sm text-base-content/70 mt-1">Ketua Umum, Wakil Ketua, Sekretaris Umum, & Bendahara Umum</p>
-            </div>
-        </div>
 
-        <!-- Divisi-divisi -->
-        <h2 class="text-2xl font-bold text-center mb-8">Bidang & Divisi Kerja</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
-                <div class="text-2xl text-brand-red mb-3"><i class="fa-solid fa-laptop-code"></i></div>
-                <h3 class="font-bold mb-1">Riset & Teknologi</h3>
-                <p class="text-xs text-base-content/70">Fokus pada eksplorasi teknologi, coding workshop, dan pembinaan tim lomba software/data.</p>
+                <div class="p-6 sm:p-8">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-base-300 dark:border-white/10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center text-xl shadow-md flex-shrink-0">
+                                <i class="fa-solid fa-gavel"></i>
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-mono font-bold uppercase tracking-widest text-primary block">Level 01 // Kedaulatan Tertinggi</span>
+                                <h2 class="text-xl sm:text-2xl font-black text-base-content">Musyawarah Besar (MUBES AI)</h2>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 font-mono text-xs text-base-content/70">
+                            <span class="px-2.5 py-1 rounded bg-base-200 border border-base-300 dark:border-white/10">
+                                PROTOCOL: AD_PASAL_16
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-6 pt-6 font-mono text-xs">
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <span class="text-base-content/50 uppercase block mb-1">PERIODESASI</span>
+                            <div class="font-bold text-sm text-base-content font-sans">1 Kali per Periode</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1">Dihadiri seluruh mahasiswa Informatika untuk menentukan arah dasar organisasi.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <span class="text-base-content/50 uppercase block mb-1">HAK KONSTITUSI</span>
+                            <div class="font-bold text-sm text-base-content font-sans">AD/ART &amp; GBHK</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1">Menetapkan konstitusi resmi serta mengevaluasi laporan pertanggungjawaban (LPJ).</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <span class="text-base-content/50 uppercase block mb-1">MANDAT ELEKSI</span>
+                            <div class="font-bold text-sm text-base-content font-sans">Ketum &amp; Ketua DPO</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1">Memilih dan mengesahkan Ketua Umum AI dan Ketua DPO secara berdaulat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NODE 02: SUPERVISORY DAEMON (DPO AI) ================= -->
+        <section class="mb-14 sm:mb-16" aria-label="Dewan Pertimbangan Organisasi">
+            <div class="dev-window shadow-lg border-t-4 border-t-accent">
+                <!-- Window Header -->
+                <div class="dev-window-header">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-2 font-mono text-xs font-bold text-base-content/70">
+                            daemon:watchdog // DPO_AI
+                        </span>
+                    </div>
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-accent/10 text-accent font-bold">
+                        AUDIT_&amp;_OVERSIGHT
+                    </span>
+                </div>
+
+                <div class="p-6 sm:p-8">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-base-300 dark:border-white/10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-accent text-white flex items-center justify-center text-xl shadow-md flex-shrink-0">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-mono font-bold uppercase tracking-widest text-accent block">Level 02 // Legislatif &amp; Pengawas</span>
+                                <h2 class="text-xl sm:text-2xl font-black text-base-content">Dewan Pertimbangan Organisasi (DPO AI)</h2>
+                            </div>
+                        </div>
+                        <span class="font-mono text-xs px-3 py-1 rounded-md bg-base-200 border border-base-300 dark:border-white/10 text-base-content/70">
+                            ART Bab VI (Pasal 22-27)
+                        </span>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-6 pt-6">
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 font-mono text-xs">
+                            <span class="text-accent font-bold block mb-1">DAEMON.COMPOSITION</span>
+                            <div class="font-sans font-bold text-sm text-base-content mb-1">Ketua + Max 6 Anggota</div>
+                            <p class="font-sans text-xs text-base-content/75 leading-relaxed">
+                                Terdiri dari demisioner yang dipilih melalui MUBES untuk menjalankan masa bakti pengawasan selama 1 periode kepengurusan.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 font-mono text-xs">
+                            <span class="text-accent font-bold block mb-1">DAEMON.MONITORING</span>
+                            <div class="font-sans font-bold text-sm text-base-content mb-1">Pengawasan AD/ART</div>
+                            <p class="font-sans text-xs text-base-content/75 leading-relaxed">
+                                Mengawasi implementasi konstitusi, Garis-Garis Besar Haluan Kerja (GBHK), serta realisasi program kerja eksekutif harian.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 font-mono text-xs">
+                            <span class="text-accent font-bold block mb-1">DAEMON.EVAL_SESSION</span>
+                            <div class="font-sans font-bold text-sm text-base-content mb-1">Sidang Evaluasi Berkala</div>
+                            <p class="font-sans text-xs text-base-content/75 leading-relaxed">
+                                Berwenang meminta laporan berkala, memberi telaah tertulis, serta menyelenggarakan Sidang Evaluasi Paruh Periode.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NODE 03: EXECUTIVE CORE RUNTIME (BPI) ================= -->
+        <section class="mb-14 sm:mb-16" aria-label="Badan Pengurus Inti">
+            <div class="text-center mb-10">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-primary block">RUNTIME CLUSTER // LEVEL 03</span>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-1">Badan Pengurus Inti (BPI)</h2>
+                <p class="text-xs sm:text-sm text-base-content/60 max-w-xl mx-auto mt-2">
+                    Empat pengendali eksekutif utama (*Core Controllers*) yang menjalankan amanah operasional harian berdasarkan ART Bab V Pasal 14.
+                </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
-                <div class="text-2xl text-brand-green mb-3"><i class="fa-solid fa-user-graduate"></i></div>
-                <h3 class="font-bold mb-1">Kaderisasi (PSDM)</h3>
-                <p class="text-xs text-base-content/70">Pengembangan kapasitas, kepemimpinan, dan regenerasi anggota AI UNMUL.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Ketua Umum -->
+                <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-primary/50 transition-colors group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">
+                                PID: 001
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-primary font-bold uppercase block">CHIEF EXECUTIVE</span>
+                        <h3 class="text-lg font-black text-base-content mt-0.5">Ketua Umum</h3>
+                        <p class="text-xs text-base-content/75 mt-2.5 leading-relaxed">
+                            Penanggung jawab tertinggi atas seluruh kebijakan organisasi, representasi resmi internal &amp; eksternal kampus, dan pemegang mandat MUBES.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/60 flex items-center justify-between">
+                        <span>ROLE: EXEC_LEADER</span>
+                        <span class="text-primary font-bold">● ACTIVE</span>
+                    </div>
+                </div>
+
+                <!-- Wakil Ketua Umum -->
+                <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-accent/50 transition-colors group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 text-accent font-bold">
+                                PID: 002
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-accent font-bold uppercase block">OPERATIONS DISPATCH</span>
+                        <h3 class="text-lg font-black text-base-content mt-0.5">Wakil Ketua</h3>
+                        <p class="text-xs text-base-content/75 mt-2.5 leading-relaxed">
+                            Mengkoordinir pelaksanaan program kerja lintas departemen, pengawasan manajerial internal, dan pelaksana tugas Ketua saat berhalangan.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/60 flex items-center justify-between">
+                        <span>ROLE: INTER_COORD</span>
+                        <span class="text-accent font-bold">● ACTIVE</span>
+                    </div>
+                </div>
+
+                <!-- Sekretaris Umum -->
+                <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-secondary/50 transition-colors group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-file-signature"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold">
+                                PID: 003
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-secondary font-bold uppercase block">REGISTRY &amp; ARCHIVE</span>
+                        <h3 class="text-lg font-black text-base-content mt-0.5">Sekretaris</h3>
+                        <p class="text-xs text-base-content/75 mt-2.5 leading-relaxed">
+                            Mengelola Standar Operasional Prosedur (SOP) persuratan resmi, tata kelola kearsipan digital, notulensi rapat, dan kepatuhan administrasi.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/60 flex items-center justify-between">
+                        <span>ROLE: ADMIN_REGISTRY</span>
+                        <span class="text-secondary font-bold">● ACTIVE</span>
+                    </div>
+                </div>
+
+                <!-- Bendahara Umum -->
+                <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-primary/50 transition-colors group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-wallet"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">
+                                PID: 004
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-primary font-bold uppercase block">TREASURY &amp; ASSETS</span>
+                        <h3 class="text-lg font-black text-base-content mt-0.5">Bendahara</h3>
+                        <p class="text-xs text-base-content/75 mt-2.5 leading-relaxed">
+                            Mengatur alur kas organisasi, menyusun pembukuan keuangan transparan, pengelolaan iuran mahasiswa, dan inventarisasi aset himpunan.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/60 flex items-center justify-between">
+                        <span>ROLE: FISCAL_LEDGER</span>
+                        <span class="text-primary font-bold">● ACTIVE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NODE 04: PRODUCTION DEPARTMENTS & SERVICES ================= -->
+        <section class="mb-14 sm:mb-16" aria-label="Departemen dan Biro Pelaksana">
+            <div class="text-center mb-10">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent block">PRODUCTION SERVICES // LEVEL 04</span>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-1">Departemen &amp; Biro Pelaksana</h2>
+                <p class="text-xs sm:text-sm text-base-content/60 max-w-xl mx-auto mt-2">
+                    Layanan pelaksana teknis yang mengeksekusi program kerja operasional sesuai Garis-Garis Besar Haluan Kerja (GBHK).
+                </p>
             </div>
 
-            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
-                <div class="text-2xl text-brand-yellow mb-3"><i class="fa-solid fa-bullhorn"></i></div>
-                <h3 class="font-bold mb-1">Media & Informasi</h3>
-                <p class="text-xs text-base-content/70">Pengelolaan media sosial, desain grafis, publikasi konten, dan dokumentasi event.</p>
-            </div>
+            <div class="grid sm:grid-cols-2 gap-6">
+                <!-- Departemen 1: Riset & Teknologi -->
+                <div class="dev-window p-6 sm:p-7 flex flex-col justify-between hover:border-primary/50 transition-colors">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-primary font-bold block">SERVICE: DEPT_RISTEK</span>
+                                    <h3 class="text-lg font-bold text-base-content">Riset &amp; Teknologi</h3>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/15 text-accent font-bold">
+                                200_OK
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
+                            Pusat pengembangan keilmuan informatika terapan, riset kecerdasan buatan, rekayasa perangkat lunak, dan inkubasi delegasi kompetisi IT tingkat universitas maupun nasional.
+                        </p>
+                        
+                        <!-- Program Endpoint Badges -->
+                        <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-accent font-bold">POST</span> /bootcamp
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-primary font-bold">GET</span> /ai-study-jam
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-secondary font-bold">RUN</span> /hackathon-squad
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="p-6 rounded-2xl bg-base-100 border border-base-300 hover:shadow-lg transition-shadow">
-                <div class="text-2xl text-brand-red mb-3"><i class="fa-solid fa-scale-balanced"></i></div>
-                <h3 class="font-bold mb-1">Advokasi Mahasiswa</h3>
-                <p class="text-xs text-base-content/70">Penyaluran aspirasi mahasiswa dan pendampingan isu-isu kemahasiswaan di prodi.</p>
-            </div>
-        </div>
+                <!-- Departemen 2: PSDM & Kaderisasi -->
+                <div class="dev-window p-6 sm:p-7 flex flex-col justify-between hover:border-accent/50 transition-colors">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-accent font-bold block">SERVICE: DEPT_PSDM</span>
+                                    <h3 class="text-lg font-bold text-base-content">PSDM &amp; Kaderisasi</h3>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/15 text-accent font-bold">
+                                200_OK
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
+                            Mengelola alur pengaderan himpunan berjenjang (syarat mutlak keanggotaan aktif Pasal 4 ART), pelatihan kepemimpinan, dan regenerasi tongkat estafet kepengurusan.
+                        </p>
+                        
+                        <!-- Program Endpoint Badges -->
+                        <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-accent font-bold">INIT</span> /cadre-pipeline
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-primary font-bold">EXEC</span> /leadership-camp
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-secondary font-bold">SYNC</span> /family-bonding
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Back CTA -->
-        <div class="text-center mt-14">
-            <a href="/" class="btn btn-outline rounded-full px-6">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Beranda
+                <!-- Departemen 3: Media & Informasi -->
+                <div class="dev-window p-6 sm:p-7 flex flex-col justify-between hover:border-secondary/50 transition-colors">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-photo-film"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-secondary font-bold block">SERVICE: DEPT_MEDINFO</span>
+                                    <h3 class="text-lg font-bold text-base-content">Media &amp; Informasi</h3>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/15 text-accent font-bold">
+                                200_OK
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
+                            Pengelola citra dan branding resmi organisasi, administrasi portal digital website AI UNMUL, publikasi feed sosial media, serta dokumentasi audio-visual kegiatan.
+                        </p>
+                        
+                        <!-- Program Endpoint Badges -->
+                        <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-accent font-bold">DEPLOY</span> /web-portal
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-primary font-bold">GEN</span> /design-assets
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-secondary font-bold">STREAM</span> /media-feeds
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Departemen 4: Humas & Advokasi -->
+                <div class="dev-window p-6 sm:p-7 flex flex-col justify-between hover:border-primary/50 transition-colors">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-handshake-angle"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-primary font-bold block">SERVICE: DEPT_HUMAS_ADVO</span>
+                                    <h3 class="text-lg font-bold text-base-content">Humas &amp; Advokasi</h3>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/15 text-accent font-bold">
+                                200_OK
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
+                            Layanan advokasi aspirasi akademik mahasiswa Informatika, jembatan komunikasi dengan pimpinan fakultas/prodi, jejaring alumni, dan pengabdian masyarakat teknologi.
+                        </p>
+                        
+                        <!-- Program Endpoint Badges -->
+                        <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-accent font-bold">POST</span> /advocacy-ticket
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-primary font-bold">BRIDGE</span> /industry-visit
+                            </span>
+                            <span class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/5 text-base-content/80 font-medium">
+                                <span class="text-secondary font-bold">EXEC</span> /community-care
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back Navigation -->
+        <div class="text-center pt-4">
+            <a href="/" class="btn btn-ghost hover:bg-base-200 rounded-full px-6 text-sm font-mono">
+                <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> cd .. / beranda
             </a>
         </div>
+
     </div>
 </div>
 {{end}}
-

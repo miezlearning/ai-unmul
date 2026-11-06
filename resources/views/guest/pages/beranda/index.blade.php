@@ -292,6 +292,12 @@
             {{-- ================= LEFT COLUMN: CLEAN EDITORIAL TYPOGRAPHY ================= --}}
             <div id="heroLeftContent" class="lg:col-span-7 flex flex-col items-start text-left z-10">
 
+                {{-- Official Jargon Badge (AD/ART AI Pasal 34) --}}
+                <div class="mb-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                    <span>Jargon: &ldquo;SATU, PADU, INFORMATIKA&rdquo;</span>
+                </div>
+
                 {{-- Clean Monumental Headline with Labeled Kinetic Block Wipe & Slide Stroke (Official Embroidered Brandmark Style) --}}
                 <h1 id="heroTitle" class="select-none text-left tracking-tight w-full" aria-label="Association of Informatics Universitas Mulawarman">
                     {{-- Brandmark Lockup: Left Single Solid 'I' Pillar + Flush Stacked Text (ASSOCIATION OF & NFORMATICS) --}}
@@ -380,7 +386,7 @@
                     <div>
                         <span class="kinetic-wrap">
                             <span class="kinetic-curtain bg-base-content/80 dark:bg-white text-white rounded-sm"></span>
-                            <span class="kinetic-text">Fakultas Teknik • Berdiri Sejak 2009</span>
+                            <span class="kinetic-text">Fakultas Teknik • Didirikan 31 Jan 2021</span>
                         </span>
                     </div>
                 </div>
@@ -483,7 +489,7 @@
                     ['icon' => 'fa-users', 'value' => '300+', 'label' => 'Anggota Aktif'],
                     ['icon' => 'fa-layer-group', 'value' => '8', 'label' => 'Divisi / Bidang'],
                     ['icon' => 'fa-calendar-check', 'value' => '20+', 'label' => 'Event / Tahun'],
-                    ['icon' => 'fa-graduation-cap', 'value' => '2009', 'label' => 'Berdiri Sejak'],
+                    ['icon' => 'fa-graduation-cap', 'value' => '2021', 'label' => 'Didirikan Resmi'],
                 ];
             @endphp
             @foreach ($stats as $index => $stat)

@@ -1,7 +1,584 @@
 @extends('guest.layouts.main')
 
 @section('document.head')
+<style>
+    .text-gradient-brand {
+        background: linear-gradient(120deg, #8D021F 0%, #8D021F 45%, #009B4C 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .dark .text-gradient-brand,
+    [data-theme="ai_unmul_dark"] .text-gradient-brand {
+        background: linear-gradient(120deg, #e11d48 0%, #e11d48 50%, #10b981 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Terminal & Devtools Window Chrome */
+    .dev-window {
+        border-radius: 1.25rem;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+    }
+    .dark .dev-window,
+    [data-theme="ai_unmul_dark"] .dev-window {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(18, 20, 24, 0.85);
+    }
+
+    .dev-window-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        background: rgba(0, 0, 0, 0.02);
+    }
+    .dark .dev-window-header,
+    [data-theme="ai_unmul_dark"] .dev-window-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Micro circuit grid texture */
+    .circuit-grid {
+        background-image: radial-gradient(rgba(141, 2, 31, 0.12) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    .dark .circuit-grid,
+    [data-theme="ai_unmul_dark"] .circuit-grid {
+        background-image: radial-gradient(rgba(225, 29, 72, 0.15) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    /* Chip corner crosshairs */
+    .chip-die {
+        position: relative;
+    }
+    .chip-die::before,
+    .chip-die::after {
+        content: '+';
+        position: absolute;
+        font-family: monospace;
+        font-size: 14px;
+        color: rgba(141, 2, 31, 0.4);
+    }
+    .chip-die::before { top: 8px; left: 8px; }
+    .chip-die::after { bottom: 8px; right: 8px; }
+    .dark .chip-die::before,
+    .dark .chip-die::after {
+        color: rgba(225, 29, 72, 0.5);
+    }
+
+    /* Monospace JSON syntax colors */
+    .json-key { color: #8D021F; }
+    .dark .json-key { color: #f43f5e; }
+    .json-str { color: #009B4C; }
+    .dark .json-str { color: #34d399; }
+    .json-val { color: #b45309; }
+    .dark .json-val { color: #fbbf24; }
+</style>
 @endsection
 
 @section('document.body')
+<div class="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-base-100">
+    <div class="container mx-auto px-4 max-w-5xl">
+        
+        <!-- Breadcrumb & System Prompt Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <nav class="breadcrumbs text-xs text-base-content/60" aria-label="Breadcrumb">
+                <ul>
+                    <li><a href="{{ route('guest.beranda.index') }}" class="hover:text-primary transition-colors">home</a></li>
+                    <li class="text-base-content/40">profil</li>
+                    <li class="text-primary font-mono font-semibold">about.config.ts</li>
+                </ul>
+            </nav>
+
+            <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1 rounded-full bg-base-200 border border-base-300 dark:border-white/10 text-[11px] font-mono text-base-content/70">
+                <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+                <span>SYSTEM_ONLINE: FT_UNMUL_NODE</span>
+            </div>
+        </div>
+
+        <!-- Tech-Informed Monumental Header -->
+        <header class="text-center mb-12 sm:mb-16">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono text-primary uppercase tracking-wider mb-4">
+                <i class="fa-solid fa-terminal text-[10px]"></i>
+                <span>MANIFEST // SATU, PADU, INFORMATIKA</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                Tentang <span class="text-gradient-brand">Association of Informatics</span>
+            </h1>
+            <p class="mt-4 text-base sm:text-lg text-base-content/75 max-w-3xl mx-auto leading-relaxed">
+                Wadah kemahasiswaan berdaulat di Program Studi Informatika Fakultas Teknik Universitas Mulawarman yang mengintegrasikan semangat kekeluargaan, riset rekayasa perangkat lunak, sains data, dan kepemimpinan berwibawa.
+            </p>
+        </header>
+
+        <!-- ================= 1. SYSTEM SPECIFICATION & IDENTITY MANIFEST (BENTO IDE) ================= -->
+        <section class="mb-14 sm:mb-20" aria-label="Spesifikasi Sistem Organisasi">
+            <div class="dev-window shadow-xl">
+                <!-- Window Header Tabs -->
+                <div class="dev-window-header">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-2 font-mono text-xs font-bold text-base-content/70 hidden sm:inline">
+                            ai_unmul@ft-server: ~/manifest.json
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px] font-mono text-base-content/60">
+                        <span class="px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10">UTF-8</span>
+                        <span class="px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10">AD/ART-AI-2021</span>
+                    </div>
+                </div>
+
+                <!-- Window Content Grid -->
+                <div class="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-base-300 dark:divide-white/10">
+                    <!-- Left: Code / JSON Manifest View (7 Cols) -->
+                    <div class="lg:col-span-7 p-5 sm:p-7 font-mono text-xs sm:text-[13px] leading-relaxed bg-base-100/50 dark:bg-black/20 overflow-x-auto">
+                        <div class="flex gap-4">
+                            <!-- Line numbers -->
+                            <div class="select-none text-base-content/30 text-right pr-2 border-r border-base-300 dark:border-white/10 space-y-1">
+                                <div>01</div><div>02</div><div>03</div><div>04</div><div>05</div><div>06</div><div>07</div><div>08</div><div>09</div><div>10</div>
+                            </div>
+                            <!-- JSON Body -->
+                            <div class="space-y-1">
+                                <div><span class="text-base-content/40">{</span></div>
+                                <div class="pl-4"><span class="json-key">&quot;organization&quot;</span>: <span class="json-str">&quot;Association of Informatics (AI)&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;established&quot;</span>: <span class="json-val">&quot;2021-01-31T00:00:00+08:00&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;headquarters&quot;</span>: <span class="json-str">&quot;Fakultas Teknik, Universitas Mulawarman&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;jurisdiction&quot;</span>: <span class="json-str">&quot;Samarinda, Kalimantan Timur&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;core_values&quot;</span>: [<span class="json-str">&quot;Pancasila&quot;</span>, <span class="json-str">&quot;UUD 1945&quot;</span>, <span class="json-str">&quot;Kekeluargaan&quot;</span>],</div>
+                                <div class="pl-4"><span class="json-key">&quot;governance_nature&quot;</span>: <span class="json-str">&quot;Independent &amp; Non-Partisan&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;motto&quot;</span>: <span class="json-str">&quot;SATU, PADU, INFORMATIKA&quot;</span>,</div>
+                                <div class="pl-4"><span class="json-key">&quot;status&quot;</span>: <span class="text-accent font-bold">&quot;ACTIVE_ACCREDITED&quot;</span></div>
+                                <div><span class="text-base-content/40">}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: HUD Telemetry Cards (5 Cols) -->
+                    <div class="lg:col-span-5 p-5 sm:p-7 flex flex-col justify-between bg-base-200/40">
+                        <div class="space-y-4">
+                            <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                                <div class="text-[10px] font-mono uppercase text-base-content/50">TIMESTAMP PENDIRIAN</div>
+                                <div class="text-lg font-black text-primary mt-0.5">31 Januari 2021</div>
+                                <div class="text-xs text-base-content/65 mt-0.5">Dideklarasikan melalui MUBES I di Samarinda.</div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                                <div class="text-[10px] font-mono uppercase text-base-content/50">LOKASI KEDUDUKAN</div>
+                                <div class="text-lg font-black text-accent mt-0.5">Fakultas Teknik UNMUL</div>
+                                <div class="text-xs text-base-content/65 mt-0.5">Kampus Gunung Kelua, Jl. Sambaliung No. 9.</div>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                                <div class="text-[10px] font-mono uppercase text-base-content/50">PRINSIP &amp; SIFAT LEMBAGA</div>
+                                <div class="text-lg font-black text-base-content mt-0.5">Independen &amp; Kekeluargaan</div>
+                                <div class="text-xs text-base-content/65 mt-0.5">Non-partisan politik dan terbuka bagi seluruh mahasiswa.</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-base-300 dark:border-white/10 flex items-center justify-between text-xs font-mono text-base-content/60">
+                            <span>RUNTIME: PRODUCTION</span>
+                            <span class="text-accent font-bold">● PASS AD BAB I-III</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 2. DUAL-CORE KERNEL: TUJUAN VS FUNGSI (PASAL 7 & 8 AD) ================= -->
+        <section class="mb-14 sm:mb-20" aria-label="Tujuan dan Fungsi Organisasi">
+            <div class="text-center mb-10">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-primary block">KERNEL LOGIC // AD BAB IV</span>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-1">Tujuan &amp; Fungsi Strategis</h2>
+                <p class="text-xs sm:text-sm text-base-content/60 max-w-xl mx-auto mt-2">
+                    Dua pilar pemrosesan mendasar: Tujuan Pokok sebagai inti pengarah (*Core Purpose*) dan Fungsi sebagai layanan operasional (*Microservices*).
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Core 0: Root Purpose (Pasal 7 AD) - 5 Columns -->
+                <div class="lg:col-span-5 dev-window p-6 sm:p-7 flex flex-col justify-between border-l-4 border-l-primary relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded bg-primary/15 text-primary text-xs font-mono font-bold">
+                                CORE_0: TUJUAN (PASAL 7)
+                            </span>
+                            <i class="fa-solid fa-microchip text-primary/60 text-sm"></i>
+                        </div>
+
+                        <h3 class="text-xl sm:text-2xl font-black text-base-content">Tujuan Pokok Organisasi</h3>
+                        <p class="text-xs sm:text-sm text-base-content/70 mt-2 mb-6 leading-relaxed">
+                            Arah fundamental yang menjadi kompas mutlak bagi seluruh kegiatan kemahasiswaan:
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-primary text-white">01</span>
+                                    <h4 class="font-bold text-sm text-base-content">Menyatukan Kekeluargaan</h4>
+                                </div>
+                                <p class="text-xs text-base-content/75 leading-relaxed pl-7">
+                                    Mempererat tali persaudaraan dan solidaritas segenap mahasiswa Program Studi Informatika Fakultas Teknik Universitas Mulawarman.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5">
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-primary text-white">02</span>
+                                    <h4 class="font-bold text-sm text-base-content">Wadah &amp; Payung Kegiatan</h4>
+                                </div>
+                                <p class="text-xs text-base-content/75 leading-relaxed pl-7">
+                                    Mewadahi, membina, dan menaungi segenap kegiatan mahasiswa baik di ranah akademik teknologi maupun non-akademik.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-base-300 dark:border-white/10 flex items-center justify-between text-xs font-mono text-base-content/60">
+                        <span>STATUS: IMMUTABLE</span>
+                        <span class="text-primary font-bold">● AD_PASAL_7</span>
+                    </div>
+                </div>
+
+                <!-- Core 1: Operational Services (Pasal 8 AD) - 7 Columns -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    <div class="grid sm:grid-cols-2 gap-4 h-full">
+                        <!-- Service 1: Aspirasi -->
+                        <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-accent/40 transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center text-sm font-mono font-bold">
+                                        <i class="fa-solid fa-terminal"></i>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10 text-accent font-bold">
+                                        SVC: ASPIRASI
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-base text-base-content">Wadah Aspirasi</h4>
+                                <span class="text-[11px] font-mono text-accent block mb-2">Pasal 8 Ayat (1)</span>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Menampung, menyalurkan, dan memperjuangkan aspirasi mahasiswa secara terstruktur demi kemajuan akademik dan fasilitas prodi.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/50">
+                                ENDPOINT: /advocacy/inbox
+                            </div>
+                        </div>
+
+                        <!-- Service 2: Fasilitator -->
+                        <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-primary/40 transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-primary/15 text-primary flex items-center justify-center text-sm font-mono font-bold">
+                                        <i class="fa-solid fa-code-branch"></i>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10 text-primary font-bold">
+                                        SVC: PIPELINE
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-base text-base-content">Fasilitator Kegiatan</h4>
+                                <span class="text-[11px] font-mono text-primary block mb-2">Pasal 8 Ayat (2)</span>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Katalisator yang memfasilitasi dan mengorganisir agenda kemahasiswaan produktif, mulai dari riset hingga acara tahunan.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/50">
+                                ENDPOINT: /events/pipeline
+                            </div>
+                        </div>
+
+                        <!-- Service 3: Sinergi -->
+                        <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-secondary/40 transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center text-sm font-mono font-bold">
+                                        <i class="fa-solid fa-network-wired"></i>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10 text-secondary font-bold">
+                                        SVC: NETWORK
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-base text-base-content">Sinergi &amp; Relasi</h4>
+                                <span class="text-[11px] font-mono text-secondary block mb-2">Pasal 8 Ayat (3)</span>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Menjalin konektivitas harmonis internal antar-angkatan serta eksternal dengan birokrasi, ikatan alumni, dan mitra teknologi.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/50">
+                                ENDPOINT: /network/bridge
+                            </div>
+                        </div>
+
+                        <!-- Service 4: Inovasi -->
+                        <div class="dev-window p-5 sm:p-6 flex flex-col justify-between hover:border-accent/40 transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center text-sm font-mono font-bold">
+                                        <i class="fa-solid fa-lightbulb"></i>
+                                    </div>
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-base-300/60 dark:bg-white/10 text-accent font-bold">
+                                        SVC: RESEARCH
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-base text-base-content">Pengembangan Karya</h4>
+                                <span class="text-[11px] font-mono text-accent block mb-2">Pasal 8 Ayat (4)</span>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Wahana pembinaan riset komputasi cerdas, software engineering, sains data, dan inkubasi delegasi kompetisi IT nasional.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-2 border-t border-base-300 dark:border-white/10 text-[10px] font-mono text-base-content/50">
+                                ENDPOINT: /rnd/incubator
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. SCHEMATIC INSIGNIA INSPECTOR (PASAL 9 AD) ================= -->
+        <section class="mb-14 sm:mb-20" aria-label="Bedah Skematik Lambang Resmi">
+            <div class="text-center mb-10">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-accent block">HARDWARE &amp; LOGO SCHEMATIC // AD BAB V PASAL 9</span>
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-1">Dekonstruksi Skematik Lambang AI</h2>
+                <p class="text-xs sm:text-sm text-base-content/60 max-w-xl mx-auto mt-2">
+                    Spesifikasi arsitektural 6 elemen simbolik lambang resmi Association of Informatics berdasarkan AD Bab V Pasal 9.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Left: Silicon Processor Insignia Pedestal (5 Cols) -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28">
+                    <div class="dev-window chip-die circuit-grid p-6 sm:p-8 text-center flex flex-col items-center">
+                        <div class="w-full flex items-center justify-between text-xs font-mono text-base-content/60 mb-4 pb-3 border-b border-base-300 dark:border-white/10">
+                            <span class="text-accent font-bold">ARCH: SOC_AI_UNMUL</span>
+                            <span>VER: 2021.1</span>
+                        </div>
+
+                        <!-- Emblem Canvas with Crosshairs -->
+                        <div class="relative my-3 p-6 rounded-2xl bg-base-100/90 border border-base-300 dark:border-white/10 shadow-lg flex flex-col items-center justify-center group">
+                            <img src="{{ asset('images/logo/LogoAI (3).png') }}" 
+                                 alt="Lambang Resmi Association of Informatics UNMUL" 
+                                 class="w-44 sm:w-52 h-auto object-contain drop-shadow-md select-none transition-transform duration-500 group-hover:scale-105 mb-4"
+                                 loading="lazy" />
+                            
+                            <!-- Telemetry HUD Footer -->
+                            <div class="w-full flex items-center justify-between text-[10px] font-mono pt-3 border-t border-base-200 dark:border-white/10">
+                                <span class="px-2 py-0.5 rounded bg-base-200/90 text-base-content/70">
+                                    CHIP: 64-BIT ARCH
+                                </span>
+                                <span class="px-2 py-0.5 rounded bg-accent/20 text-accent font-bold">
+                                    PASAL 9 AD
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h3 class="font-bold text-lg text-base-content">Association of Informatics</h3>
+                            <p class="text-xs text-base-content/65 font-mono mt-1">Fakultas Teknik Universitas Mulawarman</p>
+                        </div>
+
+                        <div class="w-full mt-6 pt-4 border-t border-base-300 dark:border-white/10 flex items-center justify-between text-xs font-mono text-base-content/60">
+                            <span>MUBES_I_RATIFIED</span>
+                            <span class="text-primary font-bold">● SEAL_VERIFIED</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 6 Hardware Module Specs (7 Cols) -->
+                <div class="lg:col-span-7 space-y-3.5">
+                    <!-- Pin 01 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-primary/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P01
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">Tulisan Melengkung</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">PASAL 9 AYAT 1.A</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Menyerupai payung yang menaungi, mewadahi, serta menyalurkan segenap aspirasi dan potensi mahasiswa Informatika.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pin 02 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-accent/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P02
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">4 Orang Bergandengan</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 text-accent font-bold">PASAL 9 AYAT 1.B</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Asas kekeluargaan yang menyatukan 4 pilar inti: Senior, Junior, Alumni, dan Program Studi Informatika.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pin 03 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-secondary/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P03
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">Prosesor Komputer (CPU Die)</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold">PASAL 9 AYAT 1.C</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Gerak serempak secara bersama dalam satu kesatuan sistem komputasi yang solid, adaptif, dan terkoordinasi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pin 04 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-primary/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P04
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">Simbol Otak (Neural Logic)</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">PASAL 9 AYAT 1.D</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Intelektualitas, daya analitis, dan senantiasa mengedepankan logika ilmiah rasional dalam berpikir dan berkarya.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pin 05 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-accent/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P05
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">Buku Terbuka (Knowledge Base)</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 text-accent font-bold">PASAL 9 AYAT 1.E</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Segenap ilmu pengetahuan sains &amp; teknologi yang bermanfaat bagi masyarakat, kemajuan bangsa, dan peradaban.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pin 06 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-base-200/60 dev-window flex items-start gap-4 hover:border-secondary/50 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-mono text-xs font-bold flex-shrink-0">
+                            P06
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-sm sm:text-base text-base-content">Sirkuit &amp; Segi Delapan (8-Way Bus)</h4>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold">PASAL 9 AYAT 1.F</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-base-content/75 mt-1 leading-relaxed">
+                                Tata kelola terstruktur yang berorientasi digitalisasi, membawa kemakmuran dan kontribusi dari 8 penjuru mata angin.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design Tokens / Tridatu Color System -->
+            <div class="mt-8 dev-window p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-base-300 dark:border-white/10">
+                    <div>
+                        <span class="text-[11px] font-mono uppercase text-base-content/60 font-semibold block">DESIGN TOKENS // COLOR SYSTEM</span>
+                        <h4 class="font-bold text-base text-base-content">Tridatu Identitas Warna Resmi (AD Pasal 9 Ayat 2)</h4>
+                    </div>
+                    <span class="text-xs font-mono text-accent">PALETTE_TOKENS_OK</span>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 font-mono text-xs">
+                    <!-- Red Token -->
+                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
+                        <div class="w-9 h-9 rounded-xl bg-[#8D021F] shadow-sm flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-sm text-[#8D021F] dark:text-[#e11d48]">--brand-crimson</div>
+                            <div class="text-[11px] text-base-content/50">#8D021F</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1 leading-relaxed">
+                                Kepercayaan diri, kekuatan pantang menyerah, dan keberanian bersikap.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Green Token -->
+                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
+                        <div class="w-9 h-9 rounded-xl bg-[#009B4C] shadow-sm flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-sm text-[#009B4C] dark:text-[#10b981]">--brand-emerald</div>
+                            <div class="text-[11px] text-base-content/50">#009B4C</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1 leading-relaxed">
+                                Pertumbuhan, regenerasi kepemimpinan, dan kelestarian pergerakan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Gold Token -->
+                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
+                        <div class="w-9 h-9 rounded-xl bg-[#FDD100] shadow-sm flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-sm text-[#d4af37] dark:text-[#fdd100]">--brand-gold</div>
+                            <div class="text-[11px] text-base-content/50">#FDD100</div>
+                            <p class="font-sans text-xs text-base-content/70 mt-1 leading-relaxed">
+                                Kecerdasan intelektual, optimisme, dan daya cipta tanpa batas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 4. CONSTITUTIONAL CONSENSUS (MUBES AI) ================= -->
+        <section class="mb-14 sm:mb-20" aria-label="Musyawarah Besar">
+            <div class="dev-window bg-gradient-to-r from-base-200 via-base-200/90 to-primary/10 p-7 sm:p-9">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-primary mb-2">
+                            <i class="fa-solid fa-gavel"></i>
+                            <span>ROOT CONSENSUS // AD BAB IX PASAL 16</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black tracking-tight text-base-content">Musyawarah Besar (MUBES AI)</h3>
+                        <p class="text-xs sm:text-sm text-base-content/75 mt-2.5 leading-relaxed">
+                            MUBES merupakan forum kedaulatan mahasiswa tertinggi yang diselenggarakan satu kali per periode kepengurusan untuk menetapkan dan merevisi AD/ART, GBHK, menilai laporan pertanggungjawaban kepengurusan, serta memilih Ketua Umum AI dan Ketua DPO AI.
+                        </p>
+                    </div>
+
+                    <div class="flex-shrink-0 flex flex-wrap gap-3">
+                        <a href="{{ route('guest.profil.kabinet.index') }}" class="btn btn-primary rounded-full px-6 text-xs sm:text-sm font-semibold shadow-sm font-mono">
+                            git checkout kabinet <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+                        </a>
+                        <a href="{{ route('guest.profil.dari-masa-ke-masa.index') }}" class="btn btn-outline rounded-full px-5 text-xs sm:text-sm font-semibold font-mono">
+                            git log --history
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back Navigation -->
+        <div class="text-center pt-4">
+            <a href="{{ route('guest.beranda.index') }}" class="btn btn-ghost hover:bg-base-200 rounded-full px-6 text-sm font-mono">
+                <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> cd .. / beranda
+            </a>
+        </div>
+
+    </div>
+</div>
 @endsection
