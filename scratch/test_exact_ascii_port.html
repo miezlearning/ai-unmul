@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exact Visi Misi Git Port Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8D021F;
+            --background: #f8fafc;
+        }
+        .dark {
+            --primary: #e11d48;
+            --background: #090b10;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #06080d;
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .git-canvas-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Top Spacer for scroll testing -->
+    <div class="h-[500px] flex items-center justify-center border-b border-white/5">
+        <div class="text-center">
+            <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono">SCROLL DOWN TO TEST</span>
+            <h1 class="text-3xl font-black mt-2">Section Identitas & Asas</h1>
+        </div>
+    </div>
+
+    <!-- EXACT PORT OF visi-misi-git.tsx -->
+    <!-- Outer Wrapper: 220vh scroll track -->
+    <div id="vmScrollTrack" class="relative w-full" style="height: 220vh;">
+        
+        <!-- Sticky Viewport Frame: stays fixed & centered while scrolling -->
+        <div id="vmStickyFrame" class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+            
+            <!-- Git Stage Box with Grid Background -->
+            <div class="relative w-full max-w-5xl mx-4 sm:mx-8 rounded-3xl border border-white/10 git-canvas-grid p-6 sm:p-8 bg-[#090b10] shadow-2xl overflow-hidden">
+                
+                <!-- Terminal Header Bar -->
+                <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-6 font-mono text-xs text-zinc-400">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                        <span class="ml-2 text-zinc-300 font-semibold">$ git log --graph --oneline --all</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="vmProgressBadge" class="text-emerald-400 font-bold">0%</span>
+                        <span class="hidden sm:inline text-zinc-500">&bull; SCROLL PIPELINE</span>
+                    </div>
+                </div>
+
+                <!-- Gliding Content Container (auto-adjusts vertical position if screen is short) -->
+                <div id="vmContainer" class="relative mx-auto w-full max-w-4xl font-mono transition-transform duration-75 ease-out">
+                    
+                    <!-- SVG Git Canvas (width: 132px centered) -->
+                    <svg id="vmSvg" role="presentation" aria-hidden="true" class="absolute top-0 pointer-events-none" style="left: 50%; transform: translateX(-50%); width: 132px; overflow: visible;">
+                        <!-- Paths & Dots generated dynamically -->
+                    </svg>
+
+                    <!-- Rows Container -->
+                    <div id="vmRowsContainer">
+                        <!-- Row 0: Visi (Left, text-right) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="0">
+                            <div class="md:col-start-1 md:pr-8 md:text-right">
+                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-sm">
+                                    <span class="text-zinc-400">d041958</span>
+                                    <span class="rounded-full font-medium bg-rose-500/15 text-rose-400 text-xs px-2 py-0.5">HEAD -&gt; main</span>
+                                    <span class="rounded-full font-medium bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5">tag: visi</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    Menjadi wadah kemahasiswaan Program Studi Informatika yang unggul, mandiri, dan berdaya saing global; berlandaskan asas kekeluargaan serta menjunjung tinggi integritas keilmuan dan Tri Dharma Perguruan Tinggi.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 1: Misi 1 (Right, text-left) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="1">
+                            <div class="md:col-start-3 md:pl-8 text-left">
+                                <div class="flex flex-wrap items-center gap-2 text-sm">
+                                    <span class="text-zinc-400">1ef330c</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    <span class="text-rose-500 font-semibold">feat(misi): </span>Menyatukan dan mempererat tali kekeluargaan segenap mahasiswa Informatika lintas angkatan, alumni, dan program studi demi keharmonisan bersama.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Misi 2 (Left, text-right) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="2">
+                            <div class="md:col-start-1 md:pr-8 md:text-right">
+                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-sm">
+                                    <span class="text-zinc-400">afceac7</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    <span class="text-rose-500 font-semibold">feat(misi): </span>Mewadahi serta membina potensi akademik, riset teknologi informasi, kecerdasan buatan, dan keterampilan praktis mahasiswa melalui pembinaan terarah.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Misi 3 (Right, text-left) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="3">
+                            <div class="md:col-start-3 md:pl-8 text-left">
+                                <div class="flex flex-wrap items-center gap-2 text-sm">
+                                    <span class="text-zinc-400">6028f59</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    <span class="text-rose-500 font-semibold">feat(misi): </span>Menampung, mengadvokasi, dan memperjuangkan hak serta aspirasi mahasiswa Informatika secara profesional, inklusif, dan transparan.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 4: Misi 4 (Left, text-right) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="4">
+                            <div class="md:col-start-1 md:pr-8 md:text-right">
+                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-sm">
+                                    <span class="text-zinc-400">5d4c8d1</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    <span class="text-rose-500 font-semibold">feat(misi): </span>Membangun kerja sama harmonis dengan birokrasi universitas, organisasi kemahasiswaan lain, jejaring alumni, serta institusi industri teknologi.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Row 5: Misi 5 (Right, text-left) -->
+                        <div class="vm-row pb-5 md:grid md:grid-cols-[1fr_132px_1fr] md:items-start" data-index="5">
+                            <div class="md:col-start-3 md:pl-8 text-left">
+                                <div class="flex flex-wrap items-center gap-2 text-sm">
+                                    <span class="text-zinc-400">fb76329</span>
+                                </div>
+                                <p class="mt-1 text-zinc-100 text-sm leading-relaxed">
+                                    <span class="text-rose-500 font-semibold">feat(misi): </span>Mengaplikasikan inovasi dan keilmuan teknologi informasi untuk memberikan dampak positif nyata, memecahkan persoalan masyarakat di Kalimantan Timur dan Indonesia.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Spacer (Section 3) -->
+    <div class="h-[800px] flex items-center justify-center border-t border-white/5">
+        <div class="text-center">
+            <span class="text-xs uppercase tracking-widest text-rose-500 font-mono">SECTION 3 (NATURALLY SCROLLED TO)</span>
+            <h2 class="text-3xl font-black mt-2">Tujuan &amp; Fungsi Organisasi</h2>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const STRIP = 132;
+            const CENTER = STRIP / 2; // 66
+            const LEFT = 16;
+            const LANE_GAP = 24;
+            const NODE_OFFSET = 13;
+            const LANE_COLORS = ['#e11d48', '#10b981', '#e0891a'];
+
+            const laneColor = (lane) => LANE_COLORS[lane] || LANE_COLORS[0];
+            const clamp = (v) => Math.max(0, Math.min(1, v));
+            const seg = (p, x, y) => clamp((p - x) / (y - x));
+            function curve(x1, y1, x2, y2) {
+                const my = (y1 + y2) / 2;
+                return `M ${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`;
+            }
+
+            const wrapper = document.getElementById('vmScrollTrack');
+            const container = document.getElementById('vmContainer');
+            const svg = document.getElementById('vmSvg');
+            const badge = document.getElementById('vmProgressBadge');
+            const rowEls = Array.from(document.querySelectorAll('.vm-row'));
+            const n = rowEls.length;
+
+            let pathEls = [];
+            let apexDotEl = null;
+            let commitDotEls = [];
+            let pathLens = [];
+            let geomH = 0;
+            let ys = [];
+            let isDesktop = window.innerWidth >= 768;
+
+            function nodeXAt(i, desktop) {
+                return desktop
+                    ? (i % 2 === 0 ? CENTER - 20 : CENTER + 20)
+                    : LEFT + (i % 2) * LANE_GAP;
+            }
+
+            function setupGeometry() {
+                isDesktop = window.innerWidth >= 768;
+                if (!container || !svg) return;
+
+                ys = rowEls.map(r => r ? r.offsetTop + NODE_OFFSET : 0);
+                geomH = container.offsetHeight;
+
+                svg.setAttribute('height', geomH);
+                if (isDesktop) {
+                    svg.style.left = '50%';
+                    svg.style.transform = 'translateX(-50%)';
+                    svg.style.width = STRIP + 'px';
+                } else {
+                    svg.style.left = '0';
+                    svg.style.transform = 'none';
+                    svg.style.width = (LEFT + 2 * LANE_GAP + 18) + 'px';
+                }
+
+                // Build paths
+                let dMain = `M ${nodeXAt(0, isDesktop)} ${ys[0]}`;
+                for (let i = 0; i < n - 1; i++) {
+                    const my = (ys[i] + ys[i + 1]) / 2;
+                    dMain += ` C ${nodeXAt(i, isDesktop)} ${my}, ${nodeXAt(i + 1, isDesktop)} ${my}, ${nodeXAt(i + 1, isDesktop)} ${ys[i + 1]}`;
+                }
+
+                const outerX = isDesktop ? CENTER + 46 : LEFT + 2 * LANE_GAP;
+                const apexY = (ys[1] + ys[3]) / 2;
+                const dBranch = `${curve(nodeXAt(1, isDesktop), ys[1], outerX, apexY)} ${curve(outerX, apexY, nodeXAt(3, isDesktop), ys[3])}`;
+
+                // SVG Content
+                svg.innerHTML = `
+                    <defs>
+                        <filter id="vmGlow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <path id="vmPathMain" d="${dMain}" stroke="${laneColor(0)}" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#vmGlow)" />
+                    <path id="vmPathBranch" d="${dBranch}" stroke="${laneColor(1)}" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#vmGlow)" />
+                    <circle id="vmApexDot" cx="${outerX}" cy="${apexY}" r="4.5" fill="#090b10" stroke="${laneColor(1)}" stroke-width="2.5" opacity="0" filter="url(#vmGlow)" style="transition: opacity 0.25s ease;" />
+                    ${rowEls.map((_, i) => `
+                        <circle class="vm-commit-dot" data-i="${i}" cx="${nodeXAt(i, isDesktop)}" cy="${ys[i]}" r="${i === 0 ? 5.5 : 4.5}" fill="${laneColor(i % 2)}" stroke="#090b10" stroke-width="2.5" opacity="0" filter="url(#vmGlow)" style="transition: opacity 0.25s ease, transform 0.25s ease; transform-origin: ${nodeXAt(i, isDesktop)}px ${ys[i]}px;" />
+                    `).join('')}
+                `;
+
+                pathEls = [document.getElementById('vmPathMain'), document.getElementById('vmPathBranch')];
+                apexDotEl = document.getElementById('vmApexDot');
+                commitDotEls = Array.from(document.querySelectorAll('.vm-commit-dot'));
+
+                pathLens = pathEls.map(p => {
+                    const l = p ? p.getTotalLength() : 500;
+                    if (p) {
+                        p.style.strokeDasharray = l;
+                        p.style.strokeDashoffset = l;
+                        p.style.opacity = '1';
+                    }
+                    return l;
+                });
+
+                applyScroll();
+            }
+
+            function applyScroll() {
+                if (!wrapper) return;
+                const rect = wrapper.getBoundingClientRect();
+                const total = rect.height - window.innerHeight;
+                const progress = total > 0 ? clamp(-rect.top / total) : 0;
+
+                if (badge) badge.textContent = Math.round(progress * 100) + '%';
+
+                // 1. Draw paths continuously
+                const drawProg = seg(progress, 0, 0.9);
+                pathEls.forEach((p, idx) => {
+                    if (p && pathLens[idx]) {
+                        p.style.strokeDashoffset = pathLens[idx] * (1 - drawProg);
+                    }
+                });
+
+                // 2. Apex hollow dot on branch
+                if (apexDotEl) {
+                    apexDotEl.style.opacity = seg(progress, 0.45, 0.6) * 0.9;
+                }
+
+                // 3. Overflow glide: if content height exceeds screen, smoothly translate upward
+                const overflow = Math.max(0, geomH - window.innerHeight + 120);
+                if (container) {
+                    container.style.transform = `translateY(${-overflow * seg(progress, 0.1, 0.95)}px)`;
+                }
+
+                // 4. Reveal commit dots and slide-in rows
+                commitDotEls.forEach((dot, i) => {
+                    const t = 0.05 + 0.8 * (i / Math.max(1, n - 1));
+                    const r = seg(progress, t, t + 0.12);
+
+                    if (dot) {
+                        dot.style.opacity = r;
+                        dot.style.transform = `scale(${0.4 + 0.6 * r})`;
+                    }
+
+                    const row = rowEls[i];
+                    if (row) {
+                        row.style.opacity = r;
+                        const isLeft = i % 2 === 0;
+                        if (isDesktop) {
+                            const shift = (1 - r) * (isLeft ? -35 : 35);
+                            row.style.transform = `translateX(${shift}px)`;
+                        } else {
+                            const shift = (1 - r) * 12;
+                            row.style.transform = `translateY(${shift}px)`;
+                        }
+                    }
+                });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        applyScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', () => {
+                setupGeometry();
+            });
+            window.addEventListener('DOMContentLoaded', () => {
+                setupGeometry();
+                setTimeout(setupGeometry, 150);
+            });
+            setupGeometry();
+        })();
+    </script>
+</body>
+</html>
+
