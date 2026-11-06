@@ -14,269 +14,738 @@
         color: transparent;
     }
 
-    .dev-window {
-        border-radius: 1.25rem;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        overflow: hidden;
-    }
-    .dark .dev-window,
-    [data-theme="ai_unmul_dark"] .dev-window {
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        background: rgba(18, 20, 24, 0.85);
-    }
-
-    .dev-window-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.75rem 1.25rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-        background: rgba(0, 0, 0, 0.02);
-    }
-    .dark .dev-window-header,
-    [data-theme="ai_unmul_dark"] .dev-window-header {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        background: rgba(255, 255, 255, 0.02);
-    }
-
-    .git-branch-line {
+    /* ===== Animata-Inspired Glowing Card with Cursor-Following Radial Highlight ===== */
+    .animata-glow-card {
         position: relative;
+        isolation: isolate;
+        border-radius: 1.75rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity: 1 !important;
+        visibility: visible !important;
     }
-    .git-branch-line::before {
+    .dark .animata-glow-card,
+    [data-theme="ai_unmul_dark"] .animata-glow-card {
+        background: rgba(18, 20, 24, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .animata-glow-card:hover {
+        border-color: rgba(141, 2, 31, 0.35);
+        box-shadow: 0 14px 34px -8px rgba(141, 2, 31, 0.12);
+    }
+    .dark .animata-glow-card:hover,
+    [data-theme="ai_unmul_dark"] .animata-glow-card:hover {
+        border-color: rgba(225, 29, 72, 0.4);
+        box-shadow: 0 16px 38px -8px rgba(225, 29, 72, 0.2);
+    }
+
+    /* Ambient cursor spotlight inside the card */
+    .animata-glow-card::before {
         content: '';
         position: absolute;
-        top: 28px;
-        bottom: 0;
-        left: 17px;
-        width: 2px;
-        background: rgba(0, 0, 0, 0.1);
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(141, 2, 31, 0.07), transparent 45%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        z-index: 0;
     }
-    .dark .git-branch-line::before {
-        background: rgba(255, 255, 255, 0.12);
+    .dark .animata-glow-card::before,
+    [data-theme="ai_unmul_dark"] .animata-glow-card::before {
+        background: radial-gradient(550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(225, 29, 72, 0.12), transparent 45%);
+    }
+    .animata-glow-card:hover::before {
+        opacity: 1;
+    }
+
+    .animata-card-inner {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ===== Git Tree Visual Rail ===== */
+    .git-rail-col {
+        position: relative;
+        width: 4.5rem;
+        flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+        .git-rail-col {
+            width: 7rem;
+        }
+    }
+    @media (min-width: 768px) {
+        .git-rail-col {
+            width: 8.5rem;
+        }
+    }
+
+    .git-node-lane-0 {
+        margin-left: 0.35rem;
+    }
+    .git-node-lane-1 {
+        margin-left: 2rem;
+    }
+    @media (min-width: 640px) {
+        .git-node-lane-0 {
+            margin-left: 0.75rem;
+        }
+        .git-node-lane-1 {
+            margin-left: 3.75rem;
+        }
+    }
+    @media (min-width: 768px) {
+        .git-node-lane-0 {
+            margin-left: 1rem;
+        }
+        .git-node-lane-1 {
+            margin-left: 4.75rem;
+        }
+    }
+
+    /* Node circles on the git tree */
+    .git-node-outer {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .git-node-outer:hover {
+        transform: scale(1.15);
+    }
+
+    /* Pulse animation on HEAD */
+    @keyframes git-radar {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(2.4); opacity: 0; }
+    }
+    .git-radar-ring {
+        animation: git-radar 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Diff line styling (Git show format) */
+    .git-diff-line {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        border-radius: 0.375rem;
+        padding: 0.35rem 0.6rem;
+        transition: background-color 0.15s ease;
+    }
+    .git-diff-add {
+        background-color: rgba(0, 155, 76, 0.08);
+        color: #007a3d;
+        border-left: 3px solid #009B4C;
+    }
+    .dark .git-diff-add,
+    [data-theme="ai_unmul_dark"] .git-diff-add {
+        background-color: rgba(16, 185, 129, 0.12);
+        color: #34d399;
+        border-left: 3px solid #10b981;
     }
 </style>
 {{end}}
 
 {{define "content"}}
-<div class="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-base-100">
-    <div class="container mx-auto px-4 max-w-4xl">
+<div class="pt-32 pb-24 sm:pt-40 sm:pb-32 bg-base-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         
-        <!-- Breadcrumb & Git Status Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-            <nav class="breadcrumbs text-xs text-base-content/60" aria-label="Breadcrumb">
-                <ul>
-                    <li><a href="/" class="hover:text-primary transition-colors">home</a></li>
-                    <li class="text-base-content/40">profil</li>
-                    <li class="text-primary font-mono font-semibold">CHANGELOG.md</li>
-                </ul>
-            </nav>
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumbs text-xs sm:text-sm mb-8 text-base-content/60" aria-label="Breadcrumb">
+            <ul>
+                <li><a href="/" class="hover:text-primary transition-colors">Beranda</a></li>
+                <li class="text-base-content/40">Profil</li>
+                <li class="text-primary font-semibold">Dari Masa ke Masa</li>
+            </ul>
+        </nav>
 
-            <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1 rounded-full bg-base-200 border border-base-300 dark:border-white/10 text-[11px] font-mono text-base-content/70">
-                <i class="fa-solid fa-code-commit text-primary text-xs"></i>
-                <span>GIT_BRANCH: origin/main*</span>
-            </div>
-        </div>
-
-        <!-- Monumental Tech Header -->
+        <!-- Page Header -->
         <header class="text-center mb-12 sm:mb-16">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary/10 border border-secondary/25 text-xs font-mono text-secondary uppercase tracking-wider mb-4">
-                <i class="fa-solid fa-code-branch text-[10px]"></i>
-                <span>RELEASE LOG // NAPAK TILAS KRONOLOGIS</span>
+            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
+                <i class="fa-solid fa-code-branch text-xs"></i>
+                <span>KRONOLOGI GIT TREE // ESTAFET KEPEMIMPINAN</span>
             </div>
             
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
                 Dari Masa ke <span class="text-gradient-brand">Masa</span>
             </h1>
-            <p class="mt-4 text-base sm:text-lg text-base-content/75 max-w-2xl mx-auto leading-relaxed">
+            <p class="mt-5 text-base sm:text-lg lg:text-xl text-base-content/75 max-w-2xl mx-auto leading-relaxed">
                 Napak tilas berdirinya Association of Informatics (AI) Fakultas Teknik Universitas Mulawarman serta dinamika estafet kepemimpinan dari masa ke masa.
             </p>
+
+            <!-- Interactive Git Branch Navigator Toolbar -->
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs">
+                <button type="button" onclick="jumpToCommit('era-1')" class="px-3.5 py-1.5 rounded-full bg-base-200/80 hover:bg-primary hover:text-white border border-base-300 dark:border-white/10 transition-all font-mono font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-primary"></span>
+                    <span>origin/main &bull; v1.0.0 (2021)</span>
+                </button>
+                <button type="button" onclick="jumpToCommit('era-2')" class="px-3.5 py-1.5 rounded-full bg-base-200/80 hover:bg-accent hover:text-white border border-base-300 dark:border-white/10 transition-all font-mono font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-accent"></span>
+                    <span>branch: governance (2022-2023)</span>
+                </button>
+                <button type="button" onclick="jumpToCommit('era-3')" class="px-3.5 py-1.5 rounded-full bg-base-200/80 hover:bg-secondary hover:text-secondary-content border border-base-300 dark:border-white/10 transition-all font-mono font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                    <span>HEAD: acceleration (2024-Now)</span>
+                </button>
+            </div>
         </header>
 
-        <!-- ================= SEMVER RELEASE TIMELINE ================= -->
-        <div class="space-y-10 sm:space-y-12 git-branch-line">
-            
-            <!-- Release 01: v1.0.0-genesis (2021) -->
-            <article class="relative pl-10 sm:pl-12 group">
-                <!-- Git Commit Node Pin -->
-                <div class="absolute left-0 top-3 w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-mono text-xs shadow-md ring-4 ring-base-100 flex-shrink-0 z-10">
-                    <i class="fa-solid fa-flag text-[11px]"></i>
-                </div>
+        <!-- ================= GIT TREE & TIMELINE CONTAINER ================= -->
+        <div id="gitTimelineContainer" class="relative">
 
-                <!-- Release Window Card -->
-                <div class="dev-window shadow-md hover:border-primary/50 transition-colors">
-                    <div class="dev-window-header font-mono text-xs">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-md bg-primary text-white font-bold text-[11px]">
-                                v1.0.0-genesis
-                            </span>
-                            <span class="text-base-content/60 hidden sm:inline">commit 310121a</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-base-content/60">
-                            <span class="text-[11px]">31 Januari 2021</span>
-                            <span class="px-2 py-0.5 rounded bg-base-300 dark:bg-white/10 text-primary font-bold text-[10px]">STABLE</span>
+            <!-- SVG Background Canvas for Dynamic Git Branch Tree Connector Lines -->
+            <svg id="gitTreeCanvas" class="absolute left-0 top-0 w-16 sm:w-24 md:w-32 h-full pointer-events-none z-0 overflow-visible" aria-hidden="true">
+                <defs>
+                    <!-- Gradient for Main Trunk (Crimson) -->
+                    <linearGradient id="mainBranchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#8D021F" stop-opacity="0.95" />
+                        <stop offset="100%" stop-color="#009B4C" stop-opacity="0.85" />
+                    </linearGradient>
+                    <!-- Gradient for Feature Governance Branch (Emerald to Gold) -->
+                    <linearGradient id="govBranchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#009B4C" stop-opacity="0.95" />
+                        <stop offset="100%" stop-color="#FDD100" stop-opacity="0.9" />
+                    </linearGradient>
+                    <!-- Glow filter for paths -->
+                    <filter id="gitGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="2.5" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Main Trunk Path -->
+                <path id="pathMainTrunk" d="" fill="none" stroke="url(#mainBranchGrad)" stroke-width="3" stroke-linecap="round" filter="url(#gitGlow)" />
+                
+                <!-- Feature Governance Branch Path -->
+                <path id="pathGovernanceBranch" d="" fill="none" stroke="url(#govBranchGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 3" filter="url(#gitGlow)" />
+                
+                <!-- HEAD Extension Path -->
+                <path id="pathHeadExtension" d="" fill="none" stroke="#FDD100" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4" opacity="0.75" />
+            </svg>
+
+            <!-- ================= COMMIT ROWS LIST ================= -->
+            <div class="space-y-12 sm:space-y-20 relative z-10">
+
+                <!-- ----------------- ERA 1: 2021 (INITIAL ROOT COMMIT - LANE 0) ----------------- -->
+                <article id="era-1" class="flex items-start gap-3 sm:gap-6 md:gap-8 group commit-row" data-lane="0">
+                    <!-- Git Tree Node Rail (Lane 0) -->
+                    <div class="git-rail-col pt-6">
+                        <div id="node-anchor-1" class="git-node-outer git-node-lane-0 relative z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-primary text-white flex items-center justify-center shadow-lg ring-4 ring-base-100 flex-shrink-0 cursor-pointer" title="Commit 31a2021 · Root (Lane 0)">
+                            <i class="fa-solid fa-code-commit text-xs sm:text-sm"></i>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-7">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                            <h2 class="text-xl sm:text-2xl font-black text-base-content">
-                                Initial Commit: Deklarasi &amp; Pondasi Konstitusional
-                            </h2>
-                            <span class="text-xs font-mono text-base-content/50">MUBES I • Samarinda</span>
-                        </div>
-                        
-                        <p class="text-xs sm:text-sm text-base-content/75 mt-2 leading-relaxed">
-                            Berdasarkan Bab II Pasal 2 Anggaran Dasar, Association of Informatics resmi didirikan pada 31 Januari 2021 melalui Musyawarah Besar perdana sebagai wadah resmi mahasiswa Program Studi Informatika Fakultas Teknik Universitas Mulawarman.
-                        </p>
+                    <!-- Animata Glowing Card -->
+                    <div class="animata-glow-card flex-1 p-6 sm:p-9 shadow-sm" onmousemove="updateCardGlow(event, this)">
+                        <div class="animata-card-inner">
+                            
+                            <!-- Card Header Bar (Git metadata + PGP verified badge) -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-base-300 dark:border-white/10 mb-6">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-primary text-white font-mono font-bold text-xs">
+                                        origin/main
+                                    </span>
+                                    <button type="button" onclick="copyCommitHash('31a2021')" class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/10 font-mono text-[11px] text-base-content/70 hover:text-primary hover:border-primary transition-colors flex items-center gap-1.5" title="Klik untuk salin hash">
+                                        <i class="fa-regular fa-copy text-[10px]"></i>
+                                        <span>commit 31a2021</span>
+                                    </button>
+                                    <span class="px-2 py-0.5 rounded bg-base-200 text-base-content/60 font-mono text-[11px]">tag: v1.0.0</span>
+                                </div>
 
-                        <!-- Git Diff / Feature Log -->
-                        <div class="mt-5 p-4 rounded-xl bg-base-100/80 border border-base-300 dark:border-white/5 font-mono text-xs space-y-2">
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(constitution):</strong> Pengesahan Anggaran Dasar &amp; Anggaran Rumah Tangga (AD/ART) perdana.</span>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-success/10 text-success font-semibold border border-success/20">
+                                        <i class="fa-solid fa-certificate text-[10px]"></i>
+                                        <span>Verified MUBES I</span>
+                                    </span>
+                                    <span class="text-base-content/50 font-mono hidden sm:inline">&bull; 31 Jan 2021</span>
+                                </div>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(identity):</strong> Penetapan Lambang Resmi, Makna Filosofi 6 Elemen, dan Warna Tridatu.</span>
+
+                            <!-- Title & Summary -->
+                            <div class="mb-6">
+                                <span class="text-xs uppercase tracking-widest text-primary font-bold block mb-1">FASE I &bull; FOUNDATIONAL ROOT COMMIT</span>
+                                <h2 class="text-2xl sm:text-3xl font-black text-base-content leading-tight">
+                                    Deklarasi &amp; Musyawarah Besar (MUBES I)
+                                </h2>
+                                <p class="mt-3 text-sm sm:text-base text-base-content/75 leading-relaxed">
+                                    Berdasarkan Bab II Pasal 2 Anggaran Dasar, Association of Informatics resmi didirikan pada 31 Januari 2021 di Samarinda sebagai satu-satunya wadah representatif mahasiswa Program Studi Informatika Fakultas Teknik Universitas Mulawarman.
+                                </p>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(governance):</strong> Pemilihan Ketua Umum AI dan Ketua Dewan Pertimbangan Organisasi (DPO) pertama.</span>
+
+                            <!-- Animata Content Inspector Tabs (Pencapaian vs Git Diff vs Mandat) -->
+                            <div class="mt-6 pt-4 border-t border-base-300/70 dark:border-white/10">
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <button type="button" onclick="switchCardTab('era-1', 'summary')" id="tab-btn-era-1-summary" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-white transition-all">
+                                        <i class="fa-solid fa-list-check mr-1.5"></i>Pencapaian Utama
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-1', 'diff')" id="tab-btn-era-1-diff" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-code-compare mr-1.5"></i>Arsip Konstitusi (Git Diff +5)
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-1', 'mandate')" id="tab-btn-era-1-mandate" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-users-gear mr-1.5"></i>Mandat &amp; Tokoh
+                                    </button>
+                                </div>
+
+                                <!-- Tab Pane 1: Summary -->
+                                <div id="tab-pane-era-1-summary" class="tab-content-pane block">
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-primary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pengesahan Anggaran Dasar &amp; Anggaran Rumah Tangga (AD/ART) perdana.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-primary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Penetapan Lambang Resmi 6 Elemen Simbolik dan Filosofi Warna Tridatu.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-primary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pemilihan Ketua Umum AI dan Ketua Dewan Pertimbangan Organisasi (DPO) pertama.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-primary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pengumandangan jargon resmi persatuan: &ldquo;SATU, PADU, INFORMATIKA&rdquo;.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 2: Git Diff (Informatika Raw Articles View) -->
+                                <div id="tab-pane-era-1-diff" class="tab-content-pane hidden space-y-2">
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [AD Bab II Pasal 2] AI UNMUL didirikan pada 31 Januari 2021 di Samarinda.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">CONSTITUTION_INIT</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [AD Bab IV Pasal 7] Menetapkan 2 Tujuan Pokok: Persaudaraan &amp; Wadah Karya.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">PURPOSE_LOCK</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [AD Bab V Pasal 9] Merekam 6 Elemen Lambang: CPU Die, Buku Terbuka, Payung, dsb.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">IDENTITY_ASSETS</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [AD Bab V Pasal 10] Standarisasi Warna Tridatu: Merah (#8D021F), Hijau (#009B4C), Kuning.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">PALETTE_SPECS</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [ART Bab V Pasal 14] Pembentukan Badan Pengurus Inti &amp; Dewan Pertimbangan Organisasi.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">ORG_CHART_V1</span>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 3: Mandat -->
+                                <div id="tab-pane-era-1-mandate" class="tab-content-pane hidden">
+                                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 text-xs sm:text-sm text-base-content/80 leading-relaxed">
+                                        <div class="font-bold text-primary mb-1">Mandat Musyawarah Besar (MUBES I):</div>
+                                        Dihadiri oleh perwakilan angkatan mahasiswa aktif Program Studi Informatika FT UNMUL. Forum MUBES I berwenang menetapkan Anggaran Dasar, Garis Besar Arah Perjuangan, dan memilih formatur kepemimpinan perdana sebagai peletak dasar pergerakan.
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(motto):</strong> Pengumandangan jargon resmi persatuan: &ldquo;SATU, PADU, INFORMATIKA&rdquo;.</span>
-                            </div>
+
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <!-- Release 02: v2.0.0-lts (2022 - 2023) -->
-            <article class="relative pl-10 sm:pl-12 group">
-                <!-- Git Commit Node Pin -->
-                <div class="absolute left-0 top-3 w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center font-mono text-xs shadow-md ring-4 ring-base-100 flex-shrink-0 z-10">
-                    <i class="fa-solid fa-code-branch text-[11px]"></i>
-                </div>
-
-                <!-- Release Window Card -->
-                <div class="dev-window shadow-md hover:border-accent/50 transition-colors">
-                    <div class="dev-window-header font-mono text-xs">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-md bg-accent text-white font-bold text-[11px]">
-                                v2.0.0-lts
-                            </span>
-                            <span class="text-base-content/60 hidden sm:inline">commit 2223b8c</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-base-content/60">
-                            <span class="text-[11px]">2022 — 2023</span>
-                            <span class="px-2 py-0.5 rounded bg-base-300 dark:bg-white/10 text-accent font-bold text-[10px]">LTS</span>
+                <!-- ----------------- ERA 2: 2022 - 2023 (GOVERNANCE & CADRE BRANCH - LANE 1) ----------------- -->
+                <article id="era-2" class="flex items-start gap-3 sm:gap-6 md:gap-8 group commit-row" data-lane="1">
+                    <!-- Git Tree Node Rail (Lane 1 - Branch out) -->
+                    <div class="git-rail-col pt-6">
+                        <div id="node-anchor-2" class="git-node-outer git-node-lane-1 relative z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-accent text-white flex items-center justify-center shadow-lg ring-4 ring-base-100 flex-shrink-0 cursor-pointer" title="Commit 0222023 · Branch Governance (Lane 1)">
+                            <i class="fa-solid fa-code-branch text-xs sm:text-sm"></i>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-7">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                            <h2 class="text-xl sm:text-2xl font-black text-base-content">
-                                System Stabilization: Standarisasi Tata Kelola &amp; Kaderisasi
-                            </h2>
-                            <span class="text-xs font-mono text-base-content/50">Fakultas Teknik UNMUL</span>
-                        </div>
-                        
-                        <p class="text-xs sm:text-sm text-base-content/75 mt-2 leading-relaxed">
-                            Fase konsolidasi kelembagaan melalui pembakuan Garis-Garis Besar Haluan Kerja (GBHK), Standard Operating Procedure (SOP) kesekretariatan dan kebendaharaan, serta kurikulum pengaderan berjenjang yang menjadi syarat keanggotaan aktif mahasiswa Informatika.
-                        </p>
+                    <!-- Animata Glowing Card -->
+                    <div class="animata-glow-card flex-1 p-6 sm:p-9 shadow-sm" onmousemove="updateCardGlow(event, this)">
+                        <div class="animata-card-inner">
+                            
+                            <!-- Card Header Bar -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-base-300 dark:border-white/10 mb-6">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-accent text-white font-mono font-bold text-xs">
+                                        feature/governance
+                                    </span>
+                                    <button type="button" onclick="copyCommitHash('0222023')" class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/10 font-mono text-[11px] text-base-content/70 hover:text-accent hover:border-accent transition-colors flex items-center gap-1.5" title="Klik untuk salin hash">
+                                        <i class="fa-regular fa-copy text-[10px]"></i>
+                                        <span>commit 0222023</span>
+                                    </button>
+                                    <span class="px-2 py-0.5 rounded bg-base-200 text-base-content/60 font-mono text-[11px]">tag: v2.0.0</span>
+                                </div>
 
-                        <!-- Git Diff / Feature Log -->
-                        <div class="mt-5 p-4 rounded-xl bg-base-100/80 border border-base-300 dark:border-white/5 font-mono text-xs space-y-2">
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(cadre-pipeline):</strong> Pembakuan alur pengaderan resmi himpunan berbasis kurikulum ilmiah &amp; soft-skill.</span>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-accent/15 text-accent font-semibold border border-accent/25">
+                                        <i class="fa-solid fa-code-merge text-[10px]"></i>
+                                        <span>Merged via GBHK PR #02</span>
+                                    </span>
+                                    <span class="text-base-content/50 font-mono hidden sm:inline">&bull; 2022 &ndash; 2023</span>
+                                </div>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(supervision):</strong> Penguatan mekanisme pengawasan berkala melalui Sidang Evaluasi DPO AI.</span>
+
+                            <!-- Title & Summary -->
+                            <div class="mb-6">
+                                <span class="text-xs uppercase tracking-widest text-accent font-bold block mb-1">FASE II &bull; TATA KELOLA &amp; STANDARISASI KADERISASI</span>
+                                <h2 class="text-2xl sm:text-3xl font-black text-base-content leading-tight">
+                                    Penyempurnaan Tata Kelola &amp; Kurikulum Kaderisasi
+                                </h2>
+                                <p class="mt-3 text-sm sm:text-base text-base-content/75 leading-relaxed">
+                                    Fase konsolidasi kelembagaan melalui pembakuan Garis-Garis Besar Haluan Kerja (GBHK), Standard Operating Procedure (SOP) persuratan dan kebendaharaan, serta kurikulum pengaderan berjenjang yang menjadi syarat keanggotaan aktif mahasiswa Informatika.
+                                </p>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(outreach):</strong> Inisiasi program studi banding teknologi dan pengabdian masyarakat perdana.</span>
+
+                            <!-- Animata Content Inspector Tabs -->
+                            <div class="mt-6 pt-4 border-t border-base-300/70 dark:border-white/10">
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <button type="button" onclick="switchCardTab('era-2', 'summary')" id="tab-btn-era-2-summary" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-accent text-white transition-all">
+                                        <i class="fa-solid fa-list-check mr-1.5"></i>Pencapaian Utama
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-2', 'diff')" id="tab-btn-era-2-diff" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-code-compare mr-1.5"></i>Arsip Konstitusi (Git Diff +5)
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-2', 'mandate')" id="tab-btn-era-2-mandate" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-users-gear mr-1.5"></i>Pengawasan DPO
+                                    </button>
+                                </div>
+
+                                <!-- Tab Pane 1: Summary -->
+                                <div id="tab-pane-era-2-summary" class="tab-content-pane block">
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-accent mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pembakuan alur pengaderan himpunan berbasis kurikulum ilmiah &amp; soft-skill.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-accent mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Penguatan mekanisme pengawasan berkala melalui Sidang Evaluasi DPO AI.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-accent mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Inisiasi program studi banding teknologi dan pengabdian masyarakat perdana.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-accent mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Penataan inventarisasi dan transparansi pelaporan kas keuangan himpunan.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 2: Git Diff -->
+                                <div id="tab-pane-era-2-diff" class="tab-content-pane hidden space-y-2">
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [ART Bab II Pasal 4] Menetapkan Alur Pengaderan sebagai syarat mutlak Anggota Biasa.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">CADRE_PIPELINE</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [ART Bab VI Pasal 18] Perumusan Mekanisme Sidang Pleno &amp; Hak Angket DPO AI.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">LEGISLATIVE_CHECK</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [GBHK Pasal 12] Standardisasi format LPJ Semesteran dan Evaluasi Birokrasi.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">SOP_STANDARDIZE</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [Treasury Standard] Integrasi rekening resmi organisasi dan audit berkala.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">LEDGER_AUDIT</span>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 3: Mandate -->
+                                <div id="tab-pane-era-2-mandate" class="tab-content-pane hidden">
+                                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 text-xs sm:text-sm text-base-content/80 leading-relaxed">
+                                        <div class="font-bold text-accent mb-1">Mekanisme Evaluasi DPO AI:</div>
+                                        Mengevaluasi kinerja Badan Pengurus Inti setiap 3 bulan sekali. Menjamin seluruh jalannya program kerja himpunan tidak menyimpang dari koridor Anggaran Dasar dan Garis Besar Haluan Kerja.
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(finance):</strong> Penataan inventarisasi dan transparansi pelaporan kas keuangan himpunan.</span>
-                            </div>
+
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <!-- Release 03: v3.0.0-current (2024 - Sekarang) -->
-            <article class="relative pl-10 sm:pl-12 group">
-                <!-- Git Commit Node Pin -->
-                <div class="absolute left-0 top-3 w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-mono text-xs shadow-md ring-4 ring-base-100 flex-shrink-0 z-10">
-                    <i class="fa-solid fa-rocket text-[11px]"></i>
-                </div>
-
-                <!-- Release Window Card -->
-                <div class="dev-window shadow-md hover:border-secondary/50 transition-colors">
-                    <div class="dev-window-header font-mono text-xs">
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-md bg-secondary text-secondary-content font-bold text-[11px]">
-                                v3.0.0-current
-                            </span>
-                            <span class="text-base-content/60 hidden sm:inline">commit 2024now</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-base-content/60">
-                            <span class="text-[11px]">2024 — Sekarang</span>
-                            <span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-bold text-[10px]">ACTIVE / HEAD</span>
+                <!-- ----------------- ERA 3: 2024 - SEKARANG (ACCELERATION & PRODUCTION HEAD - LANE 0) ----------------- -->
+                <article id="era-3" class="flex items-start gap-3 sm:gap-6 md:gap-8 group commit-row" data-lane="0">
+                    <!-- Git Tree Node Rail (Lane 0 - Active HEAD) -->
+                    <div class="git-rail-col pt-6">
+                        <div id="node-anchor-3" class="git-node-outer git-node-lane-0 relative z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-secondary text-secondary-content flex items-center justify-center shadow-lg ring-4 ring-base-100 flex-shrink-0 cursor-pointer" title="Commit 24a2026 · HEAD Active (Lane 0)">
+                            <!-- Radar Ping on Active HEAD -->
+                            <span class="git-radar-ring absolute inset-0 rounded-full bg-secondary opacity-75"></span>
+                            <i class="fa-solid fa-rocket text-xs sm:text-sm relative z-10"></i>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-7">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                            <h2 class="text-xl sm:text-2xl font-black text-base-content">
-                                Digital Acceleration &amp; Competitive Engineering
-                            </h2>
-                            <span class="text-xs font-mono text-secondary font-bold">Era Berjalan</span>
-                        </div>
-                        
-                        <p class="text-xs sm:text-sm text-base-content/75 mt-2 leading-relaxed">
-                            AI UNMUL melangkah ke fase kematangan organisasi modern dengan meluncurkan infrastruktur portal web terpadu, pembinaan riset kecerdasan buatan dan rekayasa perangkat lunak, serta perluasan jejaring kerja sama dengan industri teknologi.
-                        </p>
+                    <!-- Animata Glowing Card -->
+                    <div class="animata-glow-card flex-1 p-6 sm:p-9 shadow-sm" onmousemove="updateCardGlow(event, this)">
+                        <div class="animata-card-inner">
+                            
+                            <!-- Card Header Bar -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-base-300 dark:border-white/10 mb-6">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-secondary text-secondary-content font-mono font-bold text-xs flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                        <span>HEAD &bull; release/v3.0</span>
+                                    </span>
+                                    <button type="button" onclick="copyCommitHash('24a2026')" class="px-2.5 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/10 font-mono text-[11px] text-base-content/70 hover:text-secondary hover:border-secondary transition-colors flex items-center gap-1.5" title="Klik untuk salin hash">
+                                        <i class="fa-regular fa-copy text-[10px]"></i>
+                                        <span>commit 24a2026</span>
+                                    </button>
+                                    <span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-mono text-[11px] font-semibold">Aktif Berjalan</span>
+                                </div>
 
-                        <!-- Git Diff / Feature Log -->
-                        <div class="mt-5 p-4 rounded-xl bg-base-100/80 border border-base-300 dark:border-white/5 font-mono text-xs space-y-2">
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(portal-web):</strong> Peluncuran portal web resmi AI UNMUL dengan arsitektur UI/UX modern berkinerja tinggi.</span>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold border border-primary/20">
+                                        <i class="fa-solid fa-bolt text-[10px]"></i>
+                                        <span>Production Deployment</span>
+                                    </span>
+                                    <span class="text-base-content/50 font-mono hidden sm:inline">&bull; 2024 &ndash; Sekarang</span>
+                                </div>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(incubator):</strong> Inkubasi intensif delegasi kompetisi IT nasional (Gemastik, Hackathon, PKM).</span>
+
+                            <!-- Title & Summary -->
+                            <div class="mb-6">
+                                <span class="text-xs uppercase tracking-widest text-secondary font-bold block mb-1">FASE III &bull; TRANSFORMASI DIGITAL &amp; AKSELERASI PRESTASI</span>
+                                <h2 class="text-2xl sm:text-3xl font-black text-base-content leading-tight">
+                                    Transformasi Digital &amp; Akselerasi Prestasi Nasional
+                                </h2>
+                                <p class="mt-3 text-sm sm:text-base text-base-content/75 leading-relaxed">
+                                    AI UNMUL melangkah ke fase kematangan organisasi modern dengan meluncurkan infrastruktur portal web terpadu, pembinaan riset kecerdasan buatan dan rekayasa perangkat lunak, serta perluasan jejaring kemitraan industri teknologi.
+                                </p>
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(helpdesk):</strong> Pemberdayaan Helpdesk Advokasi mahasiswa yang cepat tanggap dan transparan.</span>
+
+                            <!-- Animata Content Inspector Tabs -->
+                            <div class="mt-6 pt-4 border-t border-base-300/70 dark:border-white/10">
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <button type="button" onclick="switchCardTab('era-3', 'summary')" id="tab-btn-era-3-summary" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary text-secondary-content transition-all">
+                                        <i class="fa-solid fa-list-check mr-1.5"></i>Pencapaian Utama
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-3', 'diff')" id="tab-btn-era-3-diff" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-code-compare mr-1.5"></i>Inovasi Baru (Git Diff +5)
+                                    </button>
+                                    <button type="button" onclick="switchCardTab('era-3', 'mandate')" id="tab-btn-era-3-mandate" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-base-200/70 text-base-content/70 hover:text-base-content transition-all">
+                                        <i class="fa-solid fa-users-gear mr-1.5"></i>Ekosistem Kolaboratif
+                                    </button>
+                                </div>
+
+                                <!-- Tab Pane 1: Summary -->
+                                <div id="tab-pane-era-3-summary" class="tab-content-pane block">
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-secondary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pengembangan portal resmi AI UNMUL dengan arsitektur UI/UX berstandar tinggi.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-secondary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Inkubasi intensif delegasi kompetisi IT nasional (Gemastik, Hackathon, PKM).</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-secondary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Pemberdayaan Helpdesk Advokasi mahasiswa yang cepat tanggap dan transparan.</span>
+                                        </div>
+                                        <div class="p-3.5 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3">
+                                            <i class="fa-solid fa-check text-secondary mt-1 text-xs flex-shrink-0"></i>
+                                            <span class="text-xs sm:text-sm text-base-content/85">Memperkokoh budaya kolaboratif lintas angkatan berlandaskan asas kekeluargaan.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 2: Git Diff -->
+                                <div id="tab-pane-era-3-diff" class="tab-content-pane hidden space-y-2">
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [Platform Release] Peluncuran Web Portal Resmi AI UNMUL (Stack Modern).</span>
+                                        <span class="text-[10px] opacity-75 font-mono">WEB_PLATFORM</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [Dept Ristek] Program inkubasi riset kecerdasan buatan &amp; kompetisi nasional.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">INCUBATOR_AI</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [Dept Humas-Advo] Kanal digital aspirasi &amp; bantuan akademik terintegrasi.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">HELPDESK_PORTAL</span>
+                                    </div>
+                                    <div class="git-diff-line git-diff-add flex items-center justify-between">
+                                        <span>+ [Dept Medinfo] Dokumentasi arsip visual interaktif &amp; publikasi berkala.</span>
+                                        <span class="text-[10px] opacity-75 font-mono">MEDIA_HUB</span>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pane 3: Mandate -->
+                                <div id="tab-pane-era-3-mandate" class="tab-content-pane hidden">
+                                    <div class="p-4 rounded-xl bg-base-100 border border-base-300 dark:border-white/5 text-xs sm:text-sm text-base-content/80 leading-relaxed">
+                                        <div class="font-bold text-secondary mb-1">Arah Gerak Ekosistem:</div>
+                                        Menjembatani keilmuan akademis dengan kebutuhan industri dunia nyata. Memberikan bekal teknis dan manajerial agar lulusan Informatika UNMUL mampu bersaing di kancah nasional maupun internasional.
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="flex items-start gap-2">
-                                <span class="text-accent font-bold">+</span>
-                                <span class="text-base-content/85"><strong class="text-base-content">feat(community):</strong> Memperkokoh budaya kolaboratif lintas angkatan berlandaskan asas kekeluargaan.</span>
-                            </div>
+
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
+
+            </div>
 
         </div>
 
-        <!-- Back Navigation -->
-        <div class="text-center pt-14">
-            <a href="/" class="btn btn-ghost hover:bg-base-200 rounded-full px-6 text-sm font-mono">
-                <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> cd .. / beranda
+        <!-- Back to Home Button -->
+        <div class="text-center pt-16">
+            <a href="/" class="btn btn-ghost hover:bg-base-200 rounded-full px-7 text-sm">
+                <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> Kembali ke Beranda
             </a>
         </div>
 
     </div>
 </div>
+
+<!-- Floating Copy Toast Notification -->
+<div id="gitToast" class="fixed bottom-6 right-6 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-3">
+    <div class="px-4 py-2.5 rounded-2xl bg-base-content text-base-100 shadow-xl text-xs font-mono font-medium flex items-center gap-2">
+        <i class="fa-solid fa-check text-success"></i>
+        <span id="gitToastText">ID Komit disalin ke clipboard!</span>
+    </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script>
+    // ===== 1. Animata Card Glow Follower =====
+    function updateCardGlow(e, card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    }
+
+    // ===== 2. Interactive Card Tabs Switcher =====
+    function switchCardTab(eraId, tabKey) {
+        const panes = ['summary', 'diff', 'mandate'];
+        panes.forEach(p => {
+            const el = document.getElementById(`tab-pane-${eraId}-${p}`);
+            const btn = document.getElementById(`tab-btn-${eraId}-${p}`);
+            if (el && btn) {
+                if (p === tabKey) {
+                    el.classList.remove('hidden');
+                    el.classList.add('block');
+                    btn.classList.add('bg-primary', 'text-white');
+                    btn.classList.remove('bg-base-200/70', 'text-base-content/70');
+                } else {
+                    el.classList.remove('block');
+                    el.classList.add('hidden');
+                    btn.classList.remove('bg-primary', 'text-white', 'bg-accent', 'bg-secondary', 'text-secondary-content');
+                    btn.classList.add('bg-base-200/70', 'text-base-content/70');
+                }
+            }
+        });
+        // Re-render SVG tree because card height might have changed!
+        setTimeout(renderGitTree, 50);
+    }
+
+    // ===== 3. Copy Commit Hash =====
+    function copyCommitHash(hash) {
+        navigator.clipboard.writeText(hash).then(() => {
+            const toast = document.getElementById('gitToast');
+            const toastText = document.getElementById('gitToastText');
+            if (toast && toastText) {
+                toastText.textContent = `commit: #${hash} disalin!`;
+                toast.classList.remove('opacity-0', 'translate-y-3');
+                toast.classList.add('opacity-100', 'translate-y-0');
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', 'translate-y-3');
+                }, 2200);
+            }
+        });
+    }
+
+    // ===== 4. Smooth Jump to Commit =====
+    function jumpToCommit(eraId) {
+        const target = document.getElementById(eraId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const card = target.querySelector('.animata-glow-card');
+            if (card) {
+                card.style.transform = 'scale(1.015)';
+                card.style.borderColor = 'var(--color-brand-red)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                    card.style.borderColor = '';
+                }, 1200);
+            }
+        }
+    }
+
+    // ===== 5. SVG Git Commit Tree Dynamic Calculation & Animated Reveal =====
+    function renderGitTree() {
+        const container = document.getElementById('gitTimelineContainer');
+        const node1 = document.getElementById('node-anchor-1');
+        const node2 = document.getElementById('node-anchor-2');
+        const node3 = document.getElementById('node-anchor-3');
+        const svg = document.getElementById('gitTreeCanvas');
+
+        if (!container || !node1 || !node2 || !node3 || !svg) return;
+
+        const contRect = container.getBoundingClientRect();
+        const r1 = node1.getBoundingClientRect();
+        const r2 = node2.getBoundingClientRect();
+        const r3 = node3.getBoundingClientRect();
+
+        // Coordinates relative to container
+        const x1 = (r1.left + r1.right) / 2 - contRect.left;
+        const y1 = (r1.top + r1.bottom) / 2 - contRect.top;
+
+        const x2 = (r2.left + r2.right) / 2 - contRect.left;
+        const y2 = (r2.top + r2.bottom) / 2 - contRect.top;
+
+        const x3 = (r3.left + r3.right) / 2 - contRect.left;
+        const y3 = (r3.top + r3.bottom) / 2 - contRect.top;
+
+        const totalHeight = contRect.height;
+
+        // Path 1: Main Trunk (Lane 0) runs continuously straight down
+        const dMain = `M ${x1} 0 L ${x1} ${y1} L ${x1} ${y3}`;
+        const pathMain = document.getElementById('pathMainTrunk');
+        if (pathMain) pathMain.setAttribute('d', dMain);
+
+        // Path 2: Governance Feature Branch (Curves OUT from Node 1 to Node 2, then curves BACK in to Node 3)
+        const dGov = `M ${x1} ${y1} C ${x1} ${y1 + (y2 - y1) * 0.45}, ${x2} ${y1 + (y2 - y1) * 0.55}, ${x2} ${y2} C ${x2} ${y2 + (y3 - y2) * 0.45}, ${x3} ${y2 + (y3 - y2) * 0.55}, ${x3} ${y3}`;
+        const pathGov = document.getElementById('pathGovernanceBranch');
+        if (pathGov) pathGov.setAttribute('d', dGov);
+
+        // Path 3: HEAD forward extension
+        const dHead = `M ${x3} ${y3} L ${x3} ${totalHeight - 16}`;
+        const pathHead = document.getElementById('pathHeadExtension');
+        if (pathHead) pathHead.setAttribute('d', dHead);
+
+        // Animate stroke reveal with GSAP ScrollTrigger if available
+        if (window.gsap && window.ScrollTrigger) {
+            [pathMain, pathGov].forEach(p => {
+                if (!p) return;
+                const len = p.getTotalLength ? p.getTotalLength() : 800;
+                p.style.strokeDasharray = len;
+                p.style.strokeDashoffset = len;
+
+                gsap.to(p, {
+                    strokeDashoffset: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 70%",
+                        end: "bottom 85%",
+                        scrub: 0.8
+                    }
+                });
+            });
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        renderGitTree();
+        setTimeout(renderGitTree, 250);
+        setTimeout(renderGitTree, 1000);
+    });
+    window.addEventListener('resize', renderGitTree);
+</script>
 {{end}}

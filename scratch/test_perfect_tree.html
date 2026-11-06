@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Git Tree Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #06080d;
+            color: #f1f5f9;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .git-canvas-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        #gitVmSvg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: visible;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Top Spacer for scrolling test -->
+    <div class="h-[600px] flex items-center justify-center border-b border-white/5">
+        <div class="text-center">
+            <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono">SCROLL DOWN TO TEST PINNED STAGE</span>
+            <h1 class="text-3xl font-black mt-2">Section Atas (Identitas & Asas)</h1>
+        </div>
+    </div>
+
+    <!-- PINNED WRAPPER -->
+    <div id="pinnedVisiMisiWrap" class="w-full relative">
+        <section id="visiMisiSection" class="w-full h-screen max-h-[820px] min-h-[580px] flex flex-col justify-center relative px-4 sm:px-8">
+            
+            <!-- STAGE CONTAINER (Matches user reference image media_1793968535427_8a3514ce.jpg) -->
+            <div id="gitVisiMisiStage" class="relative w-full max-w-5xl mx-auto rounded-2xl git-canvas-grid p-6 sm:p-8 overflow-hidden border border-white/5 bg-[#090b11]">
+                
+                <!-- Terminal Header Bar (Sleek, minimal, authentic git log vibe) -->
+                <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-6 font-mono text-xs text-zinc-400">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                        <span class="ml-2 text-zinc-300 font-semibold">$ git log --graph --oneline --all</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="vmProgressPercent" class="text-emerald-400 font-bold">0%</span>
+                        <span class="hidden sm:inline text-zinc-500">&bull; SCROLL PIPELINE</span>
+                    </div>
+                </div>
+
+                <!-- SVG Git Spine Canvas -->
+                <svg id="gitVmSvg" aria-hidden="true">
+                    <defs>
+                        <filter id="vmGlow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Top Segment (Red) -->
+                    <path id="vmPathTop" d="" fill="none" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                    
+                    <!-- Fork Left (Red) -->
+                    <path id="vmPathForkLeft" d="" fill="none" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                    
+                    <!-- Fork Right (Green) -->
+                    <path id="vmPathForkRight" d="" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                    
+                    <!-- Bottom Segment (Red) -->
+                    <path id="vmPathBottom" d="" fill="none" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+
+                    <!-- Commit Nodes (Matching user reference layout exactly) -->
+                    <circle id="vmDot1" cx="46" cy="0" r="5" fill="#e11d48" filter="url(#vmGlow)" />
+                    <circle id="vmDot2" cx="70" cy="0" r="4.5" fill="#10b981" filter="url(#vmGlow)" />
+                    <circle id="vmDot3" cx="46" cy="0" r="4.5" fill="#e11d48" filter="url(#vmGlow)" />
+                    <circle id="vmDot4" cx="94" cy="0" r="4.5" fill="#090b11" stroke="#10b981" stroke-width="2.5" filter="url(#vmGlow)" />
+                    <circle id="vmDot5" cx="70" cy="0" r="4.5" fill="#10b981" filter="url(#vmGlow)" />
+                    <circle id="vmDot6" cx="46" cy="0" r="4.5" fill="#e11d48" filter="url(#vmGlow)" />
+                    <circle id="vmDot7" cx="70" cy="0" r="4.5" fill="#10b981" filter="url(#vmGlow)" />
+                </svg>
+
+                <!-- Alternating Rows Container -->
+                <div class="relative z-20 space-y-6 sm:space-y-7">
+                    
+                    <!-- Row 1: Visi (Left) -->
+                    <div id="vmRow1" class="grid grid-cols-2 gap-8 items-center">
+                        <div class="text-left pr-4">
+                            <div class="font-mono text-xs mb-1 flex items-center gap-2 flex-wrap">
+                                <span class="text-zinc-400 font-semibold">d041958</span>
+                                <span class="text-rose-500 font-bold">HEAD -&gt; main</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">tag: visi</span>
+                            </div>
+                            <p class="font-mono text-xs sm:text-[13px] text-zinc-100 leading-snug">
+                                Menjadikan praktikum Informatika sebagai ruang belajar yang setara, menyenangkan, dan membuat mahasiswa berani mencoba.
+                            </p>
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <!-- Row 2: Misi 1 (Right) -->
+                    <div id="vmRow2" class="grid grid-cols-2 gap-8 items-center">
+                        <div></div>
+                        <div class="text-left pl-4 font-mono">
+                            <div class="text-xs mb-1 text-zinc-400 font-semibold">1ef330c</div>
+                            <p class="text-xs sm:text-[13px] text-zinc-200 leading-snug">
+                                <span class="text-rose-500 font-semibold">feat(misi):</span> Menjadi jembatan antara dosen dan praktikan agar materi tersampaikan dengan bahasa yang mudah dipahami
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Misi 2 (Left, on Red Branch of Loop) -->
+                    <div id="vmRow3" class="grid grid-cols-2 gap-8 items-center">
+                        <div class="text-left pr-4 font-mono">
+                            <div class="text-xs mb-1 text-zinc-400 font-semibold">afceac7</div>
+                            <p class="text-xs sm:text-[13px] text-zinc-200 leading-snug">
+                                <span class="text-rose-500 font-semibold">feat(misi):</span> Menciptakan suasana praktikum yang santai dan menyenangkan tanpa mengurangi kualitas materi
+                            </p>
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <!-- Row 4: Misi 3 (Right, at Merge Green Dot) -->
+                    <div id="vmRow4" class="grid grid-cols-2 gap-8 items-center">
+                        <div></div>
+                        <div class="text-left pl-4 font-mono">
+                            <div class="text-xs mb-1 text-zinc-400 font-semibold">6028f59</div>
+                            <p class="text-xs sm:text-[13px] text-zinc-200 leading-snug">
+                                <span class="text-rose-500 font-semibold">feat(misi):</span> Mendampingi praktikan menguasai keterampilan teknis dengan pendekatan sesama mahasiswa
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Misi 4 (Left, on Lower Red Curve) -->
+                    <div id="vmRow5" class="grid grid-cols-2 gap-8 items-center">
+                        <div class="text-left pr-4 font-mono">
+                            <div class="text-xs mb-1 text-zinc-400 font-semibold">5d4c8d1</div>
+                            <p class="text-xs sm:text-[13px] text-zinc-200 leading-snug">
+                                <span class="text-rose-500 font-semibold">feat(misi):</span> Menghadirkan informasi praktikum yang lengkap dan mudah diakses lewat website dan media sosial.
+                            </p>
+                        </div>
+                        <div></div>
+                    </div>
+
+                    <!-- Row 6: Misi 5 (Right, at Bottom Green Dot) -->
+                    <div id="vmRow6" class="grid grid-cols-2 gap-8 items-center">
+                        <div></div>
+                        <div class="text-left pl-4 font-mono">
+                            <div class="text-xs mb-1 text-zinc-400 font-semibold">fb76329</div>
+                            <p class="text-xs sm:text-[13px] text-zinc-200 leading-snug">
+                                <span class="text-rose-500 font-semibold">feat(misi):</span> Membangun budaya kolaborasi, bertanya, dan berbagi ilmu tanpa rasa sungkan
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Bottom Spacer (Next Section) -->
+    <div class="h-[800px] flex items-center justify-center border-t border-white/5">
+        <div class="text-center">
+            <span class="text-xs uppercase tracking-widest text-rose-500 font-mono">SECTION 3 (UNPINNED)</span>
+            <h2 class="text-3xl font-black mt-2">Tujuan &amp; Fungsi Organisasi</h2>
+        </div>
+    </div>
+
+    <script>
+        function initPerfectGitTree() {
+            const stage = document.getElementById('gitVisiMisiStage');
+            const svg = document.getElementById('gitVmSvg');
+            if (!stage || !svg) return;
+
+            if (window.ScrollTrigger) {
+                const existing = ScrollTrigger.getById('perfectTreePin');
+                if (existing) existing.kill(true);
+            }
+
+            const stageRect = stage.getBoundingClientRect();
+            const rows = [1, 2, 3, 4, 5, 6].map(i => {
+                const el = document.getElementById('vmRow' + i);
+                if (!el) return 0;
+                const r = el.getBoundingClientRect();
+                return (r.top + r.bottom) / 2 - stageRect.top;
+            });
+
+            const cx = 70;
+            const xLeft = 46;
+            const xRight = 94;
+
+            const [y1, y2, y3, y4, y5, y6] = rows;
+
+            const setDot = (id, x, y) => {
+                const dot = document.getElementById(id);
+                if (dot) {
+                    dot.setAttribute('cx', x);
+                    dot.setAttribute('cy', y);
+                }
+            };
+
+            setDot('vmDot1', xLeft, y1);
+            setDot('vmDot2', cx, y2);
+            setDot('vmDot3', xLeft, y3);
+            setDot('vmDot4', xRight, y3);
+            setDot('vmDot5', cx, y4);
+            setDot('vmDot6', xLeft, y5);
+            setDot('vmDot7', cx, y6);
+
+            // Path 1 (Top, Red): S-curve from (xLeft, y1) to (cx, y2)
+            const dTop = `M ${xLeft} ${Math.max(0, y1 - 25)} L ${xLeft} ${y1} C ${xLeft} ${y1 + (y2 - y1)*0.45}, ${cx} ${y2 - (y2 - y1)*0.45}, ${cx} ${y2}`;
+            const pTop = document.getElementById('vmPathTop');
+            if (pTop) pTop.setAttribute('d', dTop);
+
+            // Path 2 (Fork Left, Red): Loop from (cx, y2) out to (xLeft, y3) and back to (cx, y4)
+            const dForkLeft = `M ${cx} ${y2} C ${cx} ${y2 + (y3 - y2)*0.45}, ${xLeft} ${y3 - (y3 - y2)*0.45}, ${xLeft} ${y3} C ${xLeft} ${y3 + (y4 - y3)*0.45}, ${cx} ${y4 - (y4 - y3)*0.45}, ${cx} ${y4}`;
+            const pForkLeft = document.getElementById('vmPathForkLeft');
+            if (pForkLeft) pForkLeft.setAttribute('d', dForkLeft);
+
+            // Path 3 (Fork Right, Green): Loop from (cx, y2) out to (xRight, y3) and back to (cx, y4)
+            const dForkRight = `M ${cx} ${y2} C ${cx} ${y2 + (y3 - y2)*0.45}, ${xRight} ${y3 - (y3 - y2)*0.45}, ${xRight} ${y3} C ${xRight} ${y3 + (y4 - y3)*0.45}, ${cx} ${y4 - (y4 - y3)*0.45}, ${cx} ${y4}`;
+            const pForkRight = document.getElementById('vmPathForkRight');
+            if (pForkRight) pForkRight.setAttribute('d', dForkRight);
+
+            // Path 4 (Bottom, Red): Curve from (cx, y4) out to (xLeft, y5) and back to (cx, y6)
+            const dBottom = `M ${cx} ${y4} C ${cx} ${y4 + (y5 - y4)*0.45}, ${xLeft} ${y5 - (y5 - y4)*0.45}, ${xLeft} ${y5} C ${xLeft} ${y5 + (y6 - y5)*0.45}, ${cx} ${y6 - (y6 - y5)*0.45}, ${cx} ${y6} L ${cx} ${y6 + 25}`;
+            const pBottom = document.getElementById('vmPathBottom');
+            if (pBottom) pBottom.setAttribute('d', dBottom);
+
+            if (!window.gsap || !window.ScrollTrigger) return;
+
+            const paths = [pTop, pForkLeft, pForkRight, pBottom];
+            paths.forEach(p => {
+                if (!p) return;
+                const len = p.getTotalLength ? p.getTotalLength() : 500;
+                p.style.strokeDasharray = len;
+                p.style.strokeDashoffset = len;
+            });
+
+            const dots = ['vmDot1', 'vmDot2', 'vmDot3', 'vmDot4', 'vmDot5', 'vmDot6', 'vmDot7'].map(id => document.getElementById(id));
+            dots.forEach(d => {
+                if (d) gsap.set(d, { scale: 0, transformOrigin: 'center center', opacity: 0 });
+            });
+
+            const rowsEl = [1, 2, 3, 4, 5, 6].map(i => document.getElementById('vmRow' + i));
+            rowsEl.forEach(r => {
+                if (r) gsap.set(r, { opacity: 0, y: 12 });
+            });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    id: 'perfectTreePin',
+                    trigger: "#pinnedVisiMisiWrap",
+                    start: "top top",
+                    end: "+=2000",
+                    pin: true,
+                    scrub: 0.8,
+                    anticipatePin: 1,
+                    onUpdate: (self) => {
+                        const pct = Math.round(self.progress * 100);
+                        const label = document.getElementById('vmProgressPercent');
+                        if (label) label.textContent = pct + '%';
+                    }
+                }
+            });
+
+            // Step 1: Visi Utama (Dot 1 & Row 1)
+            tl.to('#vmDot1', { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, 0.05)
+              .to('#vmRow1', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+
+            // Step 2: S-curve to Misi 1 (Dot 2 & Row 2)
+              .to(pTop, { strokeDashoffset: 0, duration: 0.85, ease: 'none' })
+              .to('#vmDot2', { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' })
+              .to('#vmRow2', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+
+            // Step 3: Fork loop (Misi 2 on Left & Hollow green dot on Right)
+              .to([pForkLeft, pForkRight], { strokeDashoffset: 0, duration: 1.25, ease: 'none' })
+              .to(['#vmDot3', '#vmDot4'], { scale: 1, opacity: 1, duration: 0.35, stagger: 0.1, ease: 'back.out(1.7)' }, '-=0.85')
+              .to('#vmRow3', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.65')
+
+            // Step 4: Merge to Dot 5 & Misi 3 (Right)
+              .to('#vmDot5', { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' })
+              .to('#vmRow4', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+
+            // Step 5: Lower curve to Misi 4 (Dot 6, Left) & Misi 5 (Dot 7, Right)
+              .to(pBottom, { strokeDashoffset: 0, duration: 1.1, ease: 'none' })
+              .to('#vmDot6', { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, '-=0.8')
+              .to('#vmRow5', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.65')
+              .to('#vmDot7', { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }, '-=0.25')
+              .to('#vmRow6', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+
+            // Step 6: Hold at completion
+              .to({}, { duration: 0.7 });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initPerfectGitTree();
+            setTimeout(initPerfectGitTree, 250);
+        });
+        window.addEventListener('resize', () => {
+            setTimeout(initPerfectGitTree, 100);
+        });
+    </script>
+</body>
+</html>
+
