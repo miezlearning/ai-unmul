@@ -30,6 +30,224 @@
         border-color: rgba(225, 29, 72, 0.4);
     }
 
+    /* ===== 1. Scrollytelling Identitas Card-Comment ===== */
+    #identitasScrollTrack {
+        position: relative;
+        width: 100%;
+        height: 220vh;
+        overflow-x: clip;
+    }
+
+    #identitasStickyFrame {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 5.25rem;
+        height: calc(100vh - 5.5rem);
+        min-height: 520px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        padding: 0.5rem 0;
+    }
+
+    .animata-comment-card {
+        position: relative;
+        width: 100%;
+        border-radius: 20px;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+        user-select: none;
+        overflow: hidden;
+    }
+    .dark .animata-comment-card,
+    [data-theme="ai_unmul_dark"] .animata-comment-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+    }
+    .animata-comment-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.1);
+    }
+    .dark .animata-comment-card:hover,
+    [data-theme="ai_unmul_dark"] .animata-comment-card:hover {
+        box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Active Glow & Theme Accents */
+    .animata-comment-card.theme-red.is-active,
+    .animata-comment-card.theme-red:hover {
+        border-color: rgba(141, 2, 31, 0.5);
+        box-shadow: 0 0 25px rgba(141, 2, 31, 0.15), 0 16px 36px -6px rgba(141, 2, 31, 0.1);
+    }
+    .dark .animata-comment-card.theme-red.is-active,
+    .dark .animata-comment-card.theme-red:hover,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-red.is-active,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-red:hover {
+        border-color: rgba(225, 29, 72, 0.6);
+        box-shadow: 0 0 25px rgba(225, 29, 72, 0.2), 0 16px 36px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .animata-comment-card.theme-green.is-active,
+    .animata-comment-card.theme-green:hover {
+        border-color: rgba(0, 155, 76, 0.5);
+        box-shadow: 0 0 25px rgba(0, 155, 76, 0.15), 0 16px 36px -6px rgba(0, 155, 76, 0.1);
+    }
+    .dark .animata-comment-card.theme-green.is-active,
+    .dark .animata-comment-card.theme-green:hover,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-green.is-active,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-green:hover {
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.2), 0 16px 36px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .animata-comment-card.theme-gold.is-active,
+    .animata-comment-card.theme-gold:hover {
+        border-color: rgba(180, 83, 9, 0.5);
+        box-shadow: 0 0 25px rgba(180, 83, 9, 0.15), 0 16px 36px -6px rgba(180, 83, 9, 0.1);
+    }
+    .dark .animata-comment-card.theme-gold.is-active,
+    .dark .animata-comment-card.theme-gold:hover,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-gold.is-active,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-gold:hover {
+        border-color: rgba(234, 179, 8, 0.6);
+        box-shadow: 0 0 25px rgba(234, 179, 8, 0.2), 0 16px 36px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .animata-comment-card.theme-blue.is-active,
+    .animata-comment-card.theme-blue:hover {
+        border-color: rgba(30, 64, 175, 0.5);
+        box-shadow: 0 0 25px rgba(30, 64, 175, 0.15), 0 16px 36px -6px rgba(30, 64, 175, 0.1);
+    }
+    .dark .animata-comment-card.theme-blue.is-active,
+    .dark .animata-comment-card.theme-blue:hover,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-blue.is-active,
+    [data-theme="ai_unmul_dark"] .animata-comment-card.theme-blue:hover {
+        border-color: rgba(59, 130, 246, 0.6);
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.2), 0 16px 36px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Stage Window */
+    .animata-stage {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 14px;
+        margin: 12px;
+        background: #f8fafc;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .dark .animata-stage,
+    [data-theme="ai_unmul_dark"] .animata-stage {
+        background: rgba(30, 41, 59, 0.5);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Front Face (Core Credential Fact) */
+    .animata-front {
+        height: 200px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+    }
+    .animata-comment-card.is-active .animata-front {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+
+    /* Back Face (Unfolded Comment / Note) */
+    .animata-back {
+        position: absolute;
+        top: 200px;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        padding: 8px;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+    }
+    .animata-comment-card.is-active .animata-back {
+        transform: translateY(-200px);
+        opacity: 1;
+    }
+
+    .animata-back-card {
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        color: #ffffff;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    .animata-back-card.bg-red {
+        background: linear-gradient(135deg, #8D021F 0%, #be123c 100%);
+    }
+    .animata-back-card.bg-green {
+        background: linear-gradient(135deg, #009B4C 0%, #047857 100%);
+    }
+    .animata-back-card.bg-gold {
+        background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+    }
+    .animata-back-card.bg-blue {
+        background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    }
+
+    /* Scrollytelling Step Pill Scrubber */
+    .id-step-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: #475569;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+    .dark .id-step-pill,
+    [data-theme="ai_unmul_dark"] .id-step-pill {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.6);
+    }
+    .id-step-pill:hover {
+        background: rgba(0, 0, 0, 0.08);
+        color: #0f172a;
+    }
+    .dark .id-step-pill:hover,
+    [data-theme="ai_unmul_dark"] .id-step-pill:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+    .id-step-pill.is-active {
+        background: #8D021F !important;
+        border-color: #8D021F !important;
+        color: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(141, 2, 31, 0.35);
+    }
+    .dark .id-step-pill.is-active,
+    [data-theme="ai_unmul_dark"] .id-step-pill.is-active {
+        background: #e11d48 !important;
+        border-color: #e11d48 !important;
+        box-shadow: 0 2px 10px rgba(225, 29, 72, 0.4);
+    }
+
     /* ===== Visi Misi Git Parallax Stage & Grid (media_1793968535427) ===== */
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -58,53 +276,685 @@
             linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     }
 
+    #vmScrollTrack {
+        position: relative;
+        width: 100%;
+        overflow-x: clip;
+    }
+
     #vmStickyFrame {
         position: -webkit-sticky;
         position: sticky;
-        top: 0;
-        height: 100vh;
+        top: 5.25rem;
+        height: calc(100vh - 5.5rem);
+        min-height: 520px;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
+        padding: 0.5rem 0;
     }
 
-    #vmContainer {
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        max-width: 56rem;
-        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        z-index: 10;
-    }
-
-    #vmSvg {
+    /* Central SVG Git Spine Canvas */
+    #gitVmSvg {
         position: absolute;
         top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 100%;
         pointer-events: none;
-        z-index: 10;
         overflow: visible;
+        z-index: 10;
     }
 
+    .vm-row {
+        display: grid;
+        grid-template-columns: 1fr 140px 1fr !important;
+        align-items: center;
+        gap: 12px;
+    }
+    @media (max-width: 767.98px) {
+        .vm-row {
+            grid-template-columns: 1fr !important;
+            gap: 8px;
+        }
+    }
+
+    /* Sleek Commit Card */
+    .commit-card {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(10px);
+        background-color: rgba(13, 18, 28, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 10px 14px;
+    }
+    [data-theme="ai_unmul"] .commit-card,
+    [data-theme="ai_unmul_light"] .commit-card,
+    .light .commit-card {
+        background-color: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
+    }
+    .commit-card.is-active-red {
+        border-color: #8D021F !important;
+        background-color: rgba(141, 2, 31, 0.08) !important;
+        box-shadow: 0 0 20px -3px rgba(141, 2, 31, 0.25);
+    }
+    .dark .commit-card.is-active-red,
+    [data-theme="ai_unmul_dark"] .commit-card.is-active-red {
+        border-color: rgba(225, 29, 72, 0.7) !important;
+        background-color: rgba(225, 29, 72, 0.12) !important;
+        box-shadow: 0 0 20px -3px rgba(225, 29, 72, 0.35);
+    }
+    .commit-card.is-active-green {
+        border-color: #009B4C !important;
+        background-color: rgba(0, 155, 76, 0.08) !important;
+        box-shadow: 0 0 20px -3px rgba(0, 155, 76, 0.25);
+    }
+    .dark .commit-card.is-active-green,
+    [data-theme="ai_unmul_dark"] .commit-card.is-active-green {
+        border-color: rgba(16, 185, 129, 0.7) !important;
+        background-color: rgba(16, 185, 129, 0.12) !important;
+        box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.35);
+    }
+
+    /* Telemetry Pill */
+    .telemetry-pill {
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px dashed rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 8px 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-family: var(--font-mono, monospace);
+    }
+    [data-theme="ai_unmul"] .telemetry-pill,
+    [data-theme="ai_unmul_light"] .telemetry-pill,
+    .light .telemetry-pill {
+        background-color: rgba(0, 0, 0, 0.03);
+        border: 1px dashed rgba(0, 0, 0, 0.15);
+        color: #334155;
+    }
+    .telemetry-pill.is-active {
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+    [data-theme="ai_unmul"] .telemetry-pill.is-active,
+    [data-theme="ai_unmul_light"] .telemetry-pill.is-active,
+    .light .telemetry-pill.is-active {
+        border-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+
+    /* ===== Filosofi Lambang AI UNMUL: Clean 2-Column Layout ===== */
+    .lambang-scrolly-viewport {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 5.25rem;
+        min-height: calc(100vh - 5.25rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.5rem 1.5rem 1rem;
+        box-sizing: border-box;
+        z-index: 10;
+    }
+    @media (max-width: 640px) {
+        .lambang-scrolly-viewport {
+            top: 4rem;
+            min-height: calc(100vh - 4rem);
+            padding: 0.75rem 0.75rem;
+        }
+    }
+
+    /* Showcase Card */
+    .showcase-card {
+        background: rgba(18, 20, 26, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.25rem;
+        box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
+        padding: 1.75rem 2.25rem;
+        width: 100%;
+        max-width: 880px;
+        box-sizing: border-box;
+    }
+    [data-theme="ai_unmul"] .showcase-card,
+    [data-theme="ai_unmul_light"] .showcase-card,
+    .light .showcase-card {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+    }
+    @media (max-width: 640px) {
+        .showcase-card {
+            padding: 1.25rem 1rem;
+            border-radius: 1rem;
+        }
+    }
+
+    /* Horizontal Chapter Pills */
+    .chapter-pills {
+        display: flex;
+        gap: 0.375rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+    .chapter-pill {
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.6);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        user-select: none;
+        white-space: nowrap;
+        letter-spacing: 0.01em;
+    }
+    [data-theme="ai_unmul"] .chapter-pill,
+    [data-theme="ai_unmul_light"] .chapter-pill,
+    .light .chapter-pill {
+        border-color: rgba(0, 0, 0, 0.08);
+        background: rgba(0, 0, 0, 0.03);
+        color: rgba(15, 23, 42, 0.6);
+    }
+    .chapter-pill:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+    [data-theme="ai_unmul"] .chapter-pill:hover,
+    [data-theme="ai_unmul_light"] .chapter-pill:hover,
+    .light .chapter-pill:hover {
+        background: rgba(0, 0, 0, 0.06);
+        color: #0f172a;
+    }
+    .chapter-pill.is-active {
+        background: var(--pill-color, #e11d48) !important;
+        border-color: var(--pill-color, #e11d48) !important;
+        color: #fff !important;
+        font-weight: 700;
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 2-Column Layout: Emblem Left, Narrative Right */
+    .showcase-2col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        align-items: center;
+    }
     @media (min-width: 768px) {
-        .vm-grid-row {
-            display: grid !important;
-            grid-template-columns: 1fr 132px 1fr !important;
-            align-items: flex-start !important;
+        .showcase-2col {
+            grid-template-columns: 260px 1fr;
+            gap: 3rem;
         }
-        .vm-col-left {
-            grid-column: 1 !important;
-            padding-right: 2rem !important;
-            text-align: right !important;
+    }
+
+    /* Emblem Stage */
+    .logo-stage-clean {
+        position: relative;
+        width: 100%;
+        max-width: 260px;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    @media (max-width: 767px) {
+        .logo-stage-clean {
+            max-width: 200px;
         }
-        .vm-col-right {
-            grid-column: 3 !important;
-            padding-left: 2rem !important;
-            text-align: left !important;
+    }
+
+    .logo-ambient-spotlight {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 9999px;
+        filter: blur(70px);
+        opacity: 0.22;
+        pointer-events: none;
+        transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    [data-theme="ai_unmul"] .logo-ambient-spotlight,
+    [data-theme="ai_unmul_light"] .logo-ambient-spotlight,
+    .light .logo-ambient-spotlight {
+        opacity: 0.14;
+        filter: blur(60px);
+    }
+
+    .logo-camera-rig {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform-origin: center center;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+        animation: gentleEmblemFloat 8s ease-in-out infinite;
+    }
+    @keyframes gentleEmblemFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+    @media (max-width: 767px) {
+        .logo-camera-rig {
+            width: 180px;
+            height: 180px;
+        }
+    }
+
+    .logo-anatomi-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.98);
+        transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
+        pointer-events: none;
+        user-select: none;
+        will-change: opacity, transform;
+    }
+    .logo-anatomi-layer.is-base {
+        opacity: 0.30;
+        transform: scale(1);
+    }
+    [data-theme="ai_unmul"] .logo-anatomi-layer.is-base,
+    [data-theme="ai_unmul_light"] .logo-anatomi-layer.is-base,
+    .light .logo-anatomi-layer.is-base {
+        opacity: 0.22;
+    }
+    .logo-anatomi-layer.is-active {
+        opacity: 1;
+        transform: scale(1);
+        filter: drop-shadow(0 0 16px var(--layer-glow, rgba(225, 29, 72, 0.35)));
+    }
+
+    /* Swap Text Transitions */
+    .swap-anim-target {
+        transition: opacity 0.20s cubic-bezier(0.16, 1, 0.3, 1), transform 0.20s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    .swap-fade-out {
+        opacity: 0 !important;
+        transform: translateY(-8px) !important;
+        pointer-events: none;
+    }
+    .swap-fade-in {
+        opacity: 0 !important;
+        transform: translateY(8px) !important;
+    }
+
+    /* Quote Box */
+    .showcase-alert-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    [data-theme="ai_unmul"] .showcase-alert-box,
+    [data-theme="ai_unmul_light"] .showcase-alert-box,
+    .light .showcase-alert-box {
+        background: rgba(0, 0, 0, 0.03);
+        border-color: rgba(0, 0, 0, 0.06);
+    }
+
+    /* ===== Backstage Gallery 3D Stage (Clean & Drag-Ready) ===== */
+    .backstage-gallery-stage {
+        perspective: 1200px;
+        perspective-origin: center 40%;
+        position: relative;
+        width: 100%;
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+        overflow: visible;
+        cursor: grab;
+        touch-action: pan-y;
+        user-select: none;
+    }
+    .backstage-gallery-stage.is-dragging {
+        cursor: grabbing;
+    }
+
+    .backstage-fan-track {
+        position: relative;
+        width: 100%;
+        max-width: 1040px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform-style: preserve-3d;
+        touch-action: pan-y;
+    }
+
+    /* 3D Color Card Base */
+    .backstage-card {
+        position: absolute;
+        width: 320px;
+        height: 390px;
+        border-radius: 28px;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-drag: none;
+        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.35s ease;
+        transform-style: preserve-3d;
+        will-change: transform, opacity;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(16px);
+        background: #111622;
+        box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
+    }
+    [data-theme="ai_unmul"] .backstage-card,
+    [data-theme="ai_unmul_light"] .backstage-card,
+    .light .backstage-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Slot 0: Center Spotlight (Active) */
+    .backstage-card[data-slot="center"] {
+        transform: translate3d(0, 0, 80px) scale(1.04) rotateY(0deg);
+        z-index: 30;
+        opacity: 1;
+        filter: none;
+        cursor: grab;
+    }
+    .is-dragging .backstage-card[data-slot="center"] {
+        cursor: grabbing;
+    }
+    .backstage-card[data-slot="center"][data-color="red"] {
+        border-color: rgba(225, 29, 72, 0.7);
+        box-shadow: 0 30px 70px -10px rgba(141, 2, 31, 0.45), 0 0 35px rgba(225, 29, 72, 0.25);
+    }
+    .backstage-card[data-slot="center"][data-color="green"] {
+        border-color: rgba(16, 185, 129, 0.7);
+        box-shadow: 0 30px 70px -10px rgba(0, 155, 76, 0.45), 0 0 35px rgba(16, 185, 129, 0.25);
+    }
+    .backstage-card[data-slot="center"][data-color="yellow"] {
+        border-color: rgba(253, 209, 0, 0.7);
+        box-shadow: 0 30px 70px -10px rgba(253, 209, 0, 0.4), 0 0 35px rgba(253, 209, 0, 0.2);
+    }
+
+    /* Slot 1: Left Wing (Wide Spacing & 100% Clickable) */
+    .backstage-card[data-slot="left"] {
+        transform: translate3d(-340px, 8px, -40px) scale(0.9) rotateY(16deg);
+        z-index: 10;
+        opacity: 0.65;
+        filter: brightness(0.8);
+        cursor: pointer;
+    }
+    .backstage-card[data-slot="left"]:hover {
+        opacity: 0.95;
+        filter: brightness(1);
+        transform: translate3d(-325px, 0px, -10px) scale(0.94) rotateY(10deg);
+    }
+
+    /* Slot 2: Right Wing (Wide Spacing & 100% Clickable) */
+    .backstage-card[data-slot="right"] {
+        transform: translate3d(340px, 8px, -40px) scale(0.9) rotateY(-16deg);
+        z-index: 10;
+        opacity: 0.65;
+        filter: brightness(0.8);
+        cursor: pointer;
+    }
+    .backstage-card[data-slot="right"]:hover {
+        opacity: 0.95;
+        filter: brightness(1);
+        transform: translate3d(325px, 0px, -10px) scale(0.94) rotateY(-10deg);
+    }
+
+    /* Medium screens (tablets) */
+    @media (max-width: 1024px) and (min-width: 769px) {
+        .backstage-card[data-slot="left"] {
+            transform: translate3d(-290px, 10px, -40px) scale(0.88) rotateY(18deg);
+        }
+        .backstage-card[data-slot="right"] {
+            transform: translate3d(290px, 10px, -40px) scale(0.88) rotateY(-18deg);
+        }
+    }
+
+    /* Mobile Breakpoint for Backstage 3D Stage */
+    @media (max-width: 768px) {
+        .backstage-gallery-stage {
+            perspective: 800px;
+            min-height: 420px;
+        }
+        .backstage-card {
+            width: 280px;
+            height: 380px;
+        }
+        .backstage-card[data-slot="left"] {
+            transform: translate3d(-150px, 15px, -70px) scale(0.82) rotateY(24deg);
+            opacity: 0.45;
+        }
+        .backstage-card[data-slot="right"] {
+            transform: translate3d(150px, 15px, -70px) scale(0.82) rotateY(-24deg);
+            opacity: 0.45;
+        }
+    }
+
+    /* Color Banner inside Card */
+    .backstage-swatch-banner {
+        position: relative;
+        height: 140px;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        padding: 16px;
+    }
+    .backstage-swatch-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.45) 100%);
+        pointer-events: none;
+    }
+
+    /* Ambient Backstage Stage Glow */
+    #backstageAmbientGlow {
+        position: absolute;
+        width: 480px;
+        height: 480px;
+        border-radius: 9999px;
+        filter: blur(120px);
+        opacity: 0.22;
+        pointer-events: none;
+        transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+    }
+
+    .copy-hex-btn {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.85);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    [data-theme="ai_unmul"] .copy-hex-btn,
+    [data-theme="ai_unmul_light"] .copy-hex-btn,
+    .light .copy-hex-btn {
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        color: #334155;
+    }
+    .copy-hex-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+    }
+    [data-theme="ai_unmul"] .copy-hex-btn:hover,
+    [data-theme="ai_unmul_light"] .copy-hex-btn:hover,
+    .light .copy-hex-btn:hover {
+        background: rgba(0, 0, 0, 0.08);
+        color: #0f172a;
+    }
+    .copy-hex-btn.is-copied {
+        background: #10b981 !important;
+        border-color: #10b981 !important;
+        color: #ffffff !important;
+    }
+
+    /* ===== Scroll Reveal Animations ===== */
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0);
+        filter: blur(4px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform, filter;
+    }
+    .reveal-on-scroll.is-revealed {
+        opacity: 1 !important;
+        transform: translate3d(0, 0, 0) !important;
+        filter: blur(0) !important;
+    }
+
+    /* Stagger Delays for Grid Children */
+    .stagger-items > *:nth-child(1) { transition-delay: 60ms; }
+    .stagger-items > *:nth-child(2) { transition-delay: 140ms; }
+    .stagger-items > *:nth-child(3) { transition-delay: 220ms; }
+    .stagger-items > *:nth-child(4) { transition-delay: 300ms; }
+    .stagger-items > *:nth-child(5) { transition-delay: 380ms; }
+    .stagger-items > *:nth-child(6) { transition-delay: 460ms; }
+
+    /* Mouse Cursor Spotlight Card Effect */
+    .spotlight-card {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.35s ease,
+                    border-color 0.3s ease;
+    }
+    .spotlight-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(380px circle at var(--mouse-x, -200px) var(--mouse-y, -200px), rgba(225, 29, 72, 0.12), transparent 70%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        border-radius: inherit;
+        z-index: 1;
+    }
+    [data-theme="ai_unmul"] .spotlight-card::before,
+    [data-theme="ai_unmul_light"] .spotlight-card::before,
+    .light .spotlight-card::before {
+        background: radial-gradient(380px circle at var(--mouse-x, -200px) var(--mouse-y, -200px), rgba(141, 2, 31, 0.08), transparent 70%);
+    }
+    .spotlight-card:hover::before {
+        opacity: 1;
+    }
+    .spotlight-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(225, 29, 72, 0.35) !important;
+        box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35);
+    }
+    [data-theme="ai_unmul"] .spotlight-card:hover,
+    [data-theme="ai_unmul_light"] .spotlight-card:hover,
+    .light .spotlight-card:hover {
+        border-color: rgba(141, 2, 31, 0.3) !important;
+        box-shadow: 0 16px 36px -10px rgba(141, 2, 31, 0.12);
+    }
+
+    /* Section Separator */
+    .section-separator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin: 6.5rem 0 5rem 0;
+        width: 100%;
+    }
+    @media (max-width: 640px) {
+        .section-separator {
+            margin: 4.5rem 0 3.5rem 0;
+        }
+    }
+    .separator-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    }
+    [data-theme="ai_unmul"] .separator-line,
+    [data-theme="ai_unmul_light"] .separator-line,
+    .light .separator-line {
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    }
+    .separator-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 16px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(8px);
+    }
+    [data-theme="ai_unmul"] .separator-badge,
+    [data-theme="ai_unmul_light"] .separator-badge,
+    .light .separator-badge {
+        background: rgba(0, 0, 0, 0.03);
+        border-color: rgba(0, 0, 0, 0.08);
+        color: #64748b;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+        .reveal-on-scroll {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+        .spotlight-card {
+            transition: none !important;
+        }
+        .spotlight-card:hover {
+            transform: none !important;
         }
     }
 </style>
@@ -125,184 +975,499 @@
 
         <!-- Page Header -->
         <header class="text-center mb-16 sm:mb-20">
-            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
-                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span>Jargon Resmi: &ldquo;SATU, PADU, INFORMATIKA&rdquo;</span>
-            </div>
-            
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
                 Tentang <span class="text-gradient-brand">Association of Informatics</span>
             </h1>
-            <p class="mt-5 text-base sm:text-lg lg:text-xl text-base-content/75 max-w-3xl mx-auto leading-relaxed">
+            <p class="mt-4 sm:mt-5 text-base sm:text-lg lg:text-xl text-base-content/75 max-w-3xl mx-auto leading-relaxed">
                 Wadah kemahasiswaan resmi Program Studi Informatika Fakultas Teknik Universitas Mulawarman yang didirikan untuk menaungi karya, mengasah keilmuan teknologi, dan memupuk persaudaraan berlandaskan Tri Dharma Perguruan Tinggi.
             </p>
         </header>
 
-        <!-- ================= 1. KREDENSIAL & LEGALITAS RESMI ================= -->
-        <section class="mb-16 sm:mb-24" aria-label="Identitas & Legalitas Kelembagaan">
-            <div class="rounded-3xl bg-base-200/70 brand-card p-6 sm:p-10 shadow-sm">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-6 border-b border-base-300 dark:border-white/10 mb-8">
-                    <div class="flex items-center gap-3">
-                        <div class="w-3 h-3 rounded-full bg-primary"></div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-base-content/70">Identitas Resmi Organisasi (AD Bab I &ndash; III)</span>
-                    </div>
-                    <span class="text-xs font-mono px-3 py-1 rounded-md bg-base-100 border border-base-300 dark:border-white/10 text-base-content/70 font-semibold">
-                        Status: Lembaga Aktif &bull; FT UNMUL
-                    </span>
-                </div>
+        <!-- ================= 1. KREDENSIAL POKOK ORGANISASI (SCROLLYTELLING CARD COMMENT) ================= -->
+        <div id="identitasScrollTrack" class="relative w-full mb-16 sm:mb-24 scroll-mt-28">
+            <div id="identitasStickyFrame">
+                <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+                    
+                    <!-- Clean Minimal Header (No annoying jargon pill, no outer card) -->
+                    <div class="text-center mb-8 sm:mb-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono font-semibold text-primary uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-scroll text-[10px]"></i>
+                            <span>KREDENSIAL POKOK &bull; BAB I &ndash; III</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-base-content">
+                            Identitas Resmi <span class="text-gradient-brand">Organisasi</span>
+                        </h2>
+                        <p class="text-xs sm:text-sm text-base-content/70 max-w-xl mx-auto mt-2 leading-relaxed">
+                            Gulir halaman untuk membuka catatan yuridis dan konstitusi resmi satu per satu.
+                        </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                    <!-- Item 1 -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
-                        <span class="text-[11px] uppercase tracking-wider text-base-content/60 font-semibold block mb-1.5">Tanggal Pendirian</span>
-                        <div class="text-xl sm:text-2xl font-black text-primary">31 Januari 2021</div>
-                        <p class="text-xs text-base-content/70 mt-2 leading-relaxed">Dideklarasikan melalui Musyawarah Besar (MUBES I) di Samarinda, Kalimantan Timur.</p>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
-                        <span class="text-[11px] uppercase tracking-wider text-base-content/60 font-semibold block mb-1.5">Kedudukan Lembaga</span>
-                        <div class="text-xl sm:text-2xl font-black text-accent">Fakultas Teknik</div>
-                        <p class="text-xs text-base-content/70 mt-2 leading-relaxed">Program Studi Informatika, Kampus Gunung Kelua, Universitas Mulawarman.</p>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
-                        <span class="text-[11px] uppercase tracking-wider text-base-content/60 font-semibold block mb-1.5">Asas Pokok</span>
-                        <div class="text-xl sm:text-2xl font-black text-base-content">Pancasila &amp; UUD '45</div>
-                        <p class="text-xs text-base-content/70 mt-2 leading-relaxed">Berasaskan semangat persaudaraan dan musyawarah kekeluargaan (Pasal 4 AD).</p>
+                        <!-- Interactive Step Indicator Pills -->
+                        <div class="flex items-center justify-center gap-2 mt-4" id="identitasStepPills">
+                            <button class="id-step-pill" data-index="0">01 Pendirian</button>
+                            <button class="id-step-pill" data-index="1">02 Kedudukan</button>
+                            <button class="id-step-pill" data-index="2">03 Asas Pokok</button>
+                            <button class="id-step-pill" data-index="3">04 Sifat Organisasi</button>
+                        </div>
                     </div>
 
-                    <!-- Item 4 -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
-                        <span class="text-[11px] uppercase tracking-wider text-base-content/60 font-semibold block mb-1.5">Sifat Organisasi</span>
-                        <div class="text-xl sm:text-2xl font-black text-secondary">Independen</div>
-                        <p class="text-xs text-base-content/70 mt-2 leading-relaxed">Terbuka, inklusif, berintegritas ilmiah, dan non-partisan politik (Pasal 5 AD).</p>
+                    <!-- 4 Animata Card-Comment Items in Clean Grid (No Outer Card Bloat!) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6" id="identitasGrid">
+                        
+                        <!-- Card 1: Pendirian -->
+                        <div class="animata-comment-card theme-red" data-index="0" role="region" aria-label="Kredensial Pendirian">
+                            <div class="animata-stage">
+                                <!-- Front: Core Fact -->
+                                <div class="animata-front">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-[10px] font-mono text-primary font-bold uppercase tracking-wider">AD Bab I &bull; Pasal 1</span>
+                                            <div class="w-6 h-6 rounded-md bg-primary/10 text-primary flex items-center justify-center text-[10px]">
+                                                <i class="fa-regular fa-calendar-check"></i>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-base-content/60 font-medium">Tanggal Pendirian</div>
+                                        <div class="text-2xl font-black text-base-content mt-1">31 Jan 2021</div>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[11px] text-base-content/60 pt-2 border-t border-base-300 dark:border-white/10">
+                                        <span>Deklarasi MUBES I</span>
+                                        <span class="text-primary text-[10px] font-mono flex items-center gap-1 font-semibold">
+                                            <i class="fa-solid fa-arrow-up text-[9px]"></i> Buka Catatan
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Back: Comment Note -->
+                                <div class="animata-back">
+                                    <div class="animata-back-card bg-red">
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <span class="text-[10px] font-mono text-white/80 uppercase tracking-wide">Ketetapan MUBES I</span>
+                                                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">Sahih</span>
+                                            </div>
+                                            <div class="text-sm font-bold text-white leading-tight">Musyawarah Besar I 2021</div>
+                                            <p class="text-[11px] text-white/95 mt-2 leading-relaxed">
+                                                Tonggak bersejarah berdirinya wadah tunggal kemahasiswaan Informatika FT UNMUL di Samarinda.
+                                            </p>
+                                        </div>
+                                        <div class="text-[10px] font-mono text-white/80 pt-1.5 border-t border-white/20 flex items-center justify-between">
+                                            <span>SK MUBES I/2021</span>
+                                            <i class="fa-solid fa-certificate text-white/70"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Kedudukan -->
+                        <div class="animata-comment-card theme-green" data-index="1" role="region" aria-label="Kredensial Kedudukan">
+                            <div class="animata-stage">
+                                <!-- Front: Core Fact -->
+                                <div class="animata-front">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">AD Bab II &bull; Pasal 2</span>
+                                            <div class="w-6 h-6 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-[10px]">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-base-content/60 font-medium">Kedudukan Lembaga</div>
+                                        <div class="text-2xl font-black text-base-content mt-1">FT UNMUL</div>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[11px] text-base-content/60 pt-2 border-t border-base-300 dark:border-white/10">
+                                        <span>Gunung Kelua, Smd</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 text-[10px] font-mono flex items-center gap-1 font-semibold">
+                                            <i class="fa-solid fa-arrow-up text-[9px]"></i> Buka Catatan
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Back: Comment Note -->
+                                <div class="animata-back">
+                                    <div class="animata-back-card bg-green">
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <span class="text-[10px] font-mono text-white/80 uppercase tracking-wide">Legalitas Kampus</span>
+                                                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">Resmi</span>
+                                            </div>
+                                            <div class="text-sm font-bold text-white leading-tight">Gedung FT UNMUL</div>
+                                            <p class="text-[11px] text-white/95 mt-2 leading-relaxed">
+                                                Jl. Sambaliung No. 9. Diakui sah secara administratif dalam hierarki kemahasiswaan fakultas.
+                                            </p>
+                                        </div>
+                                        <div class="text-[10px] font-mono text-white/80 pt-1.5 border-t border-white/20 flex items-center justify-between">
+                                            <span>Birokrasi Fakultas</span>
+                                            <i class="fa-solid fa-building-columns text-white/70"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Asas Pokok -->
+                        <div class="animata-comment-card theme-gold" data-index="2" role="region" aria-label="Kredensial Asas Pokok">
+                            <div class="animata-stage">
+                                <!-- Front: Core Fact -->
+                                <div class="animata-front">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase tracking-wider">AD Bab III &bull; Pasal 4</span>
+                                            <div class="w-6 h-6 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-[10px]">
+                                                <i class="fa-solid fa-landmark"></i>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-base-content/60 font-medium">Asas Pokok</div>
+                                        <div class="text-2xl font-black text-base-content mt-1">Pancasila</div>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[11px] text-base-content/60 pt-2 border-t border-base-300 dark:border-white/10">
+                                        <span>UUD 1945 &amp; Mufakat</span>
+                                        <span class="text-amber-600 dark:text-amber-400 text-[10px] font-mono flex items-center gap-1 font-semibold">
+                                            <i class="fa-solid fa-arrow-up text-[9px]"></i> Buka Catatan
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Back: Comment Note -->
+                                <div class="animata-back">
+                                    <div class="animata-back-card bg-gold">
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <span class="text-[10px] font-mono text-white/80 uppercase tracking-wide">Falsafah Gerak</span>
+                                                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">Kolektif</span>
+                                            </div>
+                                            <div class="text-sm font-bold text-white leading-tight">Musyawarah Mufakat</div>
+                                            <p class="text-[11px] text-white/95 mt-2 leading-relaxed">
+                                                Keputusan kelembagaan diambil secara kolegial demi persaudaraan dan kemaslahatan segenap anggota.
+                                            </p>
+                                        </div>
+                                        <div class="text-[10px] font-mono text-white/80 pt-1.5 border-t border-white/20 flex items-center justify-between">
+                                            <span>Pasal 4 AD AI</span>
+                                            <i class="fa-solid fa-handshake text-white/70"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Sifat Organisasi -->
+                        <div class="animata-comment-card theme-blue" data-index="3" role="region" aria-label="Kredensial Sifat Organisasi">
+                            <div class="animata-stage">
+                                <!-- Front: Core Fact -->
+                                <div class="animata-front">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">AD Bab III &bull; Pasal 5</span>
+                                            <div class="w-6 h-6 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px]">
+                                                <i class="fa-solid fa-scale-balanced"></i>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-base-content/60 font-medium">Sifat Organisasi</div>
+                                        <div class="text-2xl font-black text-base-content mt-1">Independen</div>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[11px] text-base-content/60 pt-2 border-t border-base-300 dark:border-white/10">
+                                        <span>Tri Dharma PT</span>
+                                        <span class="text-blue-600 dark:text-blue-400 text-[10px] font-mono flex items-center gap-1 font-semibold">
+                                            <i class="fa-solid fa-arrow-up text-[9px]"></i> Buka Catatan
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Back: Comment Note -->
+                                <div class="animata-back">
+                                    <div class="animata-back-card bg-blue">
+                                        <div>
+                                            <div class="flex items-center justify-between mb-1.5">
+                                                <span class="text-[10px] font-mono text-white/80 uppercase tracking-wide">Integritas Otonom</span>
+                                                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-bold">Otonom</span>
+                                            </div>
+                                            <div class="text-sm font-bold text-white leading-tight">Non-Partisan Politik</div>
+                                            <p class="text-[11px] text-white/95 mt-2 leading-relaxed">
+                                                Bebas intervensi politik luar, murni berorientasi pengabdian teknologi, sains, dan kemahasiswaan.
+                                            </p>
+                                        </div>
+                                        <div class="text-[10px] font-mono text-white/80 pt-1.5 border-t border-white/20 flex items-center justify-between">
+                                            <span>Pasal 5 AD AI</span>
+                                            <i class="fa-solid fa-shield-halved text-white/70"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- Footer Scrubbing Hint -->
+                    <div class="text-center mt-6 text-xs font-mono text-base-content/50 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-down text-primary animate-bounce text-[10px]"></i>
+                        <span>Gulir untuk membuka catatan secara bertahap &bull; Atau klik kartu untuk membalik langsung</span>
+                    </div>
+
                 </div>
             </div>
-        </section>
-
-        <!-- ================= 2. VISI & MISI ORGANISASI (GIT COMMIT TREE CONTINUOUS SCRUB) ================= -->
-        <div class="text-center mb-6 pt-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                <i class="fa-solid fa-code-commit text-xs"></i>
-                <span>ARAH STRATEGIS &bull; GIT PIPELINE</span>
-            </div>
-            <h2 class="text-2xl sm:text-4xl font-black tracking-tight">
-                Visi &amp; Misi <span class="text-gradient-brand">Organisasi</span>
-            </h2>
         </div>
 
-        <div id="vmScrollTrack" class="relative w-full mb-16 sm:mb-24" style="height: 200vh;">
-            <div id="vmStickyFrame" class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pt-16 pb-4" style="position: -webkit-sticky; position: sticky; top: 0; height: 100vh;">
+        <!-- Section Separator 1 -->
+        <div class="section-separator reveal-on-scroll">
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa-solid fa-code-branch text-primary text-xs"></i>
+                <span>ARAH STRATEGIS &bull; GIT PIPELINE</span>
+            </div>
+            <div class="separator-line"></div>
+        </div>
+
+        <!-- ================= 2. VISI & MISI ORGANISASI (GIT COMMIT TREE CONTINUOUS SCRUB) ================= -->
+        <!-- 200vh Scroll Track: Konsep 2 Rich Commit Architecture Graph -->
+        <div id="vmScrollTrack" class="relative w-full my-24 sm:my-32 scroll-mt-28" style="height: 200vh;">
+            <div id="vmStickyFrame">
                 
                 <!-- Background Grid Layer with Smooth Edge Vignette -->
                 <div class="git-vm-grid absolute inset-0 pointer-events-none opacity-40 dark:opacity-60"></div>
-                <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
 
-                <!-- Git Canvas Container (Matching user reference layout exactly) -->
-                <div id="vmContainer" class="relative mx-auto w-full max-w-4xl font-mono px-4 z-10">
-                    <svg id="vmSvg" role="presentation" aria-hidden="true" class="absolute top-0 pointer-events-none" style="left: 50%; transform: translateX(-50%); width: 132px; overflow: visible;">
-                    </svg>
-
-                    <div id="vmRows">
-                        <!-- Row 0: Visi (Left, text-right) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="0">
-                            <div class="vm-col-left">
-                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">d041958</span>
-                                    <span class="rounded-full font-medium bg-rose-500/15 text-rose-500 dark:text-rose-400 text-[11px] px-2 py-0.5">HEAD -&gt; main</span>
-                                    <span class="rounded-full font-medium bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[11px] px-2 py-0.5">tag: visi</span>
-                                </div>
-                                <p class="mt-1 text-base-content text-xs sm:text-[13px] font-medium leading-snug">
-                                    Menjadikan HIMTI / AI UNMUL sebagai wadah kemahasiswaan Informatika yang unggul, mandiri, berdaya saing global, berlandaskan kekeluargaan dan Tri Dharma Perguruan Tinggi.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Row 1: Misi 1 (Right, text-left) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="1">
-                            <div class="vm-col-right">
-                                <div class="flex flex-wrap items-center gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">1ef330c</span>
-                                </div>
-                                <p class="mt-1 text-base-content/90 text-xs sm:text-[13px] leading-snug">
-                                    <span class="text-primary font-bold">feat(misi): </span>Menyatukan dan mempererat tali persaudaraan serta kekeluargaan segenap mahasiswa Informatika lintas angkatan dan alumni.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Row 2: Misi 2 (Left, text-right) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="2">
-                            <div class="vm-col-left">
-                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">afceac7</span>
-                                </div>
-                                <p class="mt-1 text-base-content/90 text-xs sm:text-[13px] leading-snug">
-                                    <span class="text-primary font-bold">feat(misi): </span>Mewadahi serta membina potensi akademik, riset teknologi informasi, kecerdasan buatan, dan keilmuan praktis mahasiswa.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Row 3: Misi 3 (Right, text-left) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="3">
-                            <div class="vm-col-right">
-                                <div class="flex flex-wrap items-center gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">6028f59</span>
-                                </div>
-                                <p class="mt-1 text-base-content/90 text-xs sm:text-[13px] leading-snug">
-                                    <span class="text-primary font-bold">feat(misi): </span>Menampung, mengadvokasi, dan memperjuangkan hak serta aspirasi mahasiswa Informatika secara profesional, inklusif, dan transparan.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Row 4: Misi 4 (Left, text-right) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="4">
-                            <div class="vm-col-left">
-                                <div class="flex flex-wrap items-center md:justify-end gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">5d4c8d1</span>
-                                </div>
-                                <p class="mt-1 text-base-content/90 text-xs sm:text-[13px] leading-snug">
-                                    <span class="text-primary font-bold">feat(misi): </span>Membangun kemitraan strategis harmonis dengan birokrasi universitas, organisasi kemahasiswaan, dan industri teknologi.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Row 5: Misi 5 (Right, text-left) -->
-                        <div class="vm-row vm-grid-row pb-2.5 sm:pb-3" data-index="5">
-                            <div class="vm-col-right">
-                                <div class="flex flex-wrap items-center gap-2 text-xs">
-                                    <span class="text-base-content/60 font-semibold">fb76329</span>
-                                </div>
-                                <p class="mt-1 text-base-content/90 text-xs sm:text-[13px] leading-snug">
-                                    <span class="text-primary font-bold">feat(misi): </span>Mengaplikasikan inovasi keilmuan teknologi informasi untuk memberi dampak positif nyata bagi masyarakat Kaltim dan Indonesia.
-                                </p>
-                            </div>
-                        </div>
+                <!-- Stage Container (Max-W 5xl centered) -->
+                <div class="relative w-full max-w-5xl px-4 sm:px-6 z-20">
+                    
+                    <!-- Header Section: Clean & Compact -->
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">
+                            Visi &amp; Misi <span class="text-gradient-brand">Organisasi</span>
+                        </h2>
                     </div>
 
+                    <!-- Git Tree Stage: Height 510px (Guaranteed zero clipping on 768px laptop) -->
+                    <div id="vmStageTree" class="relative w-full" style="height: 510px;">
+                        
+                        <!-- Central SVG Git Spine Canvas (Desktop: 50% Center | 140px width) -->
+                        <svg id="gitVmSvg" aria-hidden="true">
+                            <defs>
+                                <filter id="vmGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="2.5" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Top S-Curve (Primary Red) -->
+                            <path id="vmPathTop" d="" fill="none" stroke="#8D021F" class="dark:stroke-[#e11d48]" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                            
+                            <!-- Fork Left Branch (Primary Red) -->
+                            <path id="vmPathForkLeft" d="" fill="none" stroke="#8D021F" class="dark:stroke-[#e11d48]" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                            
+                            <!-- Fork Right Branch (Accent Green) -->
+                            <path id="vmPathForkRight" d="" fill="none" stroke="#009B4C" class="dark:stroke-[#10b981]" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+                            
+                            <!-- Bottom S-Curve (Primary Red) -->
+                            <path id="vmPathBottom" d="" fill="none" stroke="#8D021F" class="dark:stroke-[#e11d48]" stroke-width="2.5" stroke-linecap="round" filter="url(#vmGlow)" />
+
+                            <!-- Commit Nodes (Matching user reference layout exactly) -->
+                            <circle id="vmDot1" cx="46" cy="0" r="5" fill="#8D021F" class="dark:fill-[#e11d48]" filter="url(#vmGlow)" />
+                            <circle id="vmDot2" cx="70" cy="0" r="4.5" fill="#009B4C" class="dark:fill-[#10b981]" filter="url(#vmGlow)" />
+                            <circle id="vmDot3" cx="46" cy="0" r="4.5" fill="#8D021F" class="dark:fill-[#e11d48]" filter="url(#vmGlow)" />
+                            <circle id="vmDot4" cx="94" cy="0" r="4.5" fill="var(--color-base-100, #06080d)" stroke="#009B4C" class="dark:stroke-[#10b981]" stroke-width="2" filter="url(#vmGlow)" />
+                            <circle id="vmDot5" cx="70" cy="0" r="4.5" fill="#009B4C" class="dark:fill-[#10b981]" filter="url(#vmGlow)" />
+                            <circle id="vmDot6" cx="46" cy="0" r="4.5" fill="#8D021F" class="dark:fill-[#e11d48]" filter="url(#vmGlow)" />
+                            <circle id="vmDot7" cx="70" cy="0" r="4.5" fill="#009B4C" class="dark:fill-[#10b981]" filter="url(#vmGlow)" />
+                        </svg>
+
+                        <!-- 6 Alternating Rows: Left (1fr) | Center (140px space) | Right (1fr) -->
+                        <div id="vmRowsContainer" class="flex flex-col justify-between h-full relative z-20 font-mono">
+                            
+                            <!-- ROW 1: VISI (Left = Card | Right = Telemetry Pill) -->
+                            <div id="vmRow1" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Commit Card (Visi) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">d041958</span>
+                                            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-primary/15 text-primary border border-primary/25 font-semibold">HEAD -&gt; main</span>
+                                            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-accent/15 text-accent border border-accent/25 font-semibold">tag: visi</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+64 -0</span>
+                                    </div>
+                                    <div class="text-xs font-semibold text-base-content font-sans leading-snug">
+                                        Visi: Wadah Kemahasiswaan Unggul &amp; Mandiri
+                                    </div>
+                                    <div class="text-[11px] text-base-content/70 font-sans leading-relaxed mt-0.5 line-clamp-1">
+                                        Menjadikan HIMTI / AI UNMUL sebagai wadah inklusif, mandiri, berdaya saing global, berlandaskan kekeluargaan &amp; Tri Dharma PT.
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Telemetry Pill -->
+                                <div class="flex items-center justify-start">
+                                    <div class="telemetry-pill">
+                                        <i class="fa-solid fa-scroll text-primary"></i>
+                                        <span class="text-base-content/85 dark:text-zinc-300 font-semibold">AD Bab IV Pasal 6</span>
+                                        <span class="text-base-content/50">&bull; Mandat Pokok</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 2: MISI 1 (Left = Telemetry Pill | Right = Card) -->
+                            <div id="vmRow2" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Telemetry Pill -->
+                                <div class="flex items-center justify-end">
+                                    <div class="telemetry-pill">
+                                        <span class="text-base-content/50">Pilar 1 &bull;</span>
+                                        <span class="text-accent font-semibold">&ldquo;Satu, Padu, Informatika&rdquo;</span>
+                                        <i class="fa-solid fa-users text-accent"></i>
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Commit Card (Misi 1) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">1ef330c</span>
+                                            <span class="text-accent font-semibold text-[10px]">feat(misi): persaudaraan</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+28 -0</span>
+                                    </div>
+                                    <div class="text-xs text-base-content/85 font-sans leading-snug">
+                                        Menyatukan dan mempererat tali persaudaraan serta kekeluargaan segenap mahasiswa Informatika lintas angkatan dan alumni.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 3: MISI 2 (Left = Card | Right = Telemetry Pill) -->
+                            <div id="vmRow3" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Commit Card (Misi 2) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">afceac7</span>
+                                            <span class="text-primary font-semibold text-[10px]">feat(misi): riset-ai</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+96 -0</span>
+                                    </div>
+                                    <div class="text-xs text-base-content/85 font-sans leading-snug">
+                                        Mewadahi dan membina potensi akademik, riset teknologi informasi, kecerdasan buatan, dan keilmuan praktis mahasiswa.
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Telemetry Pill (Opposite Green Fork Node) -->
+                                <div class="flex items-center justify-start">
+                                    <div class="telemetry-pill">
+                                        <i class="fa-solid fa-microchip text-accent"></i>
+                                        <span class="text-base-content/85 dark:text-zinc-300 font-semibold">Pilar 2</span>
+                                        <span class="text-base-content/50">&bull; Riset AI &amp; Software Lab</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 4: MISI 3 (Left = Telemetry Pill | Right = Card) -->
+                            <div id="vmRow4" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Telemetry Pill -->
+                                <div class="flex items-center justify-end">
+                                    <div class="telemetry-pill">
+                                        <span class="text-base-content/50">Pilar 3 &bull;</span>
+                                        <span class="text-accent font-semibold">Advokasi Aspiratif</span>
+                                        <i class="fa-solid fa-scale-balanced text-accent"></i>
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Commit Card (Misi 3) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">6028f59</span>
+                                            <span class="text-accent font-semibold text-[10px]">merge(misi): advokasi</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+38 -0</span>
+                                    </div>
+                                    <div class="text-xs text-base-content/85 font-sans leading-snug">
+                                        Menampung, mengadvokasi, dan memperjuangkan hak serta aspirasi mahasiswa Informatika secara profesional, inklusif, dan transparan.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 5: MISI 4 (Left = Card | Right = Telemetry Pill) -->
+                            <div id="vmRow5" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Commit Card (Misi 4) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">5d4c8d1</span>
+                                            <span class="text-primary font-semibold text-[10px]">feat(misi): kemitraan</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+52 -0</span>
+                                    </div>
+                                    <div class="text-xs text-base-content/85 font-sans leading-snug">
+                                        Membangun kemitraan strategis harmonis dengan birokrasi universitas, organisasi kemahasiswaan, dan industri teknologi.
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Telemetry Pill -->
+                                <div class="flex items-center justify-start">
+                                    <div class="telemetry-pill">
+                                        <i class="fa-solid fa-handshake text-primary"></i>
+                                        <span class="text-base-content/85 dark:text-zinc-300 font-semibold">Pilar 4</span>
+                                        <span class="text-base-content/50">&bull; Sinergi Industri &amp; DUDI</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ROW 6: MISI 5 (Left = Telemetry Pill | Right = Card) -->
+                            <div id="vmRow6" class="vm-row grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] items-center gap-3">
+                                <!-- LEFT: Telemetry Pill -->
+                                <div class="flex items-center justify-end">
+                                    <div class="telemetry-pill">
+                                        <span class="text-base-content/50">Pilar 5 &bull;</span>
+                                        <span class="text-accent font-semibold">Pengabdian Kaltim &amp; IKN</span>
+                                        <i class="fa-solid fa-earth-asia text-accent"></i>
+                                    </div>
+                                </div>
+                                <!-- CENTER: Empty space for SVG Spine -->
+                                <div class="hidden md:block"></div>
+                                <!-- RIGHT: Commit Card (Misi 5) -->
+                                <div class="commit-card text-left">
+                                    <div class="flex items-center justify-between gap-1.5 text-[11px] mb-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="font-bold text-base-content/75 dark:text-zinc-300">fb76329</span>
+                                            <span class="text-accent font-semibold text-[10px]">release(misi): pengabdian</span>
+                                        </div>
+                                        <span class="text-[10px] text-accent font-mono font-semibold">+74 -0</span>
+                                    </div>
+                                    <div class="text-xs text-base-content/85 font-sans leading-snug">
+                                        Mengaplikasikan inovasi keilmuan teknologi informasi untuk memberi dampak positif nyata bagi masyarakat Kaltim dan Indonesia.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Section Separator 2 -->
+        <div class="section-separator reveal-on-scroll">
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa-solid fa-compass text-accent text-xs"></i>
+                <span>ARAH GERAK &bull; BAB IV PASAL 7 &ndash; 8</span>
+            </div>
+            <div class="separator-line"></div>
+        </div>
+
         <!-- ================= 3. TUJUAN & FUNGSI ORGANISASI (AD PASAL 7 & 8) ================= -->
-        <section class="mb-16 sm:mb-24" aria-label="Tujuan dan Fungsi Organisasi">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-accent block">KONSTITUSI ANGGARAN DASAR</span>
-                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-2">Tujuan &amp; Fungsi Organisasi</h2>
-                <p class="text-sm sm:text-base text-base-content/65 max-w-xl mx-auto mt-2">
-                    Ketentuan yuridis Anggaran Dasar Bab IV Pasal 7 dan Pasal 8 yang menjadi payung hukum operasional himpunan.
+        <section id="tujuan-fungsi" class="mb-24 sm:mb-32 scroll-mt-28" aria-label="Tujuan dan Fungsi Organisasi">
+            <div class="text-center mb-12 sm:mb-16 reveal-on-scroll">
+                <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Tujuan &amp; Fungsi <span class="text-gradient-brand">Organisasi</span></h2>
+                <p class="text-sm sm:text-base text-base-content/70 max-w-xl mx-auto mt-3 leading-relaxed">
+                    Ketentuan yuridis Anggaran Dasar Bab IV Pasal 7 dan Pasal 8 yang menjadi payung hukum dan arah operasional himpunan.
                 </p>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8 items-stretch">
                 <!-- Tujuan (Pasal 7 AD) - 5 Columns -->
-                <div class="lg:col-span-5 rounded-3xl bg-base-200/70 brand-card p-8 flex flex-col justify-between">
+                <div class="lg:col-span-5 rounded-3xl bg-base-200/70 brand-card p-8 flex flex-col justify-between spotlight-card reveal-on-scroll">
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">
+                            <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold font-mono">
                                 PASAL 7 AD
                             </span>
                             <i class="fa-solid fa-bullseye text-primary text-xl"></i>
@@ -314,8 +1479,8 @@
                         </p>
 
                         <div class="space-y-4">
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
-                                <div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
+                                <div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 font-mono">
                                     1
                                 </div>
                                 <p class="text-sm text-base-content/85 leading-relaxed">
@@ -323,8 +1488,8 @@
                                 </p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
-                                <div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-3.5">
+                                <div class="w-7 h-7 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 font-mono">
                                     2
                                 </div>
                                 <p class="text-sm text-base-content/85 leading-relaxed">
@@ -334,17 +1499,17 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-4 border-t border-base-300 dark:border-white/10 text-xs text-base-content/60 flex items-center justify-between">
+                    <div class="mt-8 pt-4 border-t border-base-300 dark:border-white/10 text-xs text-base-content/60 flex items-center justify-between font-mono">
                         <span>Konstitusi Hasil MUBES</span>
                         <span class="text-primary font-bold">AD Bab IV</span>
                     </div>
                 </div>
 
                 <!-- Fungsi (Pasal 8 AD) - 7 Columns -->
-                <div class="lg:col-span-7 rounded-3xl bg-base-200/70 brand-card p-8 flex flex-col justify-between">
+                <div class="lg:col-span-7 rounded-3xl bg-base-200/70 brand-card p-8 flex flex-col justify-between spotlight-card reveal-on-scroll">
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold">
+                            <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold font-mono">
                                 PASAL 8 AD
                             </span>
                             <i class="fa-solid fa-layer-group text-accent text-xl"></i>
@@ -355,8 +1520,8 @@
                             AI berfungsi sebagai lembaga yang menjalankan 4 peran strategis:
                         </p>
 
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
+                        <div class="grid sm:grid-cols-2 gap-4 stagger-items">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 reveal-on-scroll">
                                 <div class="w-8 h-8 rounded-xl bg-accent/15 text-accent flex items-center justify-center text-sm mb-3">
                                     <i class="fa-solid fa-comments"></i>
                                 </div>
@@ -366,7 +1531,7 @@
                                 </p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 reveal-on-scroll">
                                 <div class="w-8 h-8 rounded-xl bg-primary/15 text-primary flex items-center justify-center text-sm mb-3">
                                     <i class="fa-solid fa-handshake-angle"></i>
                                 </div>
@@ -376,7 +1541,7 @@
                                 </p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 reveal-on-scroll">
                                 <div class="w-8 h-8 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center text-sm mb-3">
                                     <i class="fa-solid fa-network-wired"></i>
                                 </div>
@@ -386,7 +1551,7 @@
                                 </p>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5">
+                            <div class="spotlight-card p-4 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 reveal-on-scroll">
                                 <div class="w-8 h-8 rounded-xl bg-accent/15 text-accent flex items-center justify-center text-sm mb-3">
                                     <i class="fa-solid fa-lightbulb"></i>
                                 </div>
@@ -398,7 +1563,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-4 border-t border-base-300 dark:border-white/10 text-xs text-base-content/60 flex items-center justify-between">
+                    <div class="mt-8 pt-4 border-t border-base-300 dark:border-white/10 text-xs text-base-content/60 flex items-center justify-between font-mono">
                         <span>Fasilitasi &amp; Advokasi</span>
                         <span class="text-accent font-bold">Pasal 8 Ayat 1&ndash;4</span>
                     </div>
@@ -406,193 +1571,256 @@
             </div>
         </section>
 
-        <!-- ================= 4. BEDAH ANATOMI LAMBANG (PASAL 9 AD) ================= -->
-        <section class="mb-16 sm:mb-24" aria-label="Filosofi Lambang Resmi">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-primary block">IDENTITAS VISUAL &bull; BAB V PASAL 9</span>
-                <h2 class="text-2xl sm:text-4xl font-black tracking-tight mt-2">Filosofi Lambang AI UNMUL</h2>
-                <p class="text-sm sm:text-base text-base-content/65 max-w-xl mx-auto mt-2">
-                    Makna setiap elemen simbolik lambang resmi Association of Informatics sebagaimana termaktub dalam Anggaran Dasar.
-                </p>
+        <!-- Section Separator 3 -->
+        <div class="section-separator reveal-on-scroll">
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa-solid fa-shield-halved text-primary text-xs"></i>
+                <span>BEDAH ANATOMI LAMBANG</span>
             </div>
+            <div class="separator-line"></div>
+        </div>
 
-            <div class="grid lg:grid-cols-12 gap-8 items-start">
-                <!-- Left: Large Logo Showcase Card (5 Cols) -->
-                <div class="lg:col-span-5 lg:sticky lg:top-28">
-                    <div class="rounded-3xl bg-base-200/70 brand-card p-8 text-center flex flex-col items-center">
-                        <div class="w-full flex items-center justify-between text-xs text-base-content/60 pb-3 border-b border-base-300 dark:border-white/10 mb-6">
-                            <span class="font-bold text-primary">Insignia Resmi</span>
-                            <span>AD Bab V Pasal 9</span>
-                        </div>
-
-                        <!-- Logo Display -->
-                        <div class="my-4 p-8 rounded-2xl bg-base-100 border border-base-300 dark:border-white/10 shadow-sm flex items-center justify-center">
-                            <img src="/static/images/logo/LogoAI (3).png" 
-                                 alt="Lambang Resmi Association of Informatics UNMUL" 
-                                 class="w-56 sm:w-64 h-auto object-contain select-none transition-transform hover:scale-105 duration-300"
-                                 loading="lazy" />
-                        </div>
-
-                        <h3 class="font-bold text-xl text-base-content mt-2">Association of Informatics</h3>
-                        <p class="text-xs sm:text-sm text-base-content/65 mt-1">Fakultas Teknik Universitas Mulawarman</p>
-
-                        <div class="w-full mt-6 pt-4 border-t border-base-300 dark:border-white/10 flex items-center justify-center gap-2 text-xs font-semibold text-primary">
-                            <i class="fa-solid fa-stamp"></i>
-                            <span>Ditetapkan pada Musyawarah Besar I</span>
-                        </div>
+        <!-- ================= 4. BEDAH ANATOMI LAMBANG ================= -->
+        <section class="relative w-full scroll-mt-28" id="lambangSection" aria-label="Filosofi Lambang Resmi">
+            <div id="scrollyTrack" class="relative" style="height: 280vh;">
+                <div class="lambang-scrolly-viewport">
+                    
+                    <!-- Section Header -->
+                    <div class="text-center mb-4 sm:mb-5">
+                        <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+                            Filosofi Lambang <span class="text-gradient-brand">AI UNMUL</span>
+                        </h2>
+                        <p class="text-xs sm:text-sm opacity-60 max-w-md mx-auto mt-1.5 leading-relaxed">
+                            Setiap elemen simbolik merangkum identitas, arah juang, dan semangat kekeluargaan mahasiswa Informatika.
+                        </p>
                     </div>
-                </div>
 
-                <!-- Right: 6 Anatomical Meaning Cards (7 Cols) -->
-                <div class="lg:col-span-7 space-y-4">
-                    <!-- Element 1 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-umbrella"></i>
+                    <!-- Showcase Card -->
+                    <div class="showcase-card">
+
+                        <!-- Horizontal Chapter Pills -->
+                        <div class="chapter-pills" id="chapterPills">
+                            <button class="chapter-pill is-active" onclick="goToChapter(0)" data-ch="0">01 Tulisan</button>
+                            <button class="chapter-pill" onclick="goToChapter(1)" data-ch="1">02 4 Pilar</button>
+                            <button class="chapter-pill" onclick="goToChapter(2)" data-ch="2">03 Prosesor</button>
+                            <button class="chapter-pill" onclick="goToChapter(3)" data-ch="3">04 Otak</button>
+                            <button class="chapter-pill" onclick="goToChapter(4)" data-ch="4">05 Buku</button>
+                            <button class="chapter-pill" onclick="goToChapter(5)" data-ch="5">06 Sirkuit</button>
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">Tulisan Melengkung</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary uppercase">Pasal 9 Ayat 2.b</span>
+
+                        <!-- 2-Column: Emblem + Narrative -->
+                        <div class="showcase-2col">
+
+                            <!-- Left: Emblem -->
+                            <div class="flex items-center justify-center">
+                                <div class="logo-stage-clean relative" id="logoStageClean">
+                                    <div id="scrollyAmbientGlow" class="logo-ambient-spotlight" style="background-color: #8D021F;"></div>
+                                    <div id="logoCameraRig" class="logo-camera-rig">
+                                        <img src="/static/images/logo/logo_anatomi_base_grey.png" 
+                                             alt="Insignia Resmi AI UNMUL Base Grayscale" 
+                                             class="logo-anatomi-layer is-base" />
+                                        <img src="/static/images/logo/logo_anatomi_tulisan.png" 
+                                             alt="Tulisan Melengkung" 
+                                             class="logo-anatomi-layer is-active" 
+                                             data-layer="0" />
+                                        <img src="/static/images/logo/logo_anatomi_4pilar.png" 
+                                             alt="4 Orang Bergandengan" 
+                                             class="logo-anatomi-layer" 
+                                             data-layer="1" />
+                                        <img src="/static/images/logo/logo_anatomi_prosesor.png" 
+                                             alt="Prosesor Komputer" 
+                                             class="logo-anatomi-layer" 
+                                             data-layer="2" />
+                                        <img src="/static/images/logo/logo_anatomi_otak.png" 
+                                             alt="Simbol Otak Manusia" 
+                                             class="logo-anatomi-layer" 
+                                             data-layer="3" />
+                                        <img src="/static/images/logo/logo_anatomi_buku.png" 
+                                             alt="Buku Terbuka" 
+                                             class="logo-anatomi-layer" 
+                                             data-layer="4" />
+                                        <img src="/static/images/logo/logo_anatomi_full.png" 
+                                             alt="Kesatuan Lambang Utuh" 
+                                             class="logo-anatomi-layer" 
+                                             data-layer="5" />
+                                    </div>
+                                </div>
                             </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Menyerupai payung yang menaungi, mewadahi, serta menyalurkan segenap aspirasi dan potensi mahasiswa Informatika.
-                            </p>
-                        </div>
-                    </div>
 
-                    <!-- Element 2 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-people-arrows"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">4 Orang Bergandengan Tangan</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-accent/10 text-accent uppercase">Pasal 9 Ayat 2.c</span>
+                            <!-- Right: Narrative -->
+                            <div class="flex flex-col justify-center" id="lambangSwapStage">
+                                <div class="swap-anim-target badge badge-outline text-[10px] font-mono uppercase tracking-wider mb-2 px-2 py-0.5 text-rose-500 border-rose-500/30" id="swapKicker">
+                                    Elemen 01 dari 06
+                                </div>
+                                <h3 class="swap-anim-target text-xl sm:text-2xl font-black mb-1 leading-snug" id="swapTitle">
+                                    Tulisan Melengkung
+                                </h3>
+                                <h4 class="swap-anim-target text-xs sm:text-sm font-semibold opacity-50 mb-3" id="swapSubtitle">
+                                    Payung Aspirasi Mahasiswa
+                                </h4>
+                                <p class="swap-anim-target text-sm opacity-80 leading-relaxed mb-4" id="swapBody">
+                                    Tulisan &ldquo;ASSOCIATION OF INFORMATICS&rdquo; yang melengkung membentuk kubah menyerupai payung yang menaungi seluruh mahasiswa Informatika. Simbol ini menegaskan mandat himpunan sebagai rumah aspirasi yang senantiasa mengadvokasi, melindungi, dan menyalurkan segenap potensi akademik maupun non-akademik.
+                                </p>
+                                <div class="swap-anim-target showcase-alert-box" id="swapIntisari">
+                                    <i class="fa-solid fa-quote-left text-xs text-rose-500 shrink-0 mt-0.5" id="quoteIcon"></i>
+                                    <p class="text-xs opacity-90 font-medium leading-relaxed" id="swapIntisariText">
+                                        Rumah aspirasi, advokasi, dan perlindungan segenap potensi mahasiswa.
+                                    </p>
+                                </div>
                             </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Mengandung nilai asas kekeluargaan yang menyatukan 4 pilar inti: Senior, Junior, Alumni, dan Program Studi Informatika.
-                            </p>
+
                         </div>
                     </div>
 
-                    <!-- Element 3 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">Prosesor Komputer</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-secondary/10 text-secondary uppercase">Pasal 9 Ayat 2.d</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Mewakili arti dari gerak serempak secara bersama dalam satu kesatuan sistem yang solid dan terkoordinasi.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Element 4 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">Simbol Otak</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary uppercase">Pasal 9 Ayat 2.h</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Melambangkan intelektualitas, daya kritis, dan senantiasa mengedepankan logika ilmiah dalam berpikir dan bertindak.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Element 5 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-book-open"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">Buku Terbuka</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-accent/10 text-accent uppercase">Pasal 9 Ayat 2.e</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Mewakili segala ilmu pengetahuan yang bermanfaat bagi kehidupan masyarakat, bangsa, dan peradaban manusia.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Element 6 -->
-                    <div class="p-6 rounded-2xl bg-base-200/70 brand-card flex items-start gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg flex-shrink-0 mt-0.5">
-                            <i class="fa-solid fa-network-wired"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-bold text-base text-base-content">Sirkuit &amp; Segi Delapan</h4>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-secondary/10 text-secondary uppercase">Pasal 9 Ayat 2.f&ndash;g</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-base-content/75 leading-relaxed">
-                                Lembaga terstruktur yang berorientasi pada era digitalisasi, membawa kemakmuran dan kontribusi dari 8 penjuru mata angin.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tridatu Colors Section -->
-            <div class="mt-8 rounded-3xl bg-base-200/70 brand-card p-6 sm:p-8">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-base-300 dark:border-white/10 mb-6">
-                    <div>
-                        <h4 class="font-bold text-base text-base-content">Warna Resmi Organisasi (Tridatu)</h4>
-                        <p class="text-xs text-base-content/65">Sebagaimana tercantum dalam Anggaran Dasar Bab V Pasal 9 Ayat 2.i &ndash; 2.k</p>
-                    </div>
-                    <span class="text-xs font-mono text-base-content/60">3 Palet Filosofis</span>
-                </div>
-
-                <div class="grid sm:grid-cols-3 gap-5">
-                    <!-- Merah -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-[#8D021F] shadow-sm flex-shrink-0"></div>
-                        <div>
-                            <div class="font-bold text-sm sm:text-base text-[#8D021F] dark:text-[#e11d48]">Merah (#8D021F)</div>
-                            <p class="text-xs text-base-content/75 mt-1 leading-relaxed">
-                                Melambangkan kepercayaan diri, kekuatan, dan keberanian bersikap.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Hijau -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-[#009B4C] shadow-sm flex-shrink-0"></div>
-                        <div>
-                            <div class="font-bold text-sm sm:text-base text-[#009B4C] dark:text-[#10b981]">Hijau (#009B4C)</div>
-                            <p class="text-xs text-base-content/75 mt-1 leading-relaxed">
-                                Melambangkan pertumbuhan dan regenerasi kepemimpinan secara berkesinambungan.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Kuning -->
-                    <div class="p-5 rounded-2xl bg-base-100 border border-base-300 dark:border-white/5 flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-[#FDD100] shadow-sm flex-shrink-0"></div>
-                        <div>
-                            <div class="font-bold text-sm sm:text-base text-[#d4af37] dark:text-[#fdd100]">Kuning (#FDD100)</div>
-                            <p class="text-xs text-base-content/75 mt-1 leading-relaxed">
-                                Melambangkan kecerdasan intelektual, optimisme, dan kreativitas tanpa batas.
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Section Separator 4 -->
+        <div class="section-separator reveal-on-scroll my-28 sm:my-36">
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa-solid fa-palette text-secondary text-xs"></i>
+                <span>WARNA RESMI TRIDATU</span>
+            </div>
+            <div class="separator-line"></div>
+        </div>
+
+        <!-- ================= 4B. TRIDATU PALETTE RESMI ================= -->
+        <section id="palet-tridatu" class="mb-24 sm:mb-32 scroll-mt-28" aria-label="Palet Warna Resmi Tridatu">
+            <div class="text-center mb-10 sm:mb-14 reveal-on-scroll">
+                <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight">Warna Resmi <span class="text-gradient-brand">Tridatu AI UNMUL</span></h2>
+                <p class="text-sm sm:text-base text-base-content/70 max-w-xl mx-auto mt-2 leading-relaxed">
+                    Tiga warna filosofis yang melambangkan keberanian moral, pertumbuhan berkesinambungan, dan kejayaan intelektual himpunan.
+                </p>
+            </div>
+
+            <!-- Backstage 3D Interactive Stage (Clean & Elegant) -->
+            <div class="backstage-gallery-stage relative" id="backstageStage">
+                
+                <!-- Dynamic Ambient Glow behind the stage -->
+                <div id="backstageAmbientGlow" style="background-color: #8D021F;"></div>
+
+                <!-- 3D Fan Track with 3 Official Tridatu Colors -->
+                <div class="backstage-fan-track z-10" id="backstageFanTrack">
+                    
+                    <!-- Card 0: Merah Tridatu (Initial Slot: Center) -->
+                    <div class="backstage-card" data-index="0" data-slot="center" data-color="red" role="region" aria-label="Merah Tridatu">
+                        <!-- Swatch Banner -->
+                        <div class="backstage-swatch-banner" style="background-color: #8D021F;">
+                            <div class="relative z-10 flex items-center justify-between w-full text-white font-mono">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-black/40 backdrop-blur-md">#8D021F</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-black/40 backdrop-blur-md">RGB 141, 2, 31</span>
+                            </div>
+                        </div>
+                        <!-- Body Content -->
+                        <div class="p-5 flex flex-col justify-between h-[250px]">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-mono font-bold text-red-600 dark:text-red-400 uppercase tracking-wide">Pilar I</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 font-semibold border border-red-500/20">Keberanian</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-base-content mb-2 leading-tight">Merah Tridatu</h3>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Melambangkan kepercayaan diri yang kokoh, kekuatan, dan keberanian moral dalam mengambil sikap membela kebenaran serta kepentingan mahasiswa Informatika.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-base-300 dark:border-white/10 flex items-center justify-between">
+                                <div class="text-[10px] font-mono text-base-content/50">
+                                    CMYK: 0, 99, 78, 45
+                                </div>
+                                <button class="copy-hex-btn" onclick="copyColorHex(event, '#8D021F')">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Salin HEX</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 1: Hijau Tridatu (Initial Slot: Right) -->
+                    <div class="backstage-card" data-index="1" data-slot="right" data-color="green" role="region" aria-label="Hijau Tridatu">
+                        <!-- Swatch Banner -->
+                        <div class="backstage-swatch-banner" style="background-color: #009B4C;">
+                            <div class="relative z-10 flex items-center justify-between w-full text-white font-mono">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-black/40 backdrop-blur-md">#009B4C</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-black/40 backdrop-blur-md">RGB 0, 155, 76</span>
+                            </div>
+                        </div>
+                        <!-- Body Content -->
+                        <div class="p-5 flex flex-col justify-between h-[250px]">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Pilar II</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">Pertumbuhan</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-base-content mb-2 leading-tight">Hijau Tridatu</h3>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Melambangkan kesegaran, keseimbangan, serta pertumbuhan dan regenerasi kepemimpinan berkesinambungan lintas generasi di tubuh himpunan.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-base-300 dark:border-white/10 flex items-center justify-between">
+                                <div class="text-[10px] font-mono text-base-content/50">
+                                    CMYK: 100, 0, 51, 39
+                                </div>
+                                <button class="copy-hex-btn" onclick="copyColorHex(event, '#009B4C')">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Salin HEX</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Kuning Tridatu (Initial Slot: Left) -->
+                    <div class="backstage-card" data-index="2" data-slot="left" data-color="yellow" role="region" aria-label="Kuning Tridatu">
+                        <!-- Swatch Banner -->
+                        <div class="backstage-swatch-banner" style="background-color: #FDD100;">
+                            <div class="relative z-10 flex items-center justify-between w-full text-black font-mono">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-white/80 backdrop-blur-md">#FDD100</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-white/80 backdrop-blur-md">RGB 253, 209, 0</span>
+                            </div>
+                        </div>
+                        <!-- Body Content -->
+                        <div class="p-5 flex flex-col justify-between h-[250px]">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wide">Pilar III</span>
+                                    <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold border border-amber-500/20">Kejayaan</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-base-content mb-2 leading-tight">Kuning Tridatu</h3>
+                                <p class="text-xs text-base-content/75 leading-relaxed">
+                                    Melambangkan kejayaan, optimisme masa depan, kecerdasan intelektual, serta ketinggian budi pekerti segenap insan informatika.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-base-300 dark:border-white/10 flex items-center justify-between">
+                                <div class="text-[10px] font-mono text-base-content/50">
+                                    CMYK: 0, 17, 100, 1
+                                </div>
+                                <button class="copy-hex-btn" onclick="copyColorHex(event, '#FDD100')">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Salin HEX</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Separator 5 -->
+        <div class="section-separator reveal-on-scroll">
+            <div class="separator-line"></div>
+            <div class="separator-badge">
+                <i class="fa-solid fa-gavel text-primary text-xs"></i>
+                <span>KEDAULATAN TERTINGGI &bull; BAB IX PASAL 16</span>
+            </div>
+            <div class="separator-line"></div>
+        </div>
+
         <!-- ================= 5. KEKUASAAN TERTINGGI (MUBES AI) ================= -->
-        <section class="mb-16 sm:mb-20" aria-label="Musyawarah Besar">
-            <div class="rounded-3xl bg-gradient-to-r from-base-200 via-base-200/90 to-primary/10 brand-card p-8 sm:p-12">
+        <section id="mubes" class="mb-24 sm:mb-32 scroll-mt-28" aria-label="Musyawarah Besar">
+            <div class="rounded-3xl bg-gradient-to-r from-base-200 via-base-200/90 to-primary/10 brand-card p-8 sm:p-12 spotlight-card reveal-on-scroll">
                 <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
                     <div class="max-w-2xl">
                         <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-3">
@@ -603,6 +1831,13 @@
                         <p class="text-sm text-base-content/75 mt-3 leading-relaxed">
                             MUBES merupakan forum kedaulatan mahasiswa tertinggi yang diselenggarakan satu kali per periode kepengurusan untuk menetapkan dan merevisi AD/ART, GBHK, menilai laporan pertanggungjawaban kepengurusan, serta memilih Ketua Umum AI dan Ketua DPO AI.
                         </p>
+                        
+                        <!-- Semboyan Resmi Organisasi (AD Bab XI Pasal 34) -->
+                        <div class="mt-6 pt-5 border-t border-base-300 dark:border-white/10 flex flex-wrap items-center gap-3 text-xs font-mono text-base-content/70">
+                            <span class="text-primary font-bold">Motto Perjuangan:</span>
+                            <span class="font-semibold text-base-content tracking-wide">&ldquo;SATU, PADU, INFORMATIKA&rdquo;</span>
+                            <span class="text-base-content/40">&bull; AD Bab XI Pasal 34</span>
+                        </div>
                     </div>
 
                     <div class="flex-shrink-0 flex flex-wrap gap-4">
@@ -618,8 +1853,8 @@
         </section>
 
         <!-- Back to Home -->
-        <div class="text-center pt-4">
-            <a href="/" class="btn btn-ghost hover:bg-base-200 rounded-full px-7 text-sm">
+        <div class="text-center pt-8 pb-12 reveal-on-scroll">
+            <a href="/" class="btn btn-ghost hover:bg-base-200 rounded-full px-8 text-sm border border-base-300 dark:border-white/10">
                 <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> Kembali ke Beranda
             </a>
         </div>
@@ -630,21 +1865,8 @@
 
 {{define "scripts"}}
 <script>
-    // ===== Visi & Misi Git Tree Parallax Continuous Scrub (100% Parity with ascii-if) =====
+    // ===== Konsep 2: Central Git Tree & Architectural Telemetry Network =====
     (function() {
-        const STRIP = 132;
-        const CENTER = STRIP / 2;
-        const LEFT = 16;
-        const LANE_GAP = 24;
-        const NODE_OFFSET = 13;
-        const M_GUTTER = LEFT + 2 * LANE_GAP + 18; // 82px
-
-        const isDark = () => document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'ai_unmul_dark';
-        
-        // In dark: Rose (#e11d48) & Emerald (#10b981). In light: Burgundy (#8D021F) & Forest Green (#009B4C)
-        const getColors = () => isDark() ? ['#e11d48', '#10b981', '#f59e0b'] : ['#8D021F', '#009B4C', '#d97706'];
-        const getBgColor = () => isDark() ? '#090b10' : '#ffffff';
-
         const clamp = (v) => Math.max(0, Math.min(1, v));
         const seg = (p, x, y) => clamp((p - x) / (y - x));
         function curve(x1, y1, x2, y2) {
@@ -653,94 +1875,68 @@
         }
 
         const wrapper = document.getElementById('vmScrollTrack');
-        const container = document.getElementById('vmContainer');
-        const svg = document.getElementById('vmSvg');
-        const rowEls = Array.from(document.querySelectorAll('.vm-row'));
-        const n = rowEls.length;
+        const stage = document.getElementById('vmStageTree');
+        const svg = document.getElementById('gitVmSvg');
+        const rows = [1, 2, 3, 4, 5, 6].map(i => document.getElementById('vmRow' + i));
+        const n = rows.length;
 
-        let pathEls = [];
-        let apexDotEl = null;
-        let commitDotEls = [];
+        const pTop = document.getElementById('vmPathTop');
+        const pForkLeft = document.getElementById('vmPathForkLeft');
+        const pForkRight = document.getElementById('vmPathForkRight');
+        const pBottom = document.getElementById('vmPathBottom');
+        const paths = [pTop, pForkLeft, pForkRight, pBottom];
+        const dots = [1, 2, 3, 4, 5, 6, 7].map(i => document.getElementById('vmDot' + i));
+
         let pathLens = [];
-        let geomH = 0;
-        let ys = [];
-        let isDesktop = window.innerWidth >= 768;
 
-        function nodeXAt(i, desktop) {
-            return desktop
-                ? (i % 2 === 0 ? CENTER - 20 : CENTER + 20)
-                : LEFT + (i % 2) * LANE_GAP;
-        }
+        const xLeft = 46;
+        const cx = 70;
+        const xRight = 94;
 
         function setupGeometry() {
-            isDesktop = window.innerWidth >= 768;
-            if (!container || !svg) return;
+            if (!stage || !svg) return;
+            const h = stage.offsetHeight;
+            svg.setAttribute('height', h);
 
-            const colors = getColors();
-            const bgColor = getBgColor();
+            const getRowCenter = (r) => r.offsetTop + r.offsetHeight / 2;
+            const y1 = getRowCenter(rows[0]);
+            const y2 = getRowCenter(rows[1]);
+            const y3 = getRowCenter(rows[2]);
+            const y4 = getRowCenter(rows[3]);
+            const y5 = getRowCenter(rows[4]);
+            const y6 = getRowCenter(rows[5]);
 
-            // Adjust mobile padding on rows
-            rowEls.forEach(r => {
-                if (isDesktop) {
-                    r.style.paddingLeft = '';
-                } else {
-                    r.style.paddingLeft = (M_GUTTER + 14) + 'px';
+            // 1. Top S-Curve: (xLeft, y1) -> (cx, y2)
+            if (pTop) pTop.setAttribute('d', curve(xLeft, y1, cx, y2));
+
+            // 2. Fork Branches: (cx, y2) -> (xLeft, y3) & (xRight, y3) -> (cx, y4)
+            if (pForkLeft) pForkLeft.setAttribute('d', `${curve(cx, y2, xLeft, y3)} ${curve(xLeft, y3, cx, y4)}`);
+            if (pForkRight) pForkRight.setAttribute('d', `${curve(cx, y2, xRight, y3)} ${curve(xRight, y3, cx, y4)}`);
+
+            // 3. Bottom Curve: (cx, y4) -> (xLeft, y5) -> (cx, y6)
+            if (pBottom) pBottom.setAttribute('d', `${curve(cx, y4, xLeft, y5)} ${curve(xLeft, y5, cx, y6)}`);
+
+            // Place Dots
+            const setDot = (dot, x, y) => {
+                if (dot) {
+                    dot.setAttribute('cx', x);
+                    dot.setAttribute('cy', y);
                 }
-            });
+            };
 
-            ys = rowEls.map(r => r ? r.offsetTop + NODE_OFFSET : 0);
-            geomH = container.offsetHeight;
+            setDot(dots[0], xLeft, y1);
+            setDot(dots[1], cx, y2);
+            setDot(dots[2], xLeft, y3);
+            setDot(dots[3], xRight, y3);
+            setDot(dots[4], cx, y4);
+            setDot(dots[5], xLeft, y5);
+            setDot(dots[6], cx, y6);
 
-            svg.setAttribute('height', geomH);
-            if (isDesktop) {
-                svg.style.left = '50%';
-                svg.style.transform = 'translateX(-50%)';
-                svg.style.width = STRIP + 'px';
-            } else {
-                svg.style.left = '0';
-                svg.style.transform = 'none';
-                svg.style.width = M_GUTTER + 'px';
-            }
-
-            // Build continuous curves
-            let dMain = `M ${nodeXAt(0, isDesktop)} ${ys[0]}`;
-            for (let i = 0; i < n - 1; i++) {
-                const my = (ys[i] + ys[i + 1]) / 2;
-                dMain += ` C ${nodeXAt(i, isDesktop)} ${my}, ${nodeXAt(i + 1, isDesktop)} ${my}, ${nodeXAt(i + 1, isDesktop)} ${ys[i + 1]}`;
-            }
-
-            const outerX = isDesktop ? CENTER + 46 : LEFT + 2 * LANE_GAP;
-            const apexY = (ys[1] + ys[3]) / 2;
-            const dBranch = `${curve(nodeXAt(1, isDesktop), ys[1], outerX, apexY)} ${curve(outerX, apexY, nodeXAt(3, isDesktop), ys[3])}`;
-
-            svg.innerHTML = `
-                <defs>
-                    <filter id="vmGlow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur stdDeviation="2" result="blur" />
-                        <feMerge>
-                            <feMergeNode in="blur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-                <path id="vmPathMain" d="${dMain}" stroke="${colors[0]}" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#vmGlow)" />
-                <path id="vmPathBranch" d="${dBranch}" stroke="${colors[1]}" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#vmGlow)" />
-                <circle id="vmApexDot" cx="${outerX}" cy="${apexY}" r="4.5" fill="${bgColor}" stroke="${colors[1]}" stroke-width="2.5" opacity="0" filter="url(#vmGlow)" style="transition: opacity 0.25s ease;" />
-                ${rowEls.map((_, i) => `
-                    <circle class="vm-commit-dot" data-i="${i}" cx="${nodeXAt(i, isDesktop)}" cy="${ys[i]}" r="${i === 0 ? 5.5 : 4.5}" fill="${colors[i % 2]}" stroke="${bgColor}" stroke-width="2.5" opacity="0" filter="url(#vmGlow)" style="transition: opacity 0.25s ease, transform 0.25s ease; transform-origin: ${nodeXAt(i, isDesktop)}px ${ys[i]}px;" />
-                `).join('')}
-            `;
-
-            pathEls = [document.getElementById('vmPathMain'), document.getElementById('vmPathBranch')];
-            apexDotEl = document.getElementById('vmApexDot');
-            commitDotEls = Array.from(document.querySelectorAll('.vm-commit-dot'));
-
-            pathLens = pathEls.map(p => {
-                const l = p ? p.getTotalLength() : 500;
+            pathLens = paths.map(p => {
+                const l = p ? p.getTotalLength() : 300;
                 if (p) {
                     p.style.strokeDasharray = l;
                     p.style.strokeDashoffset = l;
-                    p.style.opacity = '1';
                 }
                 return l;
             });
@@ -754,45 +1950,57 @@
             const total = rect.height - window.innerHeight;
             const progress = total > 0 ? clamp(-rect.top / total) : 0;
 
-            // 1. Draw paths continuously
-            const drawProg = seg(progress, 0, 0.9);
-            pathEls.forEach((p, idx) => {
-                if (p && pathLens[idx]) {
-                    p.style.strokeDashoffset = pathLens[idx] * (1 - drawProg);
+            // Path segments draw sequentially as user scrolls
+            const progTop = seg(progress, 0.05, 0.28);
+            if (pTop && pathLens[0]) pTop.style.strokeDashoffset = pathLens[0] * (1 - progTop);
+
+            const progFork = seg(progress, 0.28, 0.58);
+            if (pForkLeft && pathLens[1]) pForkLeft.style.strokeDashoffset = pathLens[1] * (1 - progFork);
+            if (pForkRight && pathLens[2]) pForkRight.style.strokeDashoffset = pathLens[2] * (1 - progFork);
+
+            const progBottom = seg(progress, 0.58, 0.90);
+            if (pBottom && pathLens[3]) pBottom.style.strokeDashoffset = pathLens[3] * (1 - progBottom);
+
+            // Reveal dots & rows smoothly
+            const dotTimes = [0.02, 0.26, 0.42, 0.42, 0.58, 0.74, 0.88];
+            dots.forEach((dot, idx) => {
+                if (dot) {
+                    const t = dotTimes[idx];
+                    const r = seg(progress, t, t + 0.08);
+                    dot.style.opacity = r;
+                    dot.style.transform = `scale(${0.3 + 0.7 * r})`;
                 }
             });
 
-            // 2. Apex hollow dot on branch
-            if (apexDotEl) {
-                apexDotEl.style.opacity = seg(progress, 0.45, 0.6) * 0.9;
-            }
-
-            // 3. Overflow glide: if content height exceeds screen, smoothly translate upward
-            const overflow = Math.max(0, geomH - window.innerHeight + 96);
-            if (container) {
-                container.style.transform = `translateY(${-overflow * seg(progress, 0.12, 1)}px)`;
-            }
-
-            // 4. Reveal commit dots and slide-in rows
-            commitDotEls.forEach((dot, i) => {
-                const t = 0.06 + 0.78 * (i / Math.max(1, n - 1));
-                const r = seg(progress, t, t + 0.12);
-
-                if (dot) {
-                    dot.style.opacity = r;
-                    dot.style.transform = `scale(${0.4 + 0.6 * r})`;
-                }
-
-                const row = rowEls[i];
+            const rowTimes = [0.02, 0.26, 0.42, 0.58, 0.74, 0.88];
+            rows.forEach((row, idx) => {
                 if (row) {
-                    row.style.opacity = r;
-                    const isLeft = i % 2 === 0;
-                    if (isDesktop) {
-                        const shift = (1 - r) * (isLeft ? -40 : 40);
-                        row.style.transform = `translateX(${shift}px)`;
-                    } else {
-                        const shift = (1 - r) * 14;
-                        row.style.transform = `translateY(${shift}px)`;
+                    const t = rowTimes[idx];
+                    const r = seg(progress, t, t + 0.08);
+                    row.style.opacity = Math.max(0.2, r);
+
+                    const card = row.querySelector('.commit-card');
+                    const pill = row.querySelector('.telemetry-pill');
+
+                    if (card) {
+                        if (r > 0.6) {
+                            if (idx % 2 === 0) {
+                                card.classList.add('is-active-red');
+                            } else {
+                                card.classList.add('is-active-green');
+                            }
+                        } else {
+                            card.classList.remove('is-active-red');
+                            card.classList.remove('is-active-green');
+                        }
+                    }
+
+                    if (pill) {
+                        if (r > 0.6) {
+                            pill.classList.add('is-active');
+                        } else {
+                            pill.classList.remove('is-active');
+                        }
                     }
                 }
             });
@@ -816,11 +2024,554 @@
             setTimeout(setupGeometry, 150);
         });
 
-        // Theme observer so colors update dynamically if user toggles dark mode
         const observer = new MutationObserver(() => setupGeometry());
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
 
         setupGeometry();
+    })();
+
+    // ===== Positional Scrollytelling: Filosofi Lambang AI UNMUL (Refined UX & Precision Layout) =====
+    (function() {
+        const chapters = [
+            {
+                kicker: "Elemen 01 dari 06",
+                title: "Tulisan Melengkung",
+                subtitle: "Payung Aspirasi Mahasiswa",
+                body: "Tulisan \u201cASSOCIATION OF INFORMATICS\u201d yang melengkung membentuk kubah menyerupai payung yang menaungi seluruh mahasiswa Informatika. Simbol ini menegaskan mandat himpunan sebagai rumah aspirasi yang senantiasa mengadvokasi, melindungi, dan menyalurkan segenap potensi akademik maupun non-akademik.",
+                intisari: "Rumah aspirasi, advokasi, dan perlindungan segenap potensi mahasiswa.",
+                color: '#e11d48',
+                lightColor: '#8D021F',
+                glow: 'rgba(225, 29, 72, 0.35)',
+                camera: 'scale(1.02) translateY(2px)'
+            },
+            {
+                kicker: "Elemen 02 dari 06",
+                title: "4 Orang Bergandengan",
+                subtitle: "Pilar Sinergi Kekeluargaan",
+                body: "Empat figur yang saling merangkul di setiap sudut melambangkan persatuan empat pilar civitas akademika: Mahasiswa, Dosen, Tenaga Kependidikan, dan Alumni. Kebersamaan erat ini mencerminkan asas kekeluargaan dan gotong royong yang menjadi napas perjuangan organisasi.",
+                intisari: "Sinergi empat pilar civitas akademika dalam ikatan gotong royong.",
+                color: '#10b981',
+                lightColor: '#009B4C',
+                glow: 'rgba(16, 185, 129, 0.35)',
+                camera: 'scale(1.03) translateY(0px)'
+            },
+            {
+                kicker: "Elemen 03 dari 06",
+                title: "Unit Prosesor Komputer",
+                subtitle: "Pusat Logika & Gerak Serempak",
+                body: "Unit prosesor mikro di bagian pusat lambang merefleksikan daya komputasi, ketepatan logika, dan keselarasan gerak. Seperti prosesor yang mengorkestrasi miliaran instruksi secara serempak, AI UNMUL bergerak terstruktur dan adaptif di garda terdepan era komputasi modern.",
+                intisari: "Orkestrasi gerak terstruktur dan ketepatan nalar komputasi.",
+                color: '#f43f5e',
+                lightColor: '#8D021F',
+                glow: 'rgba(244, 63, 94, 0.35)',
+                camera: 'scale(1.04) translateY(0px)'
+            },
+            {
+                kicker: "Elemen 04 dari 06",
+                title: "Simbol Otak Manusia",
+                subtitle: "Daya Nalar Kritis & Integritas",
+                body: "Dua belahan hemisfer otak melambangkan kapasitas intelektual tak terbatas, daya nalar kritis, dan etika kecerdasan buatan. Mahasiswa Informatika dituntut untuk tidak hanya cakap dalam sintaksis kode, tetapi juga memiliki kepekaan nalar dan integritas moral dalam berinovasi.",
+                intisari: "Keseimbangan kecerdasan intelektual, inovasi sains, dan etika moral.",
+                color: '#eab308',
+                lightColor: '#b45309',
+                glow: 'rgba(234, 179, 8, 0.35)',
+                camera: 'scale(1.03) translateY(2px)'
+            },
+            {
+                kicker: "Elemen 05 dari 06",
+                title: "Buku Terbuka",
+                subtitle: "Khazanah Ilmu & Fondasi Tri Dharma",
+                body: "Hamparan buku terbuka di alas lambang menjadi fondasi utama tempat berdirinya seluruh teknologi: khazanah ilmu pengetahuan dan etika akademis. Menjadi pengingat abadi bahwa segala karya teknologi harus berakar pada Tri Dharma Perguruan Tinggi demi kemaslahatan masyarakat.",
+                intisari: "Landasan ilmu pengetahuan dan pengabdian Tri Dharma Perguruan Tinggi.",
+                color: '#e11d48',
+                lightColor: '#8D021F',
+                glow: 'rgba(225, 29, 72, 0.35)',
+                camera: 'scale(1.03) translateY(-3px)'
+            },
+            {
+                kicker: "Elemen 06 dari 06",
+                title: "Sirkuit Segi Delapan",
+                subtitle: "Kesatuan Harmoni 8 Penjuru Nusantara",
+                body: "Bentuk segi delapan merefleksikan 8 penjuru mata angin pembawa keberkahan dan kemakmuran nusantara, berpadu jalur sirkuit bus data digital. Menyimbolkan bahwa alumni dan karya inovasi AI UNMUL siap menyebar membawa dampak positif nyata ke seantero penjuru negeri.",
+                intisari: "Ekspansi kemaslahatan karya teknologi ke delapan penjuru nusantara.",
+                color: '#10b981',
+                lightColor: '#009B4C',
+                glow: 'rgba(16, 185, 129, 0.35)',
+                camera: 'scale(1.0) translateY(0px)'
+            }
+        ];
+
+        let activeIdx = 0;
+        let isProgrammatic = false;
+        let progTimer = null;
+
+        const rig = document.getElementById('logoCameraRig');
+        const layers = Array.from(document.querySelectorAll('.logo-anatomi-layer[data-layer]'));
+        const ambientGlow = document.getElementById('scrollyAmbientGlow');
+        const scrollyTrack = document.getElementById('scrollyTrack');
+
+
+        // Swap target elements
+        const swapKicker = document.getElementById('swapKicker');
+        const swapTitle = document.getElementById('swapTitle');
+        const swapSubtitle = document.getElementById('swapSubtitle');
+        const swapBody = document.getElementById('swapBody');
+        const swapIntisari = document.getElementById('swapIntisari');
+        const swapIntisariText = document.getElementById('swapIntisariText');
+        const quoteIcon = document.getElementById('quoteIcon');
+
+        const animTargets = [swapKicker, swapTitle, swapSubtitle, swapBody, swapIntisari].filter(Boolean);
+
+        function isDarkMode() {
+            return document.documentElement.classList.contains('dark') ||
+                   document.documentElement.getAttribute('data-theme') === 'ai_unmul_dark';
+        }
+
+        function setChapter(targetIdx, smooth = true, direction = 1) {
+            if (targetIdx < 0 || targetIdx >= chapters.length) return;
+            const prevIdx = activeIdx;
+            const changed = (targetIdx !== prevIdx);
+            activeIdx = targetIdx;
+            const ch = chapters[targetIdx];
+            if (!ch) return;
+            const themeColor = isDarkMode() ? ch.color : ch.lightColor;
+
+            // 1. Camera Rig gentle movement
+            if (rig) {
+                rig.style.transform = ch.camera;
+            }
+
+            // 2. High-res anatomical layers
+            layers.forEach((layer, i) => {
+                const isActive = (i === targetIdx);
+                layer.classList.toggle('is-active', isActive);
+                if (isActive) {
+                    layer.style.setProperty('--layer-glow', ch.glow);
+                }
+            });
+
+            // 3. Ambient diffuse glow
+            if (ambientGlow) {
+                ambientGlow.style.backgroundColor = themeColor;
+            }
+
+            // 4. Chapter pills update
+            const pillContainer = document.getElementById('chapterPills');
+            if (pillContainer) {
+                pillContainer.style.setProperty('--pill-color', themeColor);
+                const pills = pillContainer.querySelectorAll('.chapter-pill');
+                pills.forEach((pill, i) => {
+                    pill.classList.toggle('is-active', i === targetIdx);
+                    pill.style.setProperty('--pill-color', themeColor);
+                });
+            }
+
+            // 5. Animata Swap Text with Native Fade/Slide
+            if (!changed) {
+                if (swapKicker) {
+                    swapKicker.textContent = ch.kicker;
+                    swapKicker.style.color = themeColor;
+                    swapKicker.style.borderColor = themeColor + '60';
+                }
+                if (quoteIcon) quoteIcon.style.color = themeColor;
+                return;
+            }
+
+            if (!smooth) {
+                if (swapKicker) {
+                    swapKicker.textContent = ch.kicker;
+                    swapKicker.style.color = themeColor;
+                    swapKicker.style.borderColor = themeColor + '60';
+                }
+                if (swapTitle) swapTitle.textContent = ch.title;
+                if (swapSubtitle) swapSubtitle.textContent = ch.subtitle;
+                if (swapBody) swapBody.textContent = ch.body;
+                if (swapIntisariText) swapIntisariText.textContent = ch.intisari;
+                if (quoteIcon) quoteIcon.style.color = themeColor;
+                return;
+            }
+
+            // Smooth exit
+            animTargets.forEach(el => el.classList.add('swap-fade-out'));
+
+            setTimeout(() => {
+                if (swapKicker) {
+                    swapKicker.textContent = ch.kicker;
+                    swapKicker.style.color = themeColor;
+                    swapKicker.style.borderColor = themeColor + '60';
+                }
+                if (swapTitle) swapTitle.textContent = ch.title;
+                if (swapSubtitle) swapSubtitle.textContent = ch.subtitle;
+                if (swapBody) swapBody.textContent = ch.body;
+                if (swapIntisariText) swapIntisariText.textContent = ch.intisari;
+                if (quoteIcon) quoteIcon.style.color = themeColor;
+
+                // Prepare for entry from slight offset
+                animTargets.forEach(el => {
+                    el.classList.remove('swap-fade-out');
+                    el.classList.add('swap-fade-in');
+                    void el.offsetWidth;
+                    el.classList.remove('swap-fade-in');
+                });
+            }, 130);
+        }
+
+        // Expose globally so inline onclick="goToChapter(i)" works cleanly
+        window.goToChapter = function(targetIdx) {
+            if (targetIdx < 0 || targetIdx >= chapters.length) return;
+            const dir = targetIdx >= activeIdx ? 1 : -1;
+            setChapter(targetIdx, true, dir);
+
+            if (scrollyTrack) {
+                const stickyTop = window.innerWidth <= 640 ? 64 : 84;
+                const trackTop = window.scrollY + scrollyTrack.getBoundingClientRect().top;
+                const pinnedStart = trackTop - stickyTop;
+                const viewport = scrollyTrack.querySelector('.lambang-scrolly-viewport');
+                const viewportH = viewport ? viewport.offsetHeight : window.innerHeight;
+                const maxScroll = scrollyTrack.offsetHeight - viewportH;
+                
+                if (maxScroll > 0) {
+                    // Center of that chapter's zone
+                    const targetScroll = pinnedStart + ((targetIdx + 0.5) / chapters.length) * maxScroll;
+                    isProgrammatic = true;
+                    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+                    clearTimeout(progTimer);
+                    progTimer = setTimeout(() => {
+                        isProgrammatic = false;
+                    }, 700);
+                }
+            }
+        };
+
+        // Precision Continuous Scrollytelling
+        let ticking = false;
+        function onScroll() {
+            if (isProgrammatic || !scrollyTrack) return;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const stickyTop = window.innerWidth <= 640 ? 64 : 84;
+                    const rect = scrollyTrack.getBoundingClientRect();
+                    const scrolled = stickyTop - rect.top;
+                    const viewport = scrollyTrack.querySelector('.lambang-scrolly-viewport');
+                    const viewportH = viewport ? viewport.offsetHeight : window.innerHeight;
+                    const maxScroll = scrollyTrack.offsetHeight - viewportH;
+                    
+                    if (maxScroll > 0) {
+                        const progress = Math.min(Math.max(scrolled / maxScroll, 0), 0.999);
+                        const targetIdx = Math.floor(progress * chapters.length);
+                        if (targetIdx !== activeIdx && targetIdx >= 0 && targetIdx < chapters.length) {
+                            setChapter(targetIdx, true, targetIdx > activeIdx ? 1 : -1);
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Touch Swipe Gesture on Swap Stage
+        const stage = document.getElementById('lambangSwapStage');
+        if (stage) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            stage.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            stage.addEventListener('touchend', (e) => {
+                if (e.changedTouches.length === 1) {
+                    const deltaX = e.changedTouches[0].clientX - touchStartX;
+                    const deltaY = e.changedTouches[0].clientY - touchStartY;
+                    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                        window.goToChapter(activeIdx + (deltaX < 0 ? 1 : -1));
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Listen to theme mutations to update active colors dynamically
+        const themeObs = new MutationObserver(() => setChapter(activeIdx, false));
+        themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+
+        // Initial setup for chapter 0
+        setChapter(0, false);
+    })();
+
+    // Global function for copying color hex
+    window.copyColorHex = function(e, hex) {
+        e.stopPropagation();
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(hex).then(() => {
+                const btn = e.currentTarget;
+                const original = btn.innerHTML;
+                btn.classList.add('is-copied');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin!';
+                setTimeout(() => {
+                    btn.classList.remove('is-copied');
+                    btn.innerHTML = original;
+                }, 1800);
+            });
+        }
+    };
+
+    // ===== Identitas Card-Comment Scrollytelling Controller =====
+    (function() {
+        const track = document.getElementById('identitasScrollTrack');
+        if (!track) return;
+        const cards = Array.from(document.querySelectorAll('.animata-comment-card'));
+        const pills = Array.from(document.querySelectorAll('.id-step-pill'));
+
+        // Click Card to Toggle Directly
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('is-active');
+            });
+        });
+
+        // Click Pill to Scrub to Specific Step
+        pills.forEach((btn, idx) => {
+            btn.addEventListener('click', () => {
+                const trackTop = window.scrollY + track.getBoundingClientRect().top;
+                const totalH = track.offsetHeight - window.innerHeight;
+                const targetP = [0.20, 0.45, 0.70, 0.92][idx] ?? 0.20;
+                const targetScroll = trackTop + targetP * totalH;
+                window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+            });
+        });
+
+        // Continuous Scrollytelling Scrub Engine
+        let ticking = false;
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const rect = track.getBoundingClientRect();
+                    const totalH = track.offsetHeight - window.innerHeight;
+                    if (totalH > 0) {
+                        const progress = Math.max(0, Math.min(1, -rect.top / totalH));
+
+                        // 4 cards open 1 per satu saat discroll:
+                        // Step 0 (progress < 0.10): Semua kartu tertutup (posisi awal bersih)
+                        // Step 1 (0.10 <= p < 0.35): Kartu 1 terbuka
+                        // Step 2 (0.35 <= p < 0.60): Kartu 1 & 2 terbuka
+                        // Step 3 (0.60 <= p < 0.85): Kartu 1, 2, 3 terbuka
+                        // Step 4 (p >= 0.85): Semua kartu (1, 2, 3, 4) terbuka
+                        let activeCount = 0;
+                        let currentActiveIdx = -1;
+
+                        if (progress >= 0.85) {
+                            activeCount = 4;
+                            currentActiveIdx = 3;
+                        } else if (progress >= 0.60) {
+                            activeCount = 3;
+                            currentActiveIdx = 2;
+                        } else if (progress >= 0.35) {
+                            activeCount = 2;
+                            currentActiveIdx = 1;
+                        } else if (progress >= 0.10) {
+                            activeCount = 1;
+                            currentActiveIdx = 0;
+                        } else {
+                            activeCount = 0;
+                            currentActiveIdx = -1;
+                        }
+
+                        cards.forEach((card, idx) => {
+                            if (idx < activeCount) {
+                                card.classList.add('is-active');
+                            } else {
+                                card.classList.remove('is-active');
+                            }
+                        });
+
+                        pills.forEach((p, idx) => {
+                            p.classList.toggle('is-active', idx === currentActiveIdx);
+                        });
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+
+    // ===== Backstage Gallery 3D Palette Controller (Clean Drag & Swipe) =====
+    (function() {
+        const stage = document.getElementById('backstageStage');
+        if (!stage) return;
+        const cards = Array.from(stage.querySelectorAll('.backstage-card'));
+        const glow = document.getElementById('backstageAmbientGlow');
+        const colorGlows = ['#8D021F', '#009B4C', '#d97706'];
+        let activeIndex = 0;
+
+        function setFocus(newIndex) {
+            activeIndex = (newIndex + cards.length) % cards.length;
+            
+            // Assign 3D slots: center, left, right
+            cards.forEach(card => {
+                const cardIdx = parseInt(card.dataset.index);
+                if (cardIdx === activeIndex) {
+                    card.setAttribute('data-slot', 'center');
+                    card.setAttribute('aria-selected', 'true');
+                } else if (cardIdx === (activeIndex + 1) % 3) {
+                    card.setAttribute('data-slot', 'right');
+                    card.setAttribute('aria-selected', 'false');
+                } else {
+                    card.setAttribute('data-slot', 'left');
+                    card.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            // Update Ambient Glow
+            if (glow) {
+                glow.style.backgroundColor = colorGlows[activeIndex];
+            }
+        }
+
+        // Gesture / Drag & Swipe Controller ("Bisa di geser-geser")
+        let startX = 0;
+        let startY = 0;
+        let deltaX = 0;
+        let isPointerDown = false;
+        let hasMoved = false;
+
+        function onPointerStart(x, y) {
+            isPointerDown = true;
+            hasMoved = false;
+            startX = x;
+            startY = y;
+            deltaX = 0;
+        }
+
+        function onPointerMove(x, y) {
+            if (!isPointerDown) return;
+            const diffX = x - startX;
+            if (Math.abs(diffX) > 8) {
+                hasMoved = true;
+                deltaX = diffX;
+                stage.classList.add('is-dragging');
+            }
+        }
+
+        function onPointerEnd() {
+            if (!isPointerDown) return;
+            isPointerDown = false;
+            stage.classList.remove('is-dragging');
+            if (hasMoved && Math.abs(deltaX) > 40) {
+                if (deltaX < 0) {
+                    setFocus(activeIndex + 1);
+                } else {
+                    setFocus(activeIndex - 1);
+                }
+            }
+            setTimeout(() => { hasMoved = false; }, 50);
+        }
+
+        // Mouse Drag
+        stage.addEventListener('mousedown', e => {
+            if (e.target.closest('button')) return;
+            onPointerStart(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', e => {
+            if (isPointerDown) onPointerMove(e.clientX, e.clientY);
+        });
+        window.addEventListener('mouseup', () => {
+            if (isPointerDown) onPointerEnd();
+        });
+
+        // Touch Swipe (Mobile / Tablet)
+        stage.addEventListener('touchstart', e => {
+            if (e.target.closest('button')) return;
+            const t = e.touches[0];
+            onPointerStart(t.clientX, t.clientY);
+        }, { passive: true });
+
+        stage.addEventListener('touchmove', e => {
+            if (!isPointerDown) return;
+            const t = e.touches[0];
+            onPointerMove(t.clientX, t.clientY);
+        }, { passive: true });
+
+        stage.addEventListener('touchend', () => {
+            if (isPointerDown) onPointerEnd();
+        });
+
+        // Click on Cards (only fires if user didn't drag)
+        cards.forEach(card => {
+            card.addEventListener('click', e => {
+                if (hasMoved) return;
+                if (e.target.closest('button')) return;
+                const idx = parseInt(card.dataset.index);
+                setFocus(idx);
+            });
+        });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', e => {
+            const rect = stage.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                if (e.key === 'ArrowRight') setFocus(activeIndex + 1);
+                if (e.key === 'ArrowLeft') setFocus(activeIndex - 1);
+            }
+        });
+
+        // Initial setup
+        setFocus(0);
+    })();
+
+    // ===== Scroll Reveal & Dynamic Cursor Spotlight Controller =====
+    (function() {
+        // 1. Scroll-to-Show IntersectionObserver with instant initial view check
+        const reveals = document.querySelectorAll('.reveal-on-scroll');
+        
+        // Immediate check for elements already in viewport
+        const checkVisibleNow = () => {
+            const h = window.innerHeight;
+            reveals.forEach(el => {
+                const r = el.getBoundingClientRect();
+                if (r.top <= h + 50) {
+                    el.classList.add('is-revealed');
+                }
+            });
+        };
+        checkVisibleNow();
+
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -20px 0px',
+                threshold: 0.02
+            });
+            reveals.forEach(el => {
+                if (!el.classList.contains('is-revealed')) {
+                    revealObserver.observe(el);
+                }
+            });
+        } else {
+            reveals.forEach(el => el.classList.add('is-revealed'));
+        }
+
+        // 2. Mouse Cursor Spotlight Glow Tracker
+        const spotCards = document.querySelectorAll('.spotlight-card');
+        spotCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }, { passive: true });
+        });
     })();
 </script>
 {{end}}

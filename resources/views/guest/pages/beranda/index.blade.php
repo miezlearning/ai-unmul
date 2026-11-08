@@ -260,6 +260,71 @@
         pointer-events: none;
         will-change: opacity, background;
     }
+
+    /* ===== Jargon Kinetic Motion Trail (AD/ART AI Pasal 34) ===== */
+    .jargon-trail-token {
+        position: fixed;
+        pointer-events: none;
+        user-select: none;
+        z-index: 9999;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-weight: 800;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        will-change: transform, opacity;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
+        backdrop-filter: blur(8px);
+    }
+
+    /* Dark Mode (Default) Tridatu Palette */
+    .jargon-trail-satu {
+        background: rgba(141, 2, 31, 0.35);
+        border: 1px solid rgba(225, 29, 72, 0.65);
+        color: #ff4d6d;
+        box-shadow: 0 0 20px rgba(225, 29, 72, 0.45);
+    }
+    .jargon-trail-padu {
+        background: rgba(0, 155, 76, 0.35);
+        border: 1px solid rgba(16, 185, 129, 0.65);
+        color: #34d399;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+    }
+    .jargon-trail-informatika {
+        background: rgba(253, 209, 0, 0.25);
+        border: 1px solid rgba(253, 209, 0, 0.7);
+        color: #fde047;
+        box-shadow: 0 0 20px rgba(253, 209, 0, 0.45);
+    }
+
+    /* Light Mode Tridatu Palette */
+    [data-theme="ai_unmul"] .jargon-trail-satu,
+    [data-theme="ai_unmul_light"] .jargon-trail-satu,
+    .light .jargon-trail-satu {
+        background: rgba(141, 2, 31, 0.92);
+        border: 1px solid #8D021F;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(141, 2, 31, 0.35);
+    }
+    [data-theme="ai_unmul"] .jargon-trail-padu,
+    [data-theme="ai_unmul_light"] .jargon-trail-padu,
+    .light .jargon-trail-padu {
+        background: rgba(0, 155, 76, 0.92);
+        border: 1px solid #009B4C;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 155, 76, 0.35);
+    }
+    [data-theme="ai_unmul"] .jargon-trail-informatika,
+    [data-theme="ai_unmul_light"] .jargon-trail-informatika,
+    .light .jargon-trail-informatika {
+        background: rgba(230, 185, 0, 0.95);
+        border: 1px solid #b48a04;
+        color: #000000;
+        box-shadow: 0 4px 16px rgba(230, 185, 0, 0.35);
+    }
 </style>
 @endsection
 
@@ -291,12 +356,6 @@
 
             {{-- ================= LEFT COLUMN: CLEAN EDITORIAL TYPOGRAPHY ================= --}}
             <div id="heroLeftContent" class="lg:col-span-7 flex flex-col items-start text-left z-10">
-
-                {{-- Official Jargon Badge (AD/ART AI Pasal 34) --}}
-                <div class="mb-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider">
-                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                    <span>Jargon: &ldquo;SATU, PADU, INFORMATIKA&rdquo;</span>
-                </div>
 
                 {{-- Clean Monumental Headline with Labeled Kinetic Block Wipe & Slide Stroke (Official Embroidered Brandmark Style) --}}
                 <h1 id="heroTitle" class="select-none text-left tracking-tight w-full" aria-label="Association of Informatics Universitas Mulawarman">
@@ -1303,6 +1362,92 @@
                 // Ignore any invalid URL parse
             }
         });
+
+        // ========================================================
+        // 5. OFFICIAL JARGON KINETIC CURSOR TRAIL (AD/ART PASAL 34)
+        // Spawns ethereal Tridatu tokens ("SATU", "PADU", "INFORMATIKA")
+        // flowing playfully behind the cursor on mouse movement in the hero area.
+        // ========================================================
+        (function() {
+            if (!window.gsap || prefersReducedMotion) return;
+
+            const tokens = [
+                { text: 'SATU', cls: 'jargon-trail-satu' },
+                { text: 'PADU', cls: 'jargon-trail-padu' },
+                { text: 'INFORMATIKA', cls: 'jargon-trail-informatika' }
+            ];
+
+            let tokenIdx = 0;
+            let lastX = 0;
+            let lastY = 0;
+            const threshold = 40; // minimum px moved before creating next token
+
+            function spawnTrailToken(x, y, vx, vy) {
+                const token = tokens[tokenIdx];
+                tokenIdx = (tokenIdx + 1) % tokens.length;
+
+                const el = document.createElement('span');
+                el.className = `jargon-trail-token ${token.cls}`;
+                el.textContent = token.text;
+                el.style.left = `${x}px`;
+                el.style.top = `${y}px`;
+                document.body.appendChild(el);
+
+                const rot = (Math.random() - 0.5) * 22;
+                const driftX = (Math.random() - 0.5) * 32 + (vx * 0.12);
+                const driftY = -18 - Math.random() * 20;
+
+                gsap.fromTo(el, 
+                    { scale: 0.55, opacity: 0, rotation: rot * 0.5 },
+                    {
+                        scale: 1.05,
+                        opacity: 0.95,
+                        duration: 0.12,
+                        ease: 'power1.out',
+                        onComplete: () => {
+                            gsap.to(el, {
+                                x: driftX,
+                                y: driftY,
+                                rotation: rot,
+                                scale: 0.72,
+                                opacity: 0,
+                                filter: 'blur(3px)',
+                                duration: 0.8,
+                                ease: 'power2.out',
+                                onComplete: () => el.remove()
+                            });
+                        }
+                    }
+                );
+            }
+
+            window.addEventListener('mousemove', function(e) {
+                // Focus the effect primarily when user is exploring the hero header area
+                if (window.scrollY > 900) return;
+                
+                const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+                if (dist > threshold) {
+                    const vx = e.clientX - lastX;
+                    const vy = e.clientY - lastY;
+                    spawnTrailToken(e.clientX, e.clientY, vx, vy);
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                }
+            }, { passive: true });
+
+            // Touch device interactive swipe support
+            window.addEventListener('touchmove', function(e) {
+                if (window.scrollY > 900) return;
+                const touch = e.touches[0];
+                if (!touch) return;
+                const dist = Math.hypot(touch.clientX - lastX, touch.clientY - lastY);
+                if (dist > threshold * 1.3) {
+                    spawnTrailToken(touch.clientX, touch.clientY, 0, -2);
+                    lastX = touch.clientX;
+                    lastY = touch.clientY;
+                }
+            }, { passive: true });
+        })();
     })();
 </script>
 @endsection
